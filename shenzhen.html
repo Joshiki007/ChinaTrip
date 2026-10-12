@@ -46,6 +46,12 @@ input[name=daytab]{display:none}
 .btn-full-guide { background: var(--primary); color: white; width: 100%; border: none; border-radius: 12px; padding: 16px; font-size: 16px; font-weight: 700; cursor: pointer; margin-bottom: 24px; box-shadow: 0 4px 6px rgba(37,99,235,0.2); transition: opacity 0.2s; }
 .btn-full-guide:hover { opacity: 0.9; }
 
+/* Lunch Recommendations */
+.lunch-recs { background: #f8fafc; border-radius: 12px; padding: 16px; margin: 24px 0 8px; border: 1px solid var(--border); }
+.lunch-recs h4 { margin: 0 0 10px; color: #1e293b; font-size: 15px; display:flex; align-items:center; gap:6px; }
+.lunch-recs ul { margin: 0; padding-left: 20px; font-size: 14px; color: #475569; }
+.lunch-recs li { margin-bottom: 6px; }
+
 /* Custom Tour Add Box */
 .add-tour-container{background:var(--card);border:2px dashed #cbd5e1;border-radius:16px;padding:20px;margin:20px 0}
 .add-tour-container h3{margin:0 0 12px;color:var(--text);font-size:16px}
@@ -101,7 +107,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <div id="download-content">
 <header>
 <h1>Shenzhen — 2.5 Day Trip</h1>
-<p>HOTEL: Futian District (Central)</p>
+<p>HOTEL: Languha Audio-Video High Altiude Skyline Cityscape, Futian District (Central)</p>
 </header>
 <div id="syncStatus" role="status" style="margin:16px auto;padding:10px 16px;max-width:900px;border-radius:10px;background:#fffbeb;color:#92400e;font-size:14px;text-align:center;font-weight:600">Connecting to shared trip…</div>
 <main class="wrap">
@@ -109,7 +115,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <input id="tab2" type="radio" name="daytab">
 <input id="tab3" type="radio" name="daytab">
 <div class="tabs">
-<label for="tab1">Day 1, Oct 27 <br><span class="small" style="font-weight:normal;color:inherit">Futian Half-Day</span></label>
+<label for="tab1">Day 1, Oct 27<br><span class="small" style="font-weight:normal;color:inherit">Futian Half-Day</span></label>
 <label for="tab2">Day 2, Oct 28<br><span class="small" style="font-weight:normal;color:inherit">Arts & Coast</span></label>
 <label for="tab3">Day 3, Oct 29<br><span class="small" style="font-weight:normal;color:inherit">History & Shekou</span></label>
 </div>
@@ -143,7 +149,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
       <input class="check" id="chk_day1_hqb" type="checkbox">
       <img src="images/s1.jpg" onerror="this.onerror=null; this.src='images/s1.jpeg';" alt="Huaqiangbei / MOCAPE (华强北 / 深圳当代艺术与城市规划馆)" class="card-thumb" onclick="openModal('hqb')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('hqb')">Huaqiangbei (华强北) OR MOCAPE (深圳当代艺术与城市规划馆) </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('hqb')">Huaqiangbei (华强北) OR MOCAPE (深圳当代艺术与城市规划馆) 🖼️</a>
         <div class="alt-place">OR: HQB Museum (华强北博物馆) / Shenzhen Library (深圳图书馆)</div>
         <div class="meta">Choose between tech and gadgets at Huaqiangbei Electronics Market, or futuristic urban architecture at MOCAPE.</div>
         <div class="quick-tags">
@@ -179,7 +185,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
       <input class="check" id="chk_day1_zhuoyue" type="checkbox">
       <img src="images/s3.jpg" onerror="this.onerror=null; this.src='images/s3.jpeg';" alt="Zhuoyue Center / One Avenue (卓悦中心 / 节日大道)" class="card-thumb" onclick="openModal('zhuoyue')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('zhuoyue')">Zhuoyue Center / One Avenue (卓悦中心 / 节日大道) </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('zhuoyue')">Zhuoyue Center / One Avenue (卓悦中心 / 节日大道) 🖼️</a>
         <div class="alt-place">OR: Link City / Central Walk (领展中心城)</div>
         <div class="meta">Cyberpunk-lit pedestrian strip with massive LED displays, craft beer, and outdoor dining.</div>
         <div class="quick-tags">
@@ -188,6 +194,14 @@ button:disabled{opacity:.6;cursor:not-allowed}
       </div>
     </div>
   </div>
+</div>
+
+<div class="lunch-recs">
+  <h4>🍽️ Day 1 Lunch / Pre-Tour Food Ideas (Futian CBD)</h4>
+  <ul>
+    <li><strong>Link City Underground (领展中心城):</strong> Connected right to Futian Station with dozens of casual lunch, milk tea, and dim sum spots.</li>
+    <li><strong>Huaqiangbei Food Alley:</strong> Perfect for fast street bites, Lanzhou beef noodles, and local snack stalls before starting the afternoon tour.</li>
+  </ul>
 </div>
 </section>
 
@@ -208,7 +222,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
       <input class="check" id="chk_day2_museum" type="checkbox">
       <img src="images/s4.jpg" onerror="this.onerror=null; this.src='images/s4.jpeg';" alt="Shenzhen Museum (深圳博物馆)" class="card-thumb" onclick="openModal('szmuseum')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('szmuseum')">Shenzhen Museum (深圳博物馆) </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('szmuseum')">Shenzhen Museum (深圳博物馆) 🖼️</a>
         <div class="alt-place">OR: MoCAUP (深圳当代艺术与城市规划馆)</div>
         <div class="meta">History & Folk Culture exhibits detailing Shenzhen's rapid transformation.</div>
         <div class="quick-tags">
@@ -219,16 +233,28 @@ button:disabled{opacity:.6;cursor:not-allowed}
   </div>
 </div>
 
+<div class="timeline-item" style="opacity: 0.85;">
+  <div class="time-col">12:30</div>
+  <div class="card" style="padding: 12px 16px; background: #f8fafc;">
+    <div class="row">
+      <div style="flex:1; padding-left: 12px; border-left: 4px solid var(--primary);">
+        <strong style="color: var(--text);">Lunch Time</strong>
+        <div class="meta" style="margin-bottom:0;">Transit towards OCT Loft or MixC World and enjoy lunch in a tree-shaded cafe or bistro. (See recommendations below).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="timeline-item">
-  <div class="time-col">13:00</div>
+  <div class="time-col">13:30</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s5.jpg');">
     <div class="row">
       <input class="check" id="chk_day2_octloft" type="checkbox">
       <img src="images/s5.jpg" onerror="this.onerror=null; this.src='images/s5.jpeg';" alt="OCT Loft Creative Culture Park (华侨城创意文化园)" class="card-thumb" onclick="openModal('octloft')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('octloft')">OCT Loft Creative Culture Park (华侨城创意文化园) </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('octloft')">OCT Loft Creative Culture Park (华侨城创意文化园) 🖼️</a>
         <div class="alt-place">OR: MixC World (万象天地)</div>
-        <div class="meta">1980s factory alleyways filled with indie roasters, art, boutiques, and shaded paths. Grab lunch here.</div>
+        <div class="meta">1980s factory alleyways filled with indie roasters, art, boutiques, and shaded paths.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free</span><span class="badge">🕒 3.5 hrs</span><span class="badge">TAXI DiDi (~20m)</span>
         </div>
@@ -244,7 +270,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
       <input class="check" id="chk_day2_bay" type="checkbox">
       <img src="images/s6.jpg" onerror="this.onerror=null; this.src='images/s6.jpeg';" alt="Shenzhen Bay Park & Talent Park (深圳湾公园与人才公园)" class="card-thumb" onclick="openModal('szbay')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('szbay')">Shenzhen Bay Park & Talent Park (深圳湾公园与人才公园) </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('szbay')">Shenzhen Bay Park & Talent Park (深圳湾公园与人才公园) 🖼️</a>
         <div class="alt-place">OR: Go to Sea World Shekou (海上世界) early</div>
         <div class="meta">Stroll the coastal promenade during golden hour for sea breezes and Hong Kong skyline views.</div>
         <div class="quick-tags">
@@ -262,7 +288,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
       <input class="check" id="chk_day2_harbour" type="checkbox">
       <img src="images/s7.jpg" onerror="this.onerror=null; this.src='images/s7.jpeg';" alt="OCT Harbour (深圳欢乐海岸)" class="card-thumb" onclick="openModal('octharbour')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('octharbour')">OCT Harbour / Bay Plaza (深圳欢乐海岸) </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('octharbour')">OCT Harbour / Bay Plaza (深圳欢乐海岸) 🖼️</a>
         <div class="alt-place">OR: Yitian Holiday Plaza (益田假日广场)</div>
         <div class="meta">Open-air waterfront complex with illuminated lakes, musical fountains, and dining.</div>
         <div class="quick-tags">
@@ -271,6 +297,15 @@ button:disabled{opacity:.6;cursor:not-allowed}
       </div>
     </div>
   </div>
+</div>
+
+<div class="lunch-recs">
+  <h4>🍽️ Day 2 Lunch / Food Ideas (OCT Loft & Nanshan)</h4>
+  <ul>
+    <li><strong>SeeSaw Coffee & Bistro (OCT Loft):</strong> Great for relaxed brunch, gourmet sandwiches, and artisanal coffee surrounded by factory greenery.</li>
+    <li><strong>MixC World Food Mall (万象天地):</strong> High-end food hall and popular Cantonese dim sum, Hunan specialty dishes, or international options.</li>
+    <li><strong>Gaga Cafe (OCT Loft Branch):</strong> Extremely popular local brand for fresh fruit teas, light salad bowls, and pasta in a shaded outdoor setting.</li>
+  </ul>
 </div>
 </section>
 
@@ -291,7 +326,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
       <input class="check" id="chk_day3_nantou" type="checkbox">
       <img src="images/s8.jpg" onerror="this.onerror=null; this.src='images/s8.jpeg';" alt="Nantou Ancient City (南头古城)" class="card-thumb" onclick="openModal('nantou')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('nantou')">Nantou Ancient City (南头古城) </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('nantou')">Nantou Ancient City (南头古城) 🖼️</a>
         <div class="alt-place">OR: Zhongshan Park (中山公园)</div>
         <div class="meta">A 1,700-year-old historic fortress town blending Lingnan architecture and indie craft shops.</div>
         <div class="quick-tags">
@@ -302,18 +337,30 @@ button:disabled{opacity:.6;cursor:not-allowed}
   </div>
 </div>
 
+<div class="timeline-item" style="opacity: 0.85;">
+  <div class="time-col">12:30</div>
+  <div class="card" style="padding: 12px 16px; background: #f8fafc;">
+    <div class="row">
+      <div style="flex:1; padding-left: 12px; border-left: 4px solid var(--primary);">
+        <strong style="color: var(--text);">Lunch Time</strong>
+        <div class="meta" style="margin-bottom:0;">Grab food inside Nantou Ancient City or head towards Nanhai E-Cool cafes. (See recommendations below).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="timeline-item">
-  <div class="time-col">13:00</div>
+  <div class="time-col">13:30</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s9.jpg');">
     <div class="row">
       <input class="check" id="chk_day3_ecool" type="checkbox">
       <img src="images/s9.jpg" onerror="this.onerror=null; this.src='images/s9.jpeg';" alt="Nanhai E-Cool (南海意库)" class="card-thumb" onclick="openModal('ecool')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('ecool')">Nanhai E-Cool (南海意库) </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('ecool')">Nanhai E-Cool (南海意库) 🖼️</a>
         <div class="alt-place">OR: Dutch Flower Town (荷兰花卉小镇)</div>
         <div class="meta">Former Sanyo factory turned relaxed, shaded block packed with greenery, cafes, and boutiques.</div>
         <div class="quick-tags">
-          <span class="badge">💰 Free</span><span class="badge">🕒 2.5 hrs</span><span class="badge">TAXI DiDi (~25m)</span>
+          <span class="badge">💰 Free</span><span class="badge">🕒 2 hrs</span><span class="badge">TAXI DiDi (~25m)</span>
         </div>
       </div>
     </div>
@@ -327,7 +374,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
       <input class="check" id="chk_day3_swcac" type="checkbox">
       <img src="images/s10.jpg" onerror="this.onerror=null; this.src='images/s10.jpeg';" alt="Sea World Culture and Arts Center (海上世界文化艺术中心)" class="card-thumb" onclick="openModal('swcac')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('swcac')">Sea World Culture and Arts Center / SWCAC (海上世界文化艺术中心) </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('swcac')">Sea World Culture and Arts Center / SWCAC (海上世界文化艺术中心) 🖼️</a>
         <div class="alt-place">OR: Nuwa Coastal Park (女娲滨海公园)</div>
         <div class="meta">Minimalist waterfront architecture. Hit the public roof garden for sea and mountain views.</div>
         <div class="quick-tags">
@@ -345,7 +392,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
       <input class="check" id="chk_day3_seaworld" type="checkbox">
       <img src="images/s11.jpg" onerror="this.onerror=null; this.src='images/s11.jpeg';" alt="Sea World Plaza Shekou (海上世界广场)" class="card-thumb" onclick="openModal('seaworld')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('seaworld')">Sea World Plaza Shekou (海上世界广场) </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('seaworld')">Sea World Plaza Shekou (海上世界广场) 🖼️</a>
         <div class="alt-place">OR: G&G Creative Community (G&G创意社区)</div>
         <div class="meta">Vibrant waterfront plaza anchored by the permanently docked Minghua cruise ship. Watch the fountain show!</div>
         <div class="quick-tags">
@@ -354,6 +401,15 @@ button:disabled{opacity:.6;cursor:not-allowed}
       </div>
     </div>
   </div>
+</div>
+
+<div class="lunch-recs">
+  <h4>🍽️ Day 3 Lunch / Food Ideas (Nantou & Shekou)</h4>
+  <ul>
+    <li><strong>Nantou Ancient City Eateries:</strong> Local Cantonese roast goose rice, Chiu Chow beef balls, and craft tea houses set inside renovated historic stone alleys.</li>
+    <li><strong>Nanhai E-Cool Cafes & Bistros:</strong> Shaded, European-style patio cafes ideal for lunch and iced coffee before heading down to the Shekou seafront.</li>
+    <li><strong>Shekou Sea World Dining Plaza:</strong> Dozens of global options including authentic Mexican, Italian wood-fired pizza, Indian bistros, and fresh coastal seafood.</li>
+  </ul>
 </div>
 </section>
 
@@ -417,17 +473,21 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <strong>Activity:</strong> (Closed Mondays). Explore Shenzhen's rapid transformation in an air-conditioned, low-stress museum. No WeChat reservation needed—just present your physical passport!<br>
   <strong>Alternatives:</strong> MoCAUP (深圳当代艺术与城市规划馆) if you prefer modern art over historical exhibits.</p>
 
-  <h3>2. 1:00 PM: OCT Loft Creative Culture Park (华侨城创意文化园)</h3>
+  <h3>2. 12:30 PM: Lunch Break</h3>
+  <p><strong>Transit:</strong> Head toward OCT Loft or MixC World.<br>
+  Grab a relaxed lunch before exploring the creative district. See the recommendations block at the bottom of the Day 2 tab for ideas.</p>
+
+  <h3>3. 1:30 PM: OCT Loft Creative Culture Park (华侨城创意文化园)</h3>
   <p><strong>Transit:</strong> 11 km West from Museum. DiDi 20 mins (~¥35) via highway.<br>
   <strong>Activity:</strong> 3.5 whole hours for lunch and unstructured wandering. Enjoy tree-shaded 1980s factory alleyways, indie coffee roasters, street art, and boutique design shops.<br>
   <strong>Alternatives:</strong> MixC World (万象天地), a high-end open-air fashion and architecture plaza 10 minutes away.</p>
 
-  <h3>3. 5:00 PM: Shenzhen Bay Park & Talent Park (深圳湾公园与人才公园)</h3>
+  <h3>4. 5:00 PM: Shenzhen Bay Park & Talent Park (深圳湾公园与人才公园)</h3>
   <p><strong>Transit:</strong> 6 km South from OCT Loft. DiDi 15 mins (~¥25). Set destination specifically to "深圳湾公园-地铁站D2口".<br>
   <strong>Activity:</strong> Stroll along the coastal promenade during golden hour and sunset with open views of the water, sea breezes, and the Hong Kong skyline across the bay.<br>
   <strong>Alternatives:</strong> Head straight to Sea World Shekou (海上世界) early if you want a busier waterfront dining atmosphere.</p>
 
-  <h3>4. 8:00 PM: OCT Harbour / Bay Plaza (深圳欢乐海岸)</h3>
+  <h3>5. 8:00 PM: OCT Harbour / Bay Plaza (深圳欢乐海岸)</h3>
   <p><strong>Transit:</strong> 3 km North from Shenzhen Bay. DiDi 8–10 mins (~¥15) or Walk ~35 mins via connected paths.<br>
   <strong>Activity:</strong> End the night at this open-air waterfront complex featuring illuminated lakes, musical fountains, and lakeside dinner spots.<br>
   <strong>Alternatives:</strong> Yitian Holiday Plaza (益田假日广场) for an indoor air-conditioned shopping and dining complex.</p>
@@ -441,20 +501,24 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <div class="full-detail-text">
   <h3>1. 9:30 AM: Nantou Ancient City (南头古城)</h3>
   <p><strong>Transit:</strong> 20 km West from Hotel. DiDi 30 mins (~¥45) via Shennan Highway.<br>
-  <strong>Activity:</strong> Explore a 1,700-year-old historic fortress town. Features ancient city gates, Lingnan architecture, and indie craft shops built right into historic brick alleyways. Grab lunch here.<br>
+  <strong>Activity:</strong> Explore a 1,700-year-old historic fortress town. Features ancient city gates, Lingnan architecture, and indie craft shops built right into historic brick alleyways.<br>
   <strong>Alternatives:</strong> Zhongshan Park (中山公园), Shenzhen's oldest public park located right next door, full of massive banyan trees.</p>
 
-  <h3>2. 1:00 PM: Nanhai E-Cool (南海意库)</h3>
+  <h3>2. 12:30 PM: Lunch Break</h3>
+  <p><strong>Transit:</strong> Nantou or Shekou area.<br>
+  Enjoy local eats inside Nantou Ancient City or near Nanhai E-Cool.</p>
+
+  <h3>3. 1:30 PM: Nanhai E-Cool (南海意库)</h3>
   <p><strong>Transit:</strong> 11 km South from Nantou. DiDi 25 mins (~¥25) straight down into Shekou.<br>
   <strong>Activity:</strong> A former Sanyo factory complex converted into a shaded, relaxed walking block packed with greenery, cafes, boutiques, and outdoor dining.<br>
   <strong>Alternatives:</strong> Dutch Flower Town (深圳荷兰花卉小镇), a European-themed flower market street located further north.</p>
 
-  <h3>3. 3:45 PM: Sea World Culture and Arts Center / SWCAC (海上世界文化艺术中心)</h3>
+  <h3>4. 3:45 PM: Sea World Culture and Arts Center / SWCAC (海上世界文化艺术中心)</h3>
   <p><strong>Transit:</strong> 1 km South from E-Cool. Walk 15 mins along the coastal promenade.<br>
   <strong>Activity:</strong> Minimalist waterfront architectural complex designed by Fumihiko Maki. Walk up to the public roof garden for panoramic views of the sea and mountains.<br>
   <strong>Alternatives:</strong> Nuwa Coastal Park (女娲滨海公园), the open oceanfront path right outside the building.</p>
 
-  <h3>4. 6:15 PM: Sea World Plaza Shekou (海上世界广场)</h3>
+  <h3>5. 6:15 PM: Sea World Plaza Shekou (海上世界广场)</h3>
   <p><strong>Transit:</strong> 0.8 km West from SWCAC. Walk 10 mins down the promenade.<br>
   <strong>Activity:</strong> End your trip at Shekou's famous waterfront Plaza centered around the Minghua, a massive real cruise ship permanently docked in the plaza. Watch the free musical fountain show (7 PM & 8 PM).<br>
   <strong>Alternatives:</strong> G&G Creative Community (G&G创意社区), an indie shipping-container lifestyle park 15 minutes away.</p>
@@ -765,14 +829,12 @@ function exportExpensesCSV(){
   expenses.forEach(e => { csv += `"${(e.name||'').replace(/"/g, '""')}","${e.amount}","${e.day}"\r\n`; });
   const blob = new Blob(['\ufeff', csv], {type: 'text/csv;charset=utf-8;'});
   const url = URL.createObjectURL(blob);
-  const link = document.append? (function(){
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'shenzhen_expenses.csv';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  })() : null;
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'shenzhen_expenses.csv';
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
 }
 
 function saveNote(placeId){
