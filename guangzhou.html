@@ -9,13 +9,13 @@
 :root { --primary: #2563eb; --primary-hover: #1d4ed8; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --text-muted: #64748b; --border: #e2e8f0; --accent: #10b981; }
 *{box-sizing:border-box}
 body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-header{background:linear-gradient(135deg, #1e293b, #0f172a);color:white;padding:24px 16px;text-align:center;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1)}
+header{background:linear-gradient(rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.88)), url('images/13.jpg') center/cover no-repeat;color:white;padding:32px 16px;text-align:center;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1)}
 header h1{margin:0 0 8px;font-size:26px;font-weight:700} 
-header p{margin:0;color:#94a3b8;font-size:14px}
+header p{margin:0;color:#cbd5e1;font-size:14px}
 .wrap{max-width:900px;margin:auto;padding:16px}
 
 /* Tabs */
-.tabs{display:flex;gap:8px;position:sticky;top:0;z-index:10;background:rgba(248,250,252,0.9);backdrop-filter:blur(8px);padding:12px 0; overflow-x: auto;}
+.tabs{display:flex;gap:8px;position:sticky;top:0;z-index:10;background:rgba(248,250,252,0.92);backdrop-filter:blur(8px);padding:12px 0; overflow-x: auto;}
 .tabs label{flex:1;min-width: 80px;text-align:center;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 4px;font-weight:600;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.05);transition:all 0.2s}
 input[name=daytab]{display:none}
 .panel{display:none;animation:fadeIn 0.3s ease}
@@ -23,24 +23,24 @@ input[name=daytab]{display:none}
 #tab0:checked~.tabs label[for=tab0],#tab1:checked~.tabs label[for=tab1],#tab2:checked~.tabs label[for=tab2],#tab3:checked~.tabs label[for=tab3]{background:var(--primary);color:white;border-color:var(--primary)}
 #tab0:checked~.panels #day0,#tab1:checked~.panels #day1,#tab2:checked~.panels #day2,#tab3:checked~.panels #day3{display:block}
 
-.dayhead{background:var(--card);border-radius:16px;padding:20px;margin:8px 0 20px;border:1px solid var(--border);box-shadow:0 4px 6px -1px rgba(0,0,0,0.05)}
+.dayhead{background:var(--card);border-radius:16px;padding:20px;margin:8px 0 20px;border:1px solid var(--border);box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);background-size:cover;background-position:center;}
 .dayhead h2{margin:0 0 8px;font-size:20px;color:var(--primary)}
 .route{color:var(--text-muted);font-size:14px}
 
 /* Timeline Layout & Quick Cards */
 .timeline-item { display: flex; gap: 16px; margin-bottom: 20px; align-items: stretch; }
 .time-col { width: 65px; flex-shrink: 0; text-align: right; font-weight: 700; color: var(--primary); padding-top: 16px; font-size: 15px; }
-.card { flex-grow: 1; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:0 2px 4px rgba(0,0,0,0.02); transition:transform 0.2s; overflow:hidden; }
-.card:hover { transform: translateY(-2px); box-shadow:0 10px 15px -3px rgba(0,0,0,0.05); }
+.card { flex-grow: 1; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:0 2px 4px rgba(0,0,0,0.02); transition:transform 0.2s, box-shadow 0.2s; overflow:hidden; background-size:cover; background-position:center; position:relative; }
+.card:hover { transform: translateY(-2px); box-shadow:0 10px 15px -3px rgba(0,0,0,0.08); }
 
-.row{display:flex;gap:16px;align-items:flex-start}
+.row{display:flex;gap:16px;align-items:flex-start;position:relative;z-index:1}
 .check{width:24px;height:24px;margin-top:2px;flex:none;cursor:pointer;accent-color:var(--primary)}
 .card-thumb{width:90px;height:75px;object-fit:cover;border-radius:10px;flex:none;border:1px solid var(--border)}
 .place{font-size:17px;font-weight:700;color:var(--text);text-decoration:none;cursor:pointer;display:block;margin-bottom:4px}
 .place:hover{color:var(--primary)}
 .meta{font-size:14px;color:var(--text-muted);line-height:1.4;margin-bottom:8px;}
 .quick-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.badge{display:inline-flex;align-items:center;background:#f1f5f9;border-radius:6px;padding:4px 8px;font-size:12px;font-weight:600;color:#475569;}
+.badge{display:inline-flex;align-items:center;background:rgba(241, 245, 249, 0.92);border-radius:6px;padding:4px 8px;font-size:12px;font-weight:600;color:#475569;backdrop-filter:blur(4px);}
 
 .btn-full-guide { background: var(--primary); color: white; width: 100%; border: none; border-radius: 12px; padding: 16px; font-size: 16px; font-weight: 700; cursor: pointer; margin-bottom: 24px; box-shadow: 0 4px 6px rgba(37,99,235,0.2); transition: opacity 0.2s; }
 .btn-full-guide:hover { opacity: 0.9; }
@@ -107,7 +107,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <div id="download-content">
 <header>
 <h1>Guangzhou — 3 Day Trip</h1>
-<p>HOTEL: TOP tour xiangtu wanyu (Tianzi Wharf)</p>
+<p>HOTEL: TOP tour xiangtu wanyu (Tianzi Wharf / 天字码头)</p>
 </header>
 <div id="syncStatus" role="status" style="margin:16px auto;padding:10px 16px;max-width:900px;border-radius:10px;background:#fffbeb;color:#92400e;font-size:14px;text-align:center;font-weight:600">Connecting to shared trip…</div>
 <main class="wrap">
@@ -136,19 +136,19 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <!-- ARRIVAL (OCT 23) -->
 <section id="day0" class="panel">
-<div class="dayhead" style="background:#eff6ff; border-color:#bfdbfe;">
+<div class="dayhead" style="background-image: linear-gradient(rgba(239, 246, 255, 0.90), rgba(239, 246, 255, 0.90)), url('images/14.jpg'); border-color:#bfdbfe;">
   <h2 style="color:#1d4ed8;">✈️ Arrival Night (Oct 23)</h2>
-  <div class="route">Right after dropping bags at Tianzi Wharf.</div>
+  <div class="route">Right after dropping bags at Tianzi Wharf (天字码头).</div>
 </div>
 
 <div class="timeline-item">
   <div class="time-col">19:00</div>
-  <div class="card">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/14.jpg');">
     <div class="row">
       <input class="check" id="chk_day3_beijing" type="checkbox">
-      <img class="card-thumb" src="images/14.jpg" alt="Beijing Road">
+      <img class="card-thumb" src="images/14.jpg" alt="Beijing Road Pedestrian Street (北京路步行街)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('beijing')">Beijing Road 🖼️</a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('beijing')">Beijing Road Pedestrian Street (北京路步行街) </a>
         <div class="meta">Bustling shopping street showcasing ancient underground roads preserved in glass.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free</span><span class="badge">🕒 1.5 hrs</span><span class="badge">WALK 10-min Walk North</span>
@@ -160,12 +160,12 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">20:30</div>
-  <div class="card">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/15.jpg');">
     <div class="row">
       <input class="check" id="chk_day3_dafo" type="checkbox">
-      <img class="card-thumb" src="images/15.jpg" alt="Dafo Temple">
+      <img class="card-thumb" src="images/15.jpg" alt="Dafo Temple (大佛寺)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('dafo')">Dafo Temple 🖼️</a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('dafo')">Dafo Temple (大佛寺) </a>
         <div class="meta">Spectacular multi-level Buddhist temple beautifully illuminated at night.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free</span><span class="badge">🕒 45 mins</span><span class="badge">WALK Walk from Beijing Rd</span>
@@ -178,7 +178,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <!-- DAY 1 (OCT 24) -->
 <section id="day1" class="panel">
-<div class="dayhead">
+<div class="dayhead" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/4.jpg');">
   <h2>Day 1 — Classical Guangzhou & Xiguan</h2>
   <div class="route">Focus: Deep history, ancestral halls, and walking historic neighborhoods.</div>
 </div>
@@ -189,12 +189,12 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">09:00</div>
-  <div class="card">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/2.jpg');">
     <div class="row">
       <input class="check" id="chk_day1_nanyue" type="checkbox">
-      <img class="card-thumb" src="images/2.jpg" alt="Nanyue King Museum">
+      <img class="card-thumb" src="images/2.jpg" alt="Nanyue King Museum (南越王博物院)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('nanyue')">Nanyue King Museum 🖼️</a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('nanyue')">Nanyue King Museum (南越王博物院) </a>
         <div class="meta">Explore the actual excavated stone burial chambers of a 2,000-year-old underground tomb.</div>
         <div class="quick-tags">
           <span class="badge">💰 ¥10</span><span class="badge">🕒 2 hrs</span><span class="badge">TAXI DiDi (~12m) / Line 2 Direct</span>
@@ -206,12 +206,12 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">11:00</div>
-  <div class="card" style="border-style: dashed;">
+  <div class="card" style="border-style: dashed; background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/3.jpg');">
     <div class="row">
       <input class="check" id="chk_day1_liurong" type="checkbox">
-      <img class="card-thumb" src="images/3.jpg" alt="Temple of the Six Banyan Trees">
+      <img class="card-thumb" src="images/3.jpg" alt="Temple of the Six Banyan Trees (六榕寺)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('liurong')">Temple of the Six Banyan Trees (Optional) 🖼️</a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('liurong')">Temple of the Six Banyan Trees (六榕寺) (Optional) </a>
         <div class="meta">Ancient Buddhist temple featuring the colorful 57-meter Flower Pagoda near Gongyuanqian.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free / ~¥5</span><span class="badge">🕒 30 mins</span><span class="badge">METRO Line 2 Gongyuanqian</span>
@@ -223,12 +223,12 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">11:50</div>
-  <div class="card">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/4.jpg');">
     <div class="row">
       <input class="check" id="chk_day1_chen" type="checkbox">
-      <img class="card-thumb" src="images/4.jpg" alt="Chen Clan Hall">
+      <img class="card-thumb" src="images/4.jpg" alt="Chen Clan Ancestral Hall (陈家祠 / 陈氏书院)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('chen')">Chen Clan Ancestral Hall 🖼️</a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('chen')">Chen Clan Ancestral Hall (陈家祠 / 陈氏书院) </a>
         <div class="meta">The absolute pinnacle of Lingnan architecture featuring impossibly intricate roof and wood carvings.</div>
         <div class="quick-tags">
           <span class="badge">💰 ¥10</span><span class="badge">🕒 1 hr</span><span class="badge">METRO Metro Line 1</span>
@@ -252,12 +252,12 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">14:00</div>
-  <div class="card">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/8.jpg');">
     <div class="row">
       <input class="check" id="chk_day1_shamian" type="checkbox">
-      <img class="card-thumb" src="images/8.jpg" alt="Shamian Island">
+      <img class="card-thumb" src="images/8.jpg" alt="Shamian Island (沙面岛)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('shamian')">Shamian Island 🖼️</a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('shamian')">Shamian Island (沙面岛) </a>
         <div class="meta">Peaceful, pedestrian-only sandbank lined with massive banyan trees and 19th-century European mansions.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free</span><span class="badge">🕒 1.5 hrs</span><span class="badge">METRO Line 1 (Huangsha)</span>
@@ -269,12 +269,12 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">15:30</div>
-  <div class="card">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/6.jpg');">
     <div class="row">
       <input class="check" id="chk_day1_pantang" type="checkbox">
-      <img class="card-thumb" src="images/6.jpg" alt="Pantang Village">
+      <img class="card-thumb" src="images/6.jpg" alt="Pantang Ancient Village (泮塘古村)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('pantang')">Pantang Ancient Village 🖼️</a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('pantang')">Pantang Ancient Village (泮塘古村) </a>
         <div class="meta">Perfectly preserved Qing Dynasty streets and traditional Xiguan Mansions near Lizhiwan Creek.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free</span><span class="badge">🕒 1 hr</span><span class="badge">WALK 15-min walk N</span>
@@ -286,12 +286,12 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">18:00</div>
-  <div class="card">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/5.jpg');">
     <div class="row">
       <input class="check" id="chk_day1_yongqing" type="checkbox">
-      <img class="card-thumb" src="images/5.jpg" alt="Yongqing Fang">
+      <img class="card-thumb" src="images/5.jpg" alt="Yongqing Fang (永庆坊)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('yongqing')">Yongqing Fang 🖼️</a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('yongqing')">Yongqing Fang (永庆坊) </a>
         <div class="meta">Restored cultural quarter that lights up romantically at sunset (featuring the "Moon in the Bridge").</div>
         <div class="quick-tags">
           <span class="badge">💰 Free</span><span class="badge">🕒 1.5 hrs</span><span class="badge">WALK Walk</span>
@@ -303,12 +303,12 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">19:30</div>
-  <div class="card">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/7.jpg');">
     <div class="row">
       <input class="check" id="chk_day1_shangxiajiu" type="checkbox">
-      <img class="card-thumb" src="images/7.jpg" alt="Shangxiajiu">
+      <img class="card-thumb" src="images/7.jpg" alt="Shangxiajiu Pedestrian Street (上下九步行街)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('shangxiajiu')">Shangxiajiu Pedestrian Street 🖼️</a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('shangxiajiu')">Shangxiajiu Pedestrian Street (上下九步行街) </a>
         <div class="meta">Loud, neon-lit, and packed historic commercial street ideal for casual dinner and snacks.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free</span><span class="badge">🕒 1.5 hrs</span><span class="badge">WALK 10-min walk E</span>
@@ -330,7 +330,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <!-- DAY 2 (OCT 25) -->
 <section id="day2" class="panel">
-<div class="dayhead">
+<div class="dayhead" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/12.jpg');">
   <h2>Day 2 — Modern Skyline & Pearl River</h2>
   <div class="route">Focus: Futuristic CBD, Museums, and River views.</div>
 </div>
@@ -341,12 +341,12 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">09:30</div>
-  <div class="card">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/9.jpg');">
     <div class="row">
       <input class="check" id="chk_day2_zhujiang" type="checkbox">
-      <img class="card-thumb" src="images/9.jpg" alt="Zhujiang New Town">
+      <img class="card-thumb" src="images/9.jpg" alt="Zhujiang New Town (珠江新城)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('zhujiang')">Zhujiang New Town 🖼️</a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('zhujiang')">Zhujiang New Town (珠江新城) </a>
         <div class="meta">The futuristic central business district and civic plaza surrounded by architectural marvels.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free</span><span class="badge">🕒 1 hr</span><span class="badge">TAXI DiDi (~15m) / Line 6 to 3</span>
@@ -358,12 +358,12 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">10:30</div>
-  <div class="card">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/10.jpg');">
     <div class="row">
       <input class="check" id="chk_day2_museum" type="checkbox">
-      <img class="card-thumb" src="images/10.jpg" alt="Guangdong Museum">
+      <img class="card-thumb" src="images/10.jpg" alt="Guangdong Museum (广东省博物馆)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('museum')">Guangdong Museum 🖼️</a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('museum')">Guangdong Museum (广东省博物馆) </a>
         <div class="meta">Provincial history and art housed inside a massive building designed like a Chinese lacquer box.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free (Book Ahead)</span><span class="badge">🕒 2 hrs</span><span class="badge">WALK Walk (in plaza)</span>
@@ -379,7 +379,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
     <div class="row">
       <div style="flex:1; padding-left: 12px; border-left: 4px solid var(--primary);">
         <strong style="color: var(--text);">Lunch Time</strong>
-        <div class="meta" style="margin-bottom:0;">Eat in the CBD area (Mall of the World underground complex is nearby).</div>
+        <div class="meta" style="margin-bottom:0;">Eat in the CBD area (Mall of the World / 花城汇 underground complex is nearby).</div>
       </div>
     </div>
   </div>
@@ -387,12 +387,12 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">14:30</div>
-  <div class="card">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/11.jpg');">
     <div class="row">
       <input class="check" id="chk_day2_haixinsha" type="checkbox">
-      <img class="card-thumb" src="images/11.jpg" alt="Haixinsha">
+      <img class="card-thumb" src="images/11.jpg" alt="Haixinsha Asian Games Park (海心沙亚运公园)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('haixinsha')">Haixinsha Asian Games Park 🖼️</a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('haixinsha')">Haixinsha Asian Games Park (海心沙亚运公园) </a>
         <div class="meta">A scenic island park situated on the Pearl River offering direct, unobstructed views of Canton Tower.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free</span><span class="badge">🕒 1 hr</span><span class="badge">WALK Walk South</span>
@@ -404,12 +404,12 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">16:30</div>
-  <div class="card">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/12.jpg');">
     <div class="row">
       <input class="check" id="chk_day2_tower" type="checkbox">
-      <img class="card-thumb" src="images/12.jpg" alt="Canton Tower">
+      <img class="card-thumb" src="images/12.jpg" alt="Canton Tower (广州塔)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('tower')">Canton Tower 🖼️</a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('tower')">Canton Tower (广州塔) </a>
         <div class="meta">Catch the sunset from observation decks nearly 600m up on one of the world's tallest TV towers.</div>
         <div class="quick-tags">
           <span class="badge">💰 ~¥150+</span><span class="badge">🕒 2 hrs</span><span class="badge">METRO APM Line</span>
@@ -421,13 +421,13 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">19:30</div>
-  <div class="card">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/13.jpg');">
     <div class="row">
       <input class="check" id="chk_day2_cruise" type="checkbox">
-      <img class="card-thumb" src="images/13.jpg" alt="Cruise">
+      <img class="card-thumb" src="images/13.jpg" alt="Pearl River Night Cruise (珠江夜游)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('cruise')">Pearl River Night Cruise 🖼️</a>
-        <div class="meta">Relaxing boat ride passing under illuminated bridges and returning straight to Tianzi Wharf.</div>
+        <a class="place" role="button" tabindex="0" onclick="openModal('cruise')">Pearl River Night Cruise (珠江夜游) </a>
+        <div class="meta">Relaxing boat ride passing under illuminated bridges and returning straight to Tianzi Wharf (天字码头).</div>
         <div class="quick-tags">
           <span class="badge">💰 ~¥80 - ¥150</span><span class="badge">🕒 1.5 hrs</span><span class="badge">BOAT Canton Tower Pier ➔ Tianzi</span>
         </div>
@@ -447,7 +447,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <!-- DAY 3 (OCT 26) -->
 <section id="day3" class="panel">
-<div class="dayhead">
+<div class="dayhead" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/17.jpg');">
   <h2>Day 3 — Nature & Art</h2>
   <div class="route">Focus: Nature views and Art Districts.</div>
 </div>
@@ -458,12 +458,12 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">09:00</div>
-  <div class="card">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/17.jpg');">
     <div class="row">
       <input class="check" id="chk_day3_baiyun" type="checkbox">
-      <img class="card-thumb" src="images/17.jpg" alt="Baiyun Mountain">
+      <img class="card-thumb" src="images/17.jpg" alt="Baiyun Mountain (白云山)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('baiyun')">Baiyun Mountain 🖼️</a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('baiyun')">Baiyun Mountain (白云山) </a>
         <div class="meta">Expansive, lush mountain park offering cable car rides and panoramic city views from the peaks.</div>
         <div class="quick-tags">
           <span class="badge">💰 ¥5 Entry</span><span class="badge">🕒 3-4 hrs</span><span class="badge">TAXI DiDi Direct to South Gate (~25m)</span>
@@ -479,7 +479,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
     <div class="row">
       <div style="flex:1; padding-left: 12px; border-left: 4px solid var(--primary);">
         <strong style="color: var(--text);">Lunch Time</strong>
-        <div class="meta" style="margin-bottom:0;">Find a trendy cafe or boutique eatery in Dongshankou.</div>
+        <div class="meta" style="margin-bottom:0;">Find a trendy cafe or boutique eatery in Dongshankou (东山口).</div>
       </div>
     </div>
   </div>
@@ -487,12 +487,12 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">14:00</div>
-  <div class="card">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/18.jpg');">
     <div class="row">
       <input class="check" id="chk_day3_dongshankou" type="checkbox">
-      <img class="card-thumb" src="images/18.jpg" alt="Dongshankou">
+      <img class="card-thumb" src="images/18.jpg" alt="Dongshankou Art District (东山口)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('dongshankou')">Dongshankou Art District 🖼️</a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('dongshankou')">Dongshankou Art District (东山口) </a>
         <div class="meta">Trendy neighborhood known for its historic 1920s red-brick mansions, hip cafes, and art galleries.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free</span><span class="badge">🕒 2 hrs</span><span class="badge">METRO Metro Line 1/6</span>
@@ -504,12 +504,12 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">16:30</div>
-  <div class="card">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/16.jpg');">
     <div class="row">
       <input class="check" id="chk_day3_sacred" type="checkbox">
-      <img class="card-thumb" src="images/16.jpg" alt="Sacred Heart">
+      <img class="card-thumb" src="images/16.jpg" alt="Sacred Heart Cathedral (石室圣心大教堂)">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('sacred')">Sacred Heart Cathedral 🖼️</a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('sacred')">Sacred Heart Cathedral (石室圣心大教堂) </a>
         <div class="meta">Massive 19th-century Gothic cathedral built entirely from granite by the French.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free</span><span class="badge">🕒 1 hr</span><span class="badge">METRO Metro Line 6</span>
@@ -560,40 +560,40 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <h2 style="color:var(--primary); font-size:28px; margin-bottom: 24px; border-bottom: 2px solid var(--border); padding-bottom: 12px;">Day 1: Full Detail Plan</h2>
 <div class="full-detail-text">
   <h3>1. 8:30 AM: Leave Hotel & Transit</h3>
-  <p><strong>Option A (Best):</strong> Grab a DiDi right outside Jiangwan Yihao straight to Nanyue King Museum entrance (~12 mins | ~¥15).<br>
-  <strong>Option B (Metro - Direct):</strong> Walk 12 minutes west along the Pearl River promenade to <strong>Haizhu Square Station</strong>, then take Line 2 direct north for 3 stops to Yuexiu Park Station (Exit E) with zero transfers.</p>
+  <p><strong>Option A (Best):</strong> Grab a DiDi right outside Jiangwan Yihao straight to Nanyue King Museum (南越王博物院) entrance (~12 mins | ~¥15).<br>
+  <strong>Option B (Metro - Direct):</strong> Walk 12 minutes west along the Pearl River promenade to <strong>Haizhu Square Station (海珠广场站)</strong>, then take Line 2 direct north for 3 stops to Yuexiu Park Station (越秀公园站, Exit E) with zero transfers.</p>
   
-  <h3>2. 9:00 AM: Nanyue King Museum (Tomb Area)</h3>
+  <h3>2. 9:00 AM: Nanyue King Museum / Tomb Area (南越王博物院)</h3>
   <p><strong>Cost:</strong> ¥10 | <strong>Hours:</strong> 9:00 AM – 5:30 PM (Closed Mondays).<br>
   Start your morning deep underground. This is the authentic 2,000-year-old tomb of the Nanyue King, discovered fully intact in the 1980s. You will walk down into the actual excavated stone burial chambers. Spend about 2 hours exploring the tomb and the incredible jade burial suits on display.</p>
 
-  <h3>3. 11:00 AM: Temple of the Six Banyan Trees (Optional)</h3>
+  <h3>3. 11:00 AM: Temple of the Six Banyan Trees (六榕寺) (Optional)</h3>
   <p><strong>Cost:</strong> Free / ~¥5 | <strong>Hours:</strong> 8:00 AM – 4:30 PM.<br>
-  Take Line 2 south two stops to Gongyuanqian Station (Exit I2). Walk 5 minutes to view the multi-colored 57-meter Flower Pagoda and Buddha halls before heading to Chen Clan Ancestral Hall.</p>
+  Take Line 2 south two stops to Gongyuanqian Station (公园前站, Exit I2). Walk 5 minutes to view the multi-colored 57-meter Flower Pagoda (花塔) and Buddha halls before heading to Chen Clan Ancestral Hall.</p>
 
-  <h3>4. 11:50 AM: Chen Clan Ancestral Hall</h3>
+  <h3>4. 11:50 AM: Chen Clan Ancestral Hall (陈家祠 / 陈氏书院)</h3>
   <p><strong>Cost:</strong> ¥10 | <strong>Hours:</strong> 9:00 AM – 5:30 PM (Closed Tuesdays).<br>
-  From Gongyuanqian Station, take Line 1 west two stops to Chen Clan Academy Station. This 19th-century academic complex is the absolute pinnacle of Lingnan architecture. You'll spend about an hour admiring the impossibly intricate wood, brick, and ivory carvings that line every roof and beam.</p>
+  From Gongyuanqian Station, take Line 1 west two stops to Chen Clan Academy Station (陈家祠站). This 19th-century academic complex is the absolute pinnacle of Lingnan architecture. You'll spend about an hour admiring the impossibly intricate wood, brick, and ivory carvings that line every roof and beam.</p>
 
   <h3>5. 12:45 PM: Lunch Time</h3>
-  <p><strong>Transit:</strong> Walk toward Liwan District.<br>
+  <p><strong>Transit:</strong> Walk toward Liwan District (荔湾区).<br>
   Head toward your next destination (Shamian/Liwan) and decide on a lunch spot along the way. See the recommendations block at the bottom of the Day 1 tab for local ideas.</p>
 
-  <h3>6. 2:00 PM: Shamian Island</h3>
-  <p><strong>Cost:</strong> Free | <strong>Transit:</strong> Line 1 to Huangsha.<br>
+  <h3>6. 2:00 PM: Shamian Island (沙面岛)</h3>
+  <p><strong>Cost:</strong> Free | <strong>Transit:</strong> Line 1 to Huangsha (黄沙站).<br>
   Hop back on Line 1 for two stops to Huangsha Station. Walk across the short pedestrian bridge to Shamian Island. This former British and French concession is a peaceful, pedestrian-only sandbank lined with massive banyan trees and restored 19th-century European mansions. Grab a coffee and spend an hour walking the shaded avenues.</p>
 
-  <h3>7. 3:30 PM: Pantang Ancient Village & Liwan Old Town</h3>
+  <h3>7. 3:30 PM: Pantang Ancient Village (泮塘古村) & Liwan Old Town</h3>
   <p><strong>Cost:</strong> Free | <strong>Transit:</strong> 15-min walk or quick DiDi.<br>
-  Head north from Shamian into the heart of the Liwan District. This is "Old Guangzhou." Walk through Pantang Ancient Village, which perfectly preserves its Qing Dynasty street layout. Stroll along the Lizhiwan Creek to see the traditional Xiguan Mansions (homes of wealthy merchants from the 1800s) with their distinctive "Tanglong" sliding wooden doors.</p>
+  Head north from Shamian into the heart of the Liwan District. This is "Old Guangzhou." Walk through Pantang Ancient Village, which perfectly preserves its Qing Dynasty street layout. Stroll along Lizhiwan Creek (荔枝湾涌) to see traditional Xiguan Mansions (西关大屋, homes of wealthy merchants from the 1800s) with their distinctive "Tanglong" sliding wooden doors.</p>
 
-  <h3>8. 6:00 PM: Yongqing Fang & Shangxiajiu</h3>
+  <h3>8. 6:00 PM: Yongqing Fang (永庆坊) & Shangxiajiu</h3>
   <p><strong>Cost:</strong> Free | <strong>Transit:</strong> Walk.<br>
-  As the sun sets, walk into Yongqing Fang. It transforms at night—especially the famous "Moon in the Bridge" landscape which lights up and looks incredibly romantic. After taking photos, walk 10 minutes east to Shangxiajiu Pedestrian Street. It’s loud, neon-lit, and packed with historic Cantonese snack stalls. Have a casual dinner here.</p>
+  As the sun sets, walk into Yongqing Fang. It transforms at night—especially the famous "Moon in the Bridge" landscape which lights up and looks incredibly romantic. After taking photos, walk 10 minutes east to Shangxiajiu Pedestrian Street (上下九步行街). It’s loud, neon-lit, and packed with historic Cantonese snack stalls. Have a casual dinner here.</p>
 
   <h3>9. 8:30 PM: Return to Hotel</h3>
   <p><strong>Transit:</strong> Line 6 or DiDi.<br>
-  Walk to the nearby Cultural Park Station and take Line 6 straight back to Beijing Lu Station, or simply grab a DiDi directly back to your hotel on Yanjiang Middle Road.</p>
+  Walk to the nearby Cultural Park Station (文化公园站) and take Line 6 straight back to Beijing Lu Station (北京路站), or simply grab a DiDi directly back to your hotel on Yanjiang Middle Road (沿江中路).</p>
 </div>
 </div></div>
 
@@ -603,32 +603,32 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <h2 style="color:var(--primary); font-size:28px; margin-bottom: 24px; border-bottom: 2px solid var(--border); padding-bottom: 12px;">Day 2: Full Detail Plan</h2>
 <div class="full-detail-text">
   <h3>1. 9:30 AM: Leave Hotel & Transit to CBD</h3>
-  <p><strong>Option A (Best):</strong> Take a DiDi directly from Jiangwan Yihao to Huacheng Square (~15 mins | ~¥20). Drops you right above ground in the central plaza and avoids underground morning rush-hour crowds.<br>
-  <strong>Option B (Metro):</strong> Walk to Beijing Lu Station ➔ Line 6 east to Dongshankou ➔ Transfer to Line 1/3 toward Zhujiang New Town.</p>
+  <p><strong>Option A (Best):</strong> Take a DiDi directly from Jiangwan Yihao to Huacheng Square (花城广场) (~15 mins | ~¥20). Drops you right above ground in the central plaza and avoids underground morning rush-hour crowds.<br>
+  <strong>Option B (Metro):</strong> Walk to Beijing Lu Station ➔ Line 6 east to Dongshankou ➔ Transfer to Line 1/3 toward Zhujiang New Town (珠江新城).</p>
   
-  <h3>2. 9:45 AM: Zhujiang New Town & Huacheng Square</h3>
+  <h3>2. 9:45 AM: Zhujiang New Town (珠江新城) & Huacheng Square</h3>
   <p><strong>Cost:</strong> Free | <strong>Hours:</strong> Open 24/7.<br>
-  Walk through Guangzhou’s premier civic axis. Stroll the green boulevard surrounded by ultra-modern landmarks, including the Zaha Hadid-designed Guangzhou Opera House, Guangzhou Library, and the 530m CTF Finance Centre tower.</p>
+  Walk through Guangzhou’s premier civic axis. Stroll the green boulevard surrounded by ultra-modern landmarks, including the Zaha Hadid-designed Guangzhou Opera House (广州大剧院), Guangzhou Library (广州图书馆), and the 530m CTF Finance Centre tower (广州周大福金融中心).</p>
 
-  <h3>3. 10:30 AM: Guangdong Museum</h3>
+  <h3>3. 10:30 AM: Guangdong Museum (广东省博物馆)</h3>
   <p><strong>Cost:</strong> Free (WeChat Reservation + Passport Required) | <strong>Hours:</strong> 9:00 AM – 5:00 PM (Closed Mondays).<br>
   Cross the plaza into this architectural spectacle designed like an ancient Chinese lacquer box. Explore four floors of Cantonese wood carvings, Lingnan historical jade, porcelain, and natural history exhibits. Spend about 2 hours inside.</p>
 
   <h3>4. 1:00 PM: CBD Lunch Break</h3>
   <p><strong>Transit:</strong> Walk.<br>
-  Head underground into <strong>Mall of the World (花城汇)</strong> directly beneath the plaza for fast, air-conditioned local and international dining options, or walk to <strong>K11 Art Mall</strong> / <strong>IFC Mall</strong> for modern fusion dining and cafes.</p>
+  Head underground into <strong>Mall of the World (花城汇)</strong> directly beneath the plaza for fast, air-conditioned local and international dining options, or walk to <strong>K11 Art Mall (K11购物艺术中心)</strong> / <strong>IFC Mall (国金天地)</strong> for modern fusion dining and cafes.</p>
 
-  <h3>5. 2:30 PM: Haixinsha Asian Games Park</h3>
+  <h3>5. 2:30 PM: Haixinsha Asian Games Park (海心沙亚运公园)</h3>
   <p><strong>Cost:</strong> Free | <strong>Transit:</strong> 10-min walk south to riverbank.<br>
-  Walk south to the pedestrian island where the 2010 Asian Games opening ceremony was held. This riverside park provides the single best unobstructed, ground-to-tip photo angle of Canton Tower directly across the water, as well as views of the Haixin Pedestrian Bridge.</p>
+  Walk south to the pedestrian island where the 2010 Asian Games opening ceremony was held. This riverside park provides the single best unobstructed, ground-to-tip photo angle of Canton Tower (广州塔) directly across the water, as well as views of the Haixin Pedestrian Bridge (海心桥).</p>
 
-  <h3>6. 4:30 PM: Canton Tower (Golden Hour & Sunset)</h3>
+  <h3>6. 4:30 PM: Canton Tower (广州塔) (Golden Hour & Sunset)</h3>
   <p><strong>Cost:</strong> ~¥150 – ¥398 | <strong>Transit:</strong> APM Line (1 stop underground ~3 mins).<br>
   Take the automated APM light rail from Haixinsha Station 1 stop under the river into Canton Tower Station. Ascend to the observation decks (~433m–450m). Arriving at 4:30 PM allows you to clear security, reach the top, and experience the transition from daytime city views to sunset (around 5:45 PM) and the full night skyline lighting up.</p>
 
-  <h3>7. 7:30 PM: Pearl River Night Cruise</h3>
-  <p><strong>Cost:</strong> ~¥80 – ¥150 | <strong>Transit:</strong> Walk to Canton Tower Fortune Pier.<br>
-  Board a 60-to-90-minute evening cruise to see Liede Bridge, Haizhu Bridge, and the illuminated skyline from the water.<br>
+  <h3>7. 7:30 PM: Pearl River Night Cruise (珠江夜游)</h3>
+  <p><strong>Cost:</strong> ~¥80 – ¥150 | <strong>Transit:</strong> Walk to Canton Tower Fortune Pier (广州塔财富码头).<br>
+  Board a 60-to-90-minute evening cruise to see Liede Bridge (猎德大桥), Haizhu Bridge (海珠桥), and the illuminated skyline from the water.<br>
   <strong>Crucial Shortcut:</strong> Book a boarding ticket that specifies <strong>Tianzi Wharf (天字码头)</strong> as the drop-off point. When the boat docks, you step right off onto your hotel’s street without queuing for post-tour taxis!</p>
 </div>
 </div></div>
@@ -638,20 +638,20 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <button type="button" class="close-btn" onclick="closeModal('day3_details')">✕ Close</button>
 <h2 style="color:var(--primary); font-size:28px; margin-bottom: 24px; border-bottom: 2px solid var(--border); padding-bottom: 12px;">Day 3: Full Detail Plan</h2>
 <div class="full-detail-text">
-  <h3>1. 9:00 AM: Baiyun Mountain</h3>
+  <h3>1. 9:00 AM: Baiyun Mountain (白云山)</h3>
   <p><strong>Cost:</strong> ¥5 Entry (Cable car extra) | <strong>Transit:</strong> DiDi Direct to South Gate Cable Car (~25 mins | ~¥30).<br>
-  <strong>Why DiDi is best:</strong> Metro Line 2 drops you 1.5 km away from the actual cable car station. Taking a DiDi directly to the <strong>Baiyun Mountain South Gate (白云山南门)</strong> drops you right at the ticket window. Take the cable car up to Moxing Peak for panoramic views over Guangzhou, and walk down through lush botanical trails and tea gardens.</p>
+  <strong>Why DiDi is best:</strong> Metro Line 2 drops you 1.5 km away from the actual cable car station. Taking a DiDi directly to the <strong>Baiyun Mountain South Gate (白云山南门)</strong> drops you right at the ticket window. Take the cable car up to Moxing Peak (摩星岭) for panoramic views over Guangzhou, and walk down through lush botanical trails and tea gardens.</p>
 
   <h3>2. 1:00 PM: Lunch Break & Travel to Dongshankou</h3>
-  <p><strong>Transit:</strong> DiDi or Metro Line 1 / Line 6 to Dongshankou Station.<br>
-  Travel south into the historic Dongshankou neighborhood. Find a trendy cafe, boutique bistro, or artisanal bakery inside one of the repurposed 1920s villas for a relaxed lunch.</p>
+  <p><strong>Transit:</strong> DiDi or Metro Line 1 / Line 6 to Dongshankou Station (东山口站).<br>
+  Travel south into the historic Dongshankou (东山口) neighborhood. Find a trendy cafe, boutique bistro, or artisanal bakery inside one of the repurposed 1920s villas for a relaxed lunch.</p>
 
-  <h3>3. 2:00 PM: Dongshankou Art District</h3>
+  <h3>3. 2:00 PM: Dongshankou Art District (东山口)</h3>
   <p><strong>Cost:</strong> Free | <strong>Transit:</strong> Walk.<br>
   Explore "Old Money Guangzhou." Dongshankou is famous for its preserved 1920s Western-style red-brick mansions built by returned overseas Chinese. Today, the narrow residential alleys house independent designer boutiques, contemporary art galleries, coffee shops, and photography spots.</p>
 
-  <h3>4. 4:30 PM: Sacred Heart Cathedral (Shishi)</h3>
-  <p><strong>Cost:</strong> Free | <strong>Transit:</strong> Metro Line 6 to Yide Lu Station + 5-min walk.<br>
+  <h3>4. 4:30 PM: Sacred Heart Cathedral / Shishi (石室圣心大教堂)</h3>
+  <p><strong>Cost:</strong> Free | <strong>Transit:</strong> Metro Line 6 to Yide Lu Station (一德路站) + 5-min walk.<br>
   Take Line 6 straight from Dongshankou west to Yide Lu Station. Also known as the "Stone House," this breathtaking 19th-century Gothic Revival cathedral was built entirely from granite stone by French architects.<br>
   <strong>Important Note:</strong> The gates close promptly to tourists at 5:00 PM (17:00), so ensure you arrive before 4:30 PM to explore the interior vaulted ceilings and stained glass windows!</p>
 </div>
@@ -659,104 +659,104 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <!-- PLACE SPECIFIC MODALS -->
 <div id="modal_nanyue" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('nanyue')">✕ Close</button>
-<img class="modal-img" src="images/2.jpg" alt="Nanyue King Museum">
-<h2>Nanyue King Museum</h2>
+<img class="modal-img" src="images/2.jpg" alt="Nanyue King Museum (南越王博物院)">
+<h2>Nanyue King Museum (南越王博物院)</h2>
 <div class="modal-logistics"><span>💰 Cost: ¥10</span><span>🕒 Hours: 9:00 AM – 5:30 PM</span><span>🚫 Closed: Mondays</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_nanyue" class="modal-notes-area" oninput="saveNote('nanyue')"></textarea></div></div>
 
 <div id="modal_liurong" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('liurong')">✕ Close</button>
-<img class="modal-img" src="images/3.jpg" alt="Temple of the Six Banyan Trees">
-<h2>Temple of the Six Banyan Trees (Optional)</h2>
+<img class="modal-img" src="images/3.jpg" alt="Temple of the Six Banyan Trees (六榕寺)">
+<h2>Temple of the Six Banyan Trees (六榕寺)</h2>
 <div class="modal-logistics"><span>💰 Cost: Free / ~¥5</span><span>🕒 Hours: 8:00 AM – 4:30 PM</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_liurong" class="modal-notes-area" oninput="saveNote('liurong')"></textarea></div></div>
 
 <div id="modal_chen" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('chen')">✕ Close</button>
-<img class="modal-img" src="images/4.jpg" alt="Chen Clan Ancestral Hall">
-<h2>Chen Clan Ancestral Hall</h2>
+<img class="modal-img" src="images/4.jpg" alt="Chen Clan Ancestral Hall (陈家祠 / 陈氏书院)">
+<h2>Chen Clan Ancestral Hall (陈家祠 / 陈氏书院)</h2>
 <div class="modal-logistics"><span>💰 Cost: ¥10</span><span>🕒 Hours: 9:00 AM – 5:30 PM</span><span>🚫 Closed: Tuesdays</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_chen" class="modal-notes-area" oninput="saveNote('chen')"></textarea></div></div>
 
 <div id="modal_yongqing" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('yongqing')">✕ Close</button>
-<img class="modal-img" src="images/5.jpg" alt="Yongqing Fang">
-<h2>Yongqing Fang</h2>
+<img class="modal-img" src="images/5.jpg" alt="Yongqing Fang (永庆坊)">
+<h2>Yongqing Fang (永庆坊)</h2>
 <div class="modal-logistics"><span>💰 Cost: Free</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_yongqing" class="modal-notes-area" oninput="saveNote('yongqing')"></textarea></div></div>
 
 <div id="modal_pantang" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('pantang')">✕ Close</button>
-<img class="modal-img" src="images/6.jpg" alt="Pantang Ancient Village">
-<h2>Pantang Ancient Village</h2>
+<img class="modal-img" src="images/6.jpg" alt="Pantang Ancient Village (泮塘古村)">
+<h2>Pantang Ancient Village (泮塘古村)</h2>
 <div class="modal-logistics"><span>💰 Cost: Free</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_pantang" class="modal-notes-area" oninput="saveNote('pantang')"></textarea></div></div>
 
 <div id="modal_shangxiajiu" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('shangxiajiu')">✕ Close</button>
-<img class="modal-img" src="images/7.jpg" alt="Shangxiajiu Pedestrian Street">
-<h2>Shangxiajiu Pedestrian Street</h2>
+<img class="modal-img" src="images/7.jpg" alt="Shangxiajiu Pedestrian Street (上下九步行街)">
+<h2>Shangxiajiu Pedestrian Street (上下九步行街)</h2>
 <div class="modal-logistics"><span>💰 Cost: Free</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_shangxiajiu" class="modal-notes-area" oninput="saveNote('shangxiajiu')"></textarea></div></div>
 
 <div id="modal_shamian" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('shamian')">✕ Close</button>
-<img class="modal-img" src="images/8.jpg" alt="Shamian Island">
-<h2>Shamian Island</h2>
+<img class="modal-img" src="images/8.jpg" alt="Shamian Island (沙面岛)">
+<h2>Shamian Island (沙面岛)</h2>
 <div class="modal-logistics"><span>💰 Cost: Free</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_shamian" class="modal-notes-area" oninput="saveNote('shamian')"></textarea></div></div>
 
 <div id="modal_zhujiang" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('zhujiang')">✕ Close</button>
-<img class="modal-img" src="images/9.jpg" alt="Zhujiang New Town">
-<h2>Zhujiang New Town</h2>
+<img class="modal-img" src="images/9.jpg" alt="Zhujiang New Town (珠江新城)">
+<h2>Zhujiang New Town (珠江新城)</h2>
 <div class="modal-logistics"><span>💰 Cost: Free</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_zhujiang" class="modal-notes-area" oninput="saveNote('zhujiang')"></textarea></div></div>
 
 <div id="modal_museum" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('museum')">✕ Close</button>
-<img class="modal-img" src="images/10.jpg" alt="Guangdong Museum">
-<h2>Guangdong Museum</h2>
+<img class="modal-img" src="images/10.jpg" alt="Guangdong Museum (广东省博物馆)">
+<h2>Guangdong Museum (广东省博物馆)</h2>
 <div class="modal-logistics"><span>💰 Cost: Free (Requires Booking)</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_museum" class="modal-notes-area" oninput="saveNote('museum')"></textarea></div></div>
 
 <div id="modal_haixinsha" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('haixinsha')">✕ Close</button>
-<img class="modal-img" src="images/11.jpg" alt="Haixinsha Park">
-<h2>Haixinsha Asian Games Park</h2>
+<img class="modal-img" src="images/11.jpg" alt="Haixinsha Park (海心沙亚运公园)">
+<h2>Haixinsha Asian Games Park (海心沙亚运公园)</h2>
 <div class="modal-logistics"><span>💰 Cost: Free</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_haixinsha" class="modal-notes-area" oninput="saveNote('haixinsha')"></textarea></div></div>
 
 <div id="modal_tower" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('tower')">✕ Close</button>
-<img class="modal-img" src="images/12.jpg" alt="Canton Tower">
-<h2>Canton Tower</h2>
+<img class="modal-img" src="images/12.jpg" alt="Canton Tower (广州塔)">
+<h2>Canton Tower (广州塔)</h2>
 <div class="modal-logistics"><span>💰 Cost: ~¥150+ (varies by deck)</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_tower" class="modal-notes-area" oninput="saveNote('tower')"></textarea></div></div>
 
 <div id="modal_cruise" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('cruise')">✕ Close</button>
-<img class="modal-img" src="images/13.jpg" alt="Pearl River Cruise">
-<h2>Pearl River Night Cruise</h2>
+<img class="modal-img" src="images/13.jpg" alt="Pearl River Night Cruise (珠江夜游)">
+<h2>Pearl River Night Cruise (珠江夜游)</h2>
 <div class="modal-logistics"><span>💰 Cost: ~¥80 - ¥150</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_cruise" class="modal-notes-area" oninput="saveNote('cruise')"></textarea></div></div>
 
 <div id="modal_beijing" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('beijing')">✕ Close</button>
-<img class="modal-img" src="images/14.jpg" alt="Beijing Road">
-<h2>Beijing Road</h2>
+<img class="modal-img" src="images/14.jpg" alt="Beijing Road (北京路步行街)">
+<h2>Beijing Road Pedestrian Street (北京路步行街)</h2>
 <div class="modal-logistics"><span>💰 Cost: Free</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_beijing" class="modal-notes-area" oninput="saveNote('beijing')"></textarea></div></div>
 
 <div id="modal_dafo" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('dafo')">✕ Close</button>
-<img class="modal-img" src="images/15.jpg" alt="Dafo Temple">
-<h2>Dafo Temple</h2>
+<img class="modal-img" src="images/15.jpg" alt="Dafo Temple (大佛寺)">
+<h2>Dafo Temple (大佛寺)</h2>
 <div class="modal-logistics"><span>💰 Cost: Free</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_dafo" class="modal-notes-area" oninput="saveNote('dafo')"></textarea></div></div>
 
 <div id="modal_sacred" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('sacred')">✕ Close</button>
-<img class="modal-img" src="images/16.jpg" alt="Sacred Heart">
-<h2>Sacred Heart Cathedral</h2>
+<img class="modal-img" src="images/16.jpg" alt="Sacred Heart Cathedral (石室圣心大教堂)">
+<h2>Sacred Heart Cathedral (石室圣心大教堂)</h2>
 <div class="modal-logistics"><span>💰 Cost: Free</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_sacred" class="modal-notes-area" oninput="saveNote('sacred')"></textarea></div></div>
 
 <div id="modal_baiyun" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('baiyun')">✕ Close</button>
-<img class="modal-img" src="images/17.jpg" alt="Baiyun Mountain">
-<h2>Baiyun Mountain</h2>
+<img class="modal-img" src="images/17.jpg" alt="Baiyun Mountain (白云山)">
+<h2>Baiyun Mountain (白云山)</h2>
 <div class="modal-logistics"><span>💰 Entry: ¥5</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_baiyun" class="modal-notes-area" oninput="saveNote('baiyun')"></textarea></div></div>
 
 <div id="modal_dongshankou" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('dongshankou')">✕ Close</button>
-<img class="modal-img" src="images/18.jpg" alt="Dongshankou">
-<h2>Dongshankou Art District</h2>
+<img class="modal-img" src="images/18.jpg" alt="Dongshankou Art District (东山口)">
+<h2>Dongshankou Art District (东山口)</h2>
 <div class="modal-logistics"><span>💰 Cost: Free</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_dongshankou" class="modal-notes-area" oninput="saveNote('dongshankou')"></textarea></div></div>
 
