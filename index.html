@@ -2,303 +2,279 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#202626">
-<title>China Trip</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>China Trip</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    html {
+      min-height: 100%;
+    }
 
-html {
-  min-height: 100%;
-}
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #ffffff;
+      background: #182027;
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 45px 20px;
+    }
 
-body {
-  min-height: 100vh;
-  font-family: 'Nunito', sans-serif;
-  color: white;
-  background: #252b2b;
-  position: relative;
-  padding-bottom: 35px;
-}
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image: url("https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=2000&q=85");
+      background-size: cover;
+      background-position: center;
+    }
 
-/* BACKGROUND */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: rgba(13, 19, 25, 0.76);
+    }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  background:
-    url("https://images.unsplash.com/photo-1513407030348-c983a97b98d8?auto=format&fit=crop&w=2000&q=85")
-    center center / cover no-repeat;
-}
+    .container {
+      width: 100%;
+      max-width: 850px;
+      margin: auto;
+      text-align: center;
+    }
 
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: rgba(18, 25, 28, 0.76);
-}
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: #d6c4a5;
+      margin-bottom: 17px;
+      font-weight: 600;
+    }
 
-/* MAIN HEADING */
+    h1 {
+      font-size: clamp(42px, 7vw, 66px);
+      font-weight: 500;
+      letter-spacing: -1.5px;
+      margin-bottom: 16px;
+    }
 
-.welcome {
-  text-align: center;
-  padding: 85px 20px 35px;
-}
+    .subtitle {
+      max-width: 490px;
+      margin: 0 auto 38px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 15px;
+      line-height: 1.8;
+    }
 
-.welcome-label {
-  color: #f0c778;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 2px;
-}
+    .cities {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      max-width: 690px;
+      margin: 0 auto;
+      text-align: left;
+    }
 
-.welcome h1 {
-  font-size: clamp(43px, 6vw, 65px);
-  font-weight: 900;
-  line-height: 1.15;
-  margin-top: 15px;
-}
+    .city-card {
+      display: block;
+      position: relative;
+      min-width: 0;
+      height: 285px;
+      overflow: hidden;
+      border-radius: 12px;
+      color: #ffffff;
+      text-decoration: none;
+      background: #30383e;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22);
+    }
 
-.welcome p {
-  font-size: 14px;
-  line-height: 1.8;
-  color: rgba(255,255,255,.78);
-  margin-top: 12px;
-}
+    .city-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
+    }
 
-/* CITY CARDS */
+    .city-card:hover img {
+      transform: scale(1.06);
+    }
 
-.plans {
-  max-width: 760px;
-  margin: 15px auto 0;
-  padding: 0 20px;
-}
+    .city-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.88) 0%,
+        rgba(0, 0, 0, 0.28) 48%,
+        rgba(0, 0, 0, 0.04) 100%
+      );
+    }
 
-.city-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
-}
+    .city-info {
+      position: absolute;
+      z-index: 1;
+      left: 21px;
+      right: 21px;
+      bottom: 20px;
+    }
 
-.city-card {
-  background: white;
-  color: #252b29;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,.2);
-  transition: transform .25s;
-}
+    .city-info h2 {
+      font-size: 25px;
+      font-weight: 500;
+      margin-bottom: 7px;
+    }
 
-.city-card:hover {
-  transform: translateY(-4px);
-}
+    .city-info p {
+      font-size: 12px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.82);
+      margin-bottom: 15px;
+    }
 
-.city-image {
-  height: 175px;
-  position: relative;
-  overflow: hidden;
-  background: #53646a;
-}
+    .view-btn {
+      display: inline-block;
+      padding: 10px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 5px;
+      color: #ffffff;
+      font-size: 12px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
 
-.city-image img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .35s;
-}
+    .city-card:hover .view-btn {
+      background: #ffffff;
+      color: #222222;
+    }
 
-.city-card:hover .city-image img {
-  transform: scale(1.04);
-}
+    @media (max-width: 560px) {
+      body {
+        padding: 38px 18px;
+      }
 
-.city-number {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: rgba(20,35,35,.8);
-  color: white;
-  padding: 5px 9px;
-  border-radius: 5px;
-  font-size: 11px;
-  font-weight: 900;
-}
+      .eyebrow {
+        font-size: 10px;
+        letter-spacing: 3px;
+      }
 
-.city-details {
-  padding: 14px 16px;
-}
+      h1 {
+        font-size: 45px;
+      }
 
-.city-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
+      .subtitle {
+        font-size: 14px;
+        margin-bottom: 29px;
+      }
 
-.city-top h2 {
-  font-size: 19px;
-  font-weight: 900;
-}
+      .cities {
+        gap: 13px;
+      }
 
-.city-days {
-  font-size: 11px;
-  color: #727a75;
-  margin-top: 3px;
-}
+      .city-card {
+        height: 230px;
+        border-radius: 9px;
+      }
 
-.view-btn {
-  text-decoration: none;
-  color: #416d50;
-  font-size: 19px;
-  font-weight: 800;
-  padding: 5px;
-  flex-shrink: 0;
-}
+      .city-info {
+        left: 12px;
+        right: 12px;
+        bottom: 13px;
+      }
 
-.shenzhen .view-btn {
-  color: #3c6898;
-}
+      .city-info h2 {
+        font-size: 20px;
+      }
 
-.view-btn:hover {
-  transform: translateX(3px);
-}
+      .city-info p {
+        font-size: 11px;
+        margin-bottom: 11px;
+      }
 
-/* MOBILE */
+      .view-btn {
+        padding: 8px 10px;
+        font-size: 11px;
+      }
+    }
 
-@media (max-width: 600px) {
-  .welcome {
-    padding: 65px 18px 28px;
-  }
+    @media (max-width: 350px) {
+      .cities {
+        grid-template-columns: 1fr;
+      }
 
-  .welcome h1 {
-    font-size: 43px;
-  }
+      .city-card {
+        height: 245px;
+      }
+    }
 
-  .welcome p {
-    font-size: 13px;
-  }
-
-  .plans {
-    max-width: 430px;
-    padding: 0 18px;
-    margin-top: 10px;
-  }
-
-  .city-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
-  .city-image {
-    height: 190px;
-  }
-
-  .city-details {
-    padding: 14px 16px;
-  }
-
-  .city-top h2 {
-    font-size: 19px;
-  }
-}
-
-@media (max-width: 350px) {
-  .city-image {
-    height: 160px;
-  }
-
-  .city-top h2 {
-    font-size: 17px;
-  }
-
-  .city-days {
-    font-size: 10px;
-  }
-}
-</style>
+    @media (prefers-reduced-motion: reduce) {
+      .city-card img,
+      .view-btn {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <main class="container">
+    <p class="eyebrow">OUR NEXT ADVENTURE</p>
 
-<section class="welcome">
-  <div class="welcome-label">OUR NEXT ADVENTURE</div>
+    <h1>China Trip</h1>
 
-  <h1>China Trip</h1>
+    <p class="subtitle">
+      Tap a city to view our plan and explore the best places
+      to eat, visit and enjoy!
+    </p>
 
-  <p>
-    Tap a city to view our plan and explore the best<br>
-    places to eat, visit and enjoy!
-  </p>
-</section>
+    <section class="cities" aria-label="Choose a city">
 
-<main class="plans">
-  <div class="city-grid">
+      <!-- Guangzhou -->
+      <a class="city-card" href="guangzhou.html">
+        <img
+          src="https://images.unsplash.com/photo-1537531383496-f4749b8032a3?auto=format&fit=crop&w=900&q=85"
+          alt="Guangzhou city skyline"
+          loading="eager"
+          onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=900&q=85';"
+        >
 
-    <!-- GUANGZHOU -->
-
-    <article class="city-card">
-      <a href="index.html" aria-label="Open Guangzhou itinerary">
-        <div class="city-image">
-          <img
-            src="https://images.unsplash.com/photo-1583248369069-9d91f1640fe6?auto=format&fit=crop&w=900&q=85"
-            alt="Guangzhou city"
-            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=900&q=80';"
-          >
-          <span class="city-number">01</span>
+        <div class="city-info">
+          <h2>Guangzhou</h2>
+          <p>Discover the city, food and attractions.</p>
+          <span class="view-btn">View Itinerary →</span>
         </div>
       </a>
 
-      <div class="city-details">
-        <div class="city-top">
-          <div>
-            <h2>Guangzhou</h2>
-            <p class="city-days">3 Days · Classical & Future</p>
-          </div>
+      <!-- Shenzhen -->
+      <a class="city-card" href="shenzhen.html">
+        <img
+          src="https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2?auto=format&fit=crop&w=900&q=85"
+          alt="Modern city skyline"
+          loading="eager"
+          onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=900&q=85';"
+        >
 
-          <a class="view-btn" href="index.html" aria-label="View Guangzhou plan">→</a>
-        </div>
-      </div>
-    </article>
-
-    <!-- SHENZHEN -->
-
-    <article class="city-card shenzhen">
-      <a href="index2.html" aria-label="Open Shenzhen itinerary">
-        <div class="city-image">
-          <img
-            src="https://images.unsplash.com/photo-1517400508447-f8dd518b86db?auto=format&fit=crop&w=900&q=85"
-            alt="Shenzhen skyline"
-            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=900&q=80';"
-          >
-          <span class="city-number">02</span>
+        <div class="city-info">
+          <h2>Shenzhen</h2>
+          <p>Explore modern landmarks and city highlights.</p>
+          <span class="view-btn">View Itinerary →</span>
         </div>
       </a>
 
-      <div class="city-details">
-        <div class="city-top">
-          <div>
-            <h2>Shenzhen</h2>
-            <p class="city-days">2.5 Days · Tech & Coast</p>
-          </div>
-
-          <a class="view-btn" href="index2.html" aria-label="View Shenzhen plan">→</a>
-        </div>
-      </div>
-    </article>
-
-  </div>
-</main>
-
+    </section>
+  </main>
 </body>
 </html>
