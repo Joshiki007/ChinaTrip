@@ -79,9 +79,9 @@
 
     .cities {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 22px;
-      max-width: 690px;
+      max-width: 850px;
       margin: 0 auto;
       text-align: left;
     }
@@ -180,7 +180,8 @@
       }
 
       .cities {
-        gap: 13px;
+        grid-template-columns: 1fr;
+        gap: 16px;
       }
 
       .city-card {
@@ -210,10 +211,6 @@
     }
 
     @media (max-width: 350px) {
-      .cities {
-        grid-template-columns: 1fr;
-      }
-
       .city-card {
         height: 245px;
       }
@@ -241,7 +238,7 @@
 
     <section class="cities" aria-label="Choose a city">
 
-      <!-- Guangzhou - Sacred Heart Cathedral Landmark -->
+      <!-- Guangzhou -->
       <a class="city-card" href="guangzhou.html">
         <img
           src="https://picsum.photos/id/1015/800/600"
@@ -269,6 +266,22 @@
         <div class="city-info">
           <h2>Shenzhen</h2>
           <p>Explore modern landmarks and city highlights.</p>
+          <span class="view-btn">View Itinerary →</span>
+        </div>
+      </a>
+
+      <!-- Yiwu -->
+      <a class="city-card" href="yiwu.html">
+        <img
+          src="https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?auto=format&fit=crop&w=900&q=85"
+          alt="Yiwu markets and city skyline"
+          loading="eager"
+          referrerpolicy="no-referrer"
+        >
+
+        <div class="city-info">
+          <h2>Yiwu</h2>
+          <p>Explore wholesale markets, night markets & ancient towns.</p>
           <span class="view-btn">View Itinerary →</span>
         </div>
       </a>
