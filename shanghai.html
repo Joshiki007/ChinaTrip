@@ -611,6 +611,7 @@ let sharedCustomTours = null;
 let applyingRemote = false;
 let firebaseReady = false;
 let remoteCheckValues = new Map();
+const noteSaveTimers = new Map();
 
 function setSyncStatus(message, ok=false) {
   const el = document.getElementById('syncStatus');
@@ -620,56 +621,71 @@ function setSyncStatus(message, ok=false) {
   el.style.color = ok ? '#047857' : '#92400e';
 }
 
+function showFirebaseError(action, error) {
+  console.error(`Firebase ${action} failed:`, error);
+  setSyncStatus(`${action} failed. Check your connection and Firebase rules.`);
+}
+
 function startSharedSync() {
   try {
     if (!window.firebase) throw new Error('Firebase SDK did not load.');
     if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     db = firebase.firestore();
-    firebase.auth().signInAnonymously().catch(err => {
-      console.error('Anonymous sign-in failed:', err);
-      setSyncStatus('Could not sign in. Check Authentication settings.');
-    });
+
     firebase.auth().onAuthStateChanged(user => {
-      if (!user || firebaseReady) return;
+      if (!user) {
+        firebase.auth().signInAnonymously().catch(err => showFirebaseError('Sign-in', err));
+        return;
+      }
+      if (firebaseReady) return;
       firebaseReady = true;
+
+      // Shanghai has its own document, separate from the Guangzhou trip.
       const trip = db.collection('trips').doc('shanghai-trip');
       sharedState = trip.collection('state');
       sharedExpenses = trip.collection('expenses');
       sharedCustomTours = trip.collection('customTours');
-      setSyncStatus('Connected — changes sync across phones.', true);
-      
+
       sharedCustomTours.onSnapshot(snapshot => {
         renderCustomTours(snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})));
-      });
+      }, err => showFirebaseError('Custom itinerary sync', err));
+
       sharedState.onSnapshot(snapshot => {
         remoteCheckValues.clear();
         snapshot.forEach(doc => {
           if (doc.id.startsWith('check_')) remoteCheckValues.set(doc.id.slice(6), !!doc.data().value);
         });
         applyingRemote = true;
-        snapshot.forEach(doc => {
-          const d = doc.data();
-          if (doc.id.startsWith('note_')) {
-            const el = document.getElementById(doc.id);
-            if (el && el.value !== (d.value || '')) el.value = d.value || '';
-          } else if (doc.id.startsWith('check_')) {
-            const el = document.getElementById(doc.id.slice(6));
-            if (el) el.checked = !!d.value;
-          }
-        });
-        applyingRemote = false;
-      });
+        try {
+          snapshot.forEach(doc => {
+            const data = doc.data();
+            if (doc.id.startsWith('note_')) {
+              const el = document.getElementById(doc.id);
+              if (el && el.value !== (data.value || '')) el.value = data.value || '';
+            } else if (doc.id.startsWith('check_')) {
+              const el = document.getElementById(doc.id.slice(6));
+              if (el) el.checked = !!data.value;
+            }
+          });
+        } finally {
+          applyingRemote = false;
+        }
+      }, err => showFirebaseError('Notes/checklist sync', err));
+
       sharedExpenses.onSnapshot(snapshot => {
         expenses = snapshot.docs.map(doc => {
-          const d = doc.data();
-          return {id: doc.id, name: d.name || '', amount: d.amount ?? 0, day: d.day || 'Day 1'};
+          const data = doc.data();
+          return {id: doc.id, name: data.name || '', amount: data.amount ?? 0, day: data.day || 'Day 1'};
         });
         renderExpenses();
-      });
-    });
+      }, err => showFirebaseError('Expense sync', err));
+
+      setSyncStatus('Connected — shared Shanghai trip is syncing.', true);
+    }, err => showFirebaseError('Authentication', err));
+
   } catch (err) {
     console.error('Firebase setup error:', err);
-    setSyncStatus('Could not connect.');
+    setSyncStatus('Could not connect to Firebase. Check the SDK and configuration.');
   }
 }
 
@@ -748,7 +764,7 @@ function renderCustomTours(tours){
     del.addEventListener('click', () => {
       if (!sharedCustomTours || !firebaseReady) return;
       del.disabled = true;
-      sharedCustomTours.doc(tour.id).delete();
+      sharedCustomTours.doc(tour.id).delete().catch(err => { del.disabled = false; showFirebaseError('Delete custom stop', err); });
     });
 
     row.append(checkbox, details, del);
@@ -762,64 +778,110 @@ function addCustomTour(){
   const day = document.getElementById('tourDay').value;
   const title = document.getElementById('tourTitle').value.trim();
   const note = document.getElementById('tourNote').value.trim();
-  if(!title){ alert('Please enter a location name.'); return; }
-  if (!sharedCustomTours || !firebaseReady) { alert('Connecting...'); return; }
+  if (!title) { alert('Please enter a location name.'); return; }
+  if (!sharedCustomTours || !firebaseReady) { alert('Still connecting to the shared trip. Please try again in a moment.'); return; }
 
   const button = document.getElementById('btnAddTour');
   button.disabled = true;
   sharedCustomTours.add({
-    day: Number(day), title, note, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    day: Number(day), title, note,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
   }).then(() => {
     document.getElementById('tourTitle').value = '';
     document.getElementById('tourNote').value = '';
-  }).finally(() => { button.disabled = false; });
+  }).catch(err => showFirebaseError('Add custom stop', err))
+    .finally(() => { button.disabled = false; });
 }
 
 let expenses = [];
 function renderExpenses(){
   const list = document.getElementById('expenseList');
-  list.innerHTML = '';
+  if (!list) return;
+  list.replaceChildren();
   let total = 0;
-  expenses.forEach((exp, index) => {
-    total += Number(exp.amount);
+
+  expenses.forEach(exp => {
+    const amount = Number(exp.amount) || 0;
+    total += amount;
     const div = document.createElement('div');
     div.className = 'exp';
-    div.innerHTML = `
-      <div><b>${exp.name}</b> <span class="small" style="margin-left:6px">${exp.day}</span></div>
-      <div style="font-weight:600">¥${Number(exp.amount).toFixed(2)} <button type="button" class="del-exp" data-index="${index}" style="background:none;border:0;color:#ef4444;cursor:pointer;font-weight:bold;margin-left:12px;font-size:16px">✕</button></div>
-    `;
+
+    const left = document.createElement('div');
+    const name = document.createElement('b');
+    name.textContent = exp.name;
+    const day = document.createElement('span');
+    day.className = 'small';
+    day.style.marginLeft = '6px';
+    day.textContent = exp.day;
+    left.append(name, document.createTextNode(' '), day);
+
+    const right = document.createElement('div');
+    right.style.fontWeight = '600';
+    right.appendChild(document.createTextNode(`¥${amount.toFixed(2)} `));
+    const del = document.createElement('button');
+    del.type = 'button';
+    del.className = 'del-exp';
+    del.textContent = '✕';
+    del.setAttribute('aria-label', `Delete expense ${exp.name}`);
+    del.style.cssText = 'background:none;border:0;color:#ef4444;cursor:pointer;font-weight:bold;margin-left:12px;font-size:16px';
+    del.addEventListener('click', () => {
+      if (!sharedExpenses || !firebaseReady || !exp.id) return;
+      del.disabled = true;
+      sharedExpenses.doc(exp.id).delete().catch(err => {
+        del.disabled = false;
+        showFirebaseError('Delete expense', err);
+      });
+    });
+    right.appendChild(del);
+    div.append(left, right);
     list.appendChild(div);
   });
-  
-  list.querySelectorAll('.del-exp').forEach(btn => {
-    btn.addEventListener('click', function(){
-      const idx = Number(this.getAttribute('data-index'));
-      const exp = expenses[idx];
-      if (exp && sharedExpenses && exp.id) sharedExpenses.doc(exp.id).delete();
-    });
-  });
-  document.getElementById('total').innerText = total.toFixed(2);
+
+  const totalEl = document.getElementById('total');
+  if (totalEl) totalEl.innerText = total.toFixed(2);
 }
 
 function addExpense(){
   const name = document.getElementById('expenseName').value.trim();
-  const amount = document.getElementById('expenseAmount').value;
+  const amountText = document.getElementById('expenseAmount').value;
+  const amount = Number(amountText);
   const day = document.getElementById('expenseDay').value;
   const err = document.getElementById('expenseError');
-  
-  if(!name || !amount || amount <= 0){ err.innerText = 'Please enter a valid expense name and amount.'; return; }
+
+  if (!name || !amountText || !Number.isFinite(amount) || amount <= 0) {
+    err.innerText = 'Please enter a valid expense name and amount.';
+    return;
+  }
   err.innerText = '';
-  if (!sharedExpenses || !firebaseReady) { err.innerText = 'Connecting...'; return; }
-  sharedExpenses.add({name, amount: Number(amount), day, createdAt: firebase.firestore.FieldValue.serverTimestamp()}).then(() => {
-    document.getElementById('expenseName').value = '';
-    document.getElementById('expenseAmount').value = '';
-  });
+  if (!sharedExpenses || !firebaseReady) { err.innerText = 'Connecting to shared expenses…'; return; }
+
+  const button = document.getElementById('btnAddExpense');
+  button.disabled = true;
+  sharedExpenses.add({name, amount, day, createdAt: firebase.firestore.FieldValue.serverTimestamp()})
+    .then(() => {
+      document.getElementById('expenseName').value = '';
+      document.getElementById('expenseAmount').value = '';
+    })
+    .catch(error => { err.innerText = 'Could not save expense. Check your connection and try again.'; showFirebaseError('Add expense', error); })
+    .finally(() => { button.disabled = false; });
 }
 
-function clearExpenses(){
-  if (!confirm("Are you sure you want to clear all tracked expenses for everyone?")) return;
-  if (!sharedExpenses || !firebaseReady) return;
-  expenses.forEach(e => { if (e.id) sharedExpenses.doc(e.id).delete(); });
+async function clearExpenses(){
+  if (!confirm('Are you sure you want to clear all tracked Shanghai expenses for everyone?')) return;
+  if (!sharedExpenses || !firebaseReady) { alert('Still connecting. Please try again in a moment.'); return; }
+  try {
+    // Firestore batches support up to 500 operations; chunk larger lists safely.
+    for (let i = 0; i < expenses.length; i += 450) {
+      const batch = db.batch();
+      expenses.slice(i, i + 450).forEach(exp => {
+        if (exp.id) batch.delete(sharedExpenses.doc(exp.id));
+      });
+      await batch.commit();
+    }
+  } catch (err) {
+    showFirebaseError('Clear shared expenses', err);
+    alert('Some expenses could not be cleared. Check your connection and try again.');
+  }
 }
 
 function exportExpensesCSV(){
@@ -837,9 +899,18 @@ function exportExpensesCSV(){
 }
 
 function saveNote(placeId){
-  const text = document.getElementById(`note_${placeId}`).value;
-  if (applyingRemote || !sharedState || !firebaseReady) return;
-  sharedState.doc(`note_${placeId}`).set({value:text, updatedAt:firebase.firestore.FieldValue.serverTimestamp()});
+  const el = document.getElementById(`note_${placeId}`);
+  if (!el || applyingRemote || !sharedState || !firebaseReady) return;
+  // Debounce typing so each note doesn't write to Firestore for every keystroke.
+  if (noteSaveTimers.has(placeId)) clearTimeout(noteSaveTimers.get(placeId));
+  const timer = setTimeout(() => {
+    sharedState.doc(`note_${placeId}`).set({
+      value: el.value,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(err => showFirebaseError('Save note', err));
+    noteSaveTimers.delete(placeId);
+  }, 350);
+  noteSaveTimers.set(placeId, timer);
 }
 
 function initializePageButtons(){
@@ -847,7 +918,10 @@ function initializePageButtons(){
   document.querySelectorAll('.check[id]').forEach(box => {
     box.addEventListener('change', () => {
       if (applyingRemote || !sharedState || !firebaseReady) return;
-      sharedState.doc(`check_${box.id}`).set({value:box.checked, updatedAt:firebase.firestore.FieldValue.serverTimestamp()});
+      sharedState.doc(`check_${box.id}`).set({
+        value: box.checked,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }).catch(err => showFirebaseError('Save checklist', err));
     });
   });
   document.getElementById('btnAddTour').addEventListener('click', addCustomTour);
