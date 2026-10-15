@@ -139,6 +139,8 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="route">Evening Arrival: Check-in & Night Stroll.</div>
 </div>
 
+<div id="day0-custom-container" aria-live="polite"></div>
+
 <div class="timeline-item">
   <div class="time-col">19:30</div>
   <div class="card">
@@ -444,51 +446,71 @@ function startSharedSync() {
     if (!window.firebase) throw new Error('Firebase SDK did not load.');
     if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     db = firebase.firestore();
-    firebase.auth().signInAnonymously().catch(err => {
-      console.error('Anonymous sign-in failed:', err);
-      setSyncStatus('Could not sign in. Check Authentication settings.');
-    });
+
     firebase.auth().onAuthStateChanged(user => {
-      if (!user || firebaseReady) return;
-      firebaseReady = true;
+      if (!user) {
+        firebase.auth().signInAnonymously().catch(err => {
+          console.error('Anonymous sign-in failed:', err);
+          setSyncStatus('Could not sign in. Enable Anonymous authentication in Firebase.');
+        });
+        return;
+      }
+      if (firebaseReady) return;
+
       const trip = db.collection('trips').doc('yiwu-trip');
       sharedState = trip.collection('state');
       sharedExpenses = trip.collection('expenses');
       sharedCustomTours = trip.collection('customTours');
-      setSyncStatus('Connected — changes sync across phones.', true);
-      
+
       sharedCustomTours.onSnapshot(snapshot => {
         renderCustomTours(snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})));
+        setSyncStatus('Connected — Yiwu changes sync across devices.', true);
+      }, err => {
+        console.error('Custom stops sync failed:', err);
+        setSyncStatus('Sync error: check Firestore database and security rules.');
       });
+
       sharedState.onSnapshot(snapshot => {
         remoteCheckValues.clear();
         snapshot.forEach(doc => {
           if (doc.id.startsWith('check_')) remoteCheckValues.set(doc.id.slice(6), !!doc.data().value);
         });
         applyingRemote = true;
-        snapshot.forEach(doc => {
-          const d = doc.data();
-          if (doc.id.startsWith('note_')) {
-            const el = document.getElementById(doc.id);
-            if (el && el.value !== (d.value || '')) el.value = d.value || '';
-          } else if (doc.id.startsWith('check_')) {
-            const el = document.getElementById(doc.id.slice(6));
-            if (el) el.checked = !!d.value;
-          }
-        });
-        applyingRemote = false;
+        try {
+          snapshot.forEach(doc => {
+            const d = doc.data();
+            if (doc.id.startsWith('note_')) {
+              const el = document.getElementById(doc.id);
+              if (el && el.value !== (d.value || '')) el.value = d.value || '';
+            } else if (doc.id.startsWith('check_')) {
+              const el = document.getElementById(doc.id.slice(6));
+              if (el) el.checked = !!d.value;
+            }
+          });
+        } finally {
+          applyingRemote = false;
+        }
+      }, err => {
+        console.error('Checklist/notes sync failed:', err);
+        setSyncStatus('Checklist sync failed. Check Firestore security rules.');
       });
+
       sharedExpenses.onSnapshot(snapshot => {
         expenses = snapshot.docs.map(doc => {
           const d = doc.data();
           return {id: doc.id, name: d.name || '', amount: d.amount ?? 0, day: d.day || 'Oct 30'};
         });
         renderExpenses();
+        firebaseReady = true;
+        setSyncStatus('Connected — Yiwu changes sync across devices.', true);
+      }, err => {
+        console.error('Expense sync failed:', err);
+        setSyncStatus('Expense sync failed. Check Firestore security rules.');
       });
     });
   } catch (err) {
     console.error('Firebase setup error:', err);
-    setSyncStatus('Could not connect.');
+    setSyncStatus('Could not connect to Firebase. Check the Firebase configuration.');
   }
 }
 
@@ -547,6 +569,9 @@ function renderCustomTours(tours){
       sharedState.doc(`check_${checkbox.id}`).set({
         value: checkbox.checked,
         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }).catch(err => {
+        console.error('Could not save custom-stop checklist state:', err);
+        setSyncStatus('Could not save checklist change. Check Firestore rules.');
       });
     });
 
@@ -567,7 +592,11 @@ function renderCustomTours(tours){
     del.addEventListener('click', () => {
       if (!sharedCustomTours || !firebaseReady) return;
       del.disabled = true;
-      sharedCustomTours.doc(tour.id).delete();
+      sharedCustomTours.doc(tour.id).delete().catch(err => {
+        console.error('Could not delete custom stop:', err);
+        setSyncStatus('Could not delete custom stop. Check Firestore rules.');
+        del.disabled = false;
+      });
     });
 
     row.append(checkbox, details, del);
@@ -591,54 +620,122 @@ function addCustomTour(){
   }).then(() => {
     document.getElementById('tourTitle').value = '';
     document.getElementById('tourNote').value = '';
+  }).catch(err => {
+    console.error('Could not add custom stop:', err);
+    alert('Could not add the stop. Check your connection and Firebase permissions.');
   }).finally(() => { button.disabled = false; });
 }
 
 let expenses = [];
 function renderExpenses(){
   const list = document.getElementById('expenseList');
-  list.innerHTML = '';
+  list.replaceChildren();
   let total = 0;
+
   expenses.forEach((exp, index) => {
-    total += Number(exp.amount);
-    const div = document.createElement('div');
-    div.className = 'exp';
-    div.innerHTML = `
-      <div><b>${exp.name}</b> <span class="small" style="margin-left:6px">${exp.day}</span></div>
-      <div style="font-weight:600">¥${Number(exp.amount).toFixed(2)} <button type="button" class="del-exp" data-index="${index}" style="background:none;border:0;color:#ef4444;cursor:pointer;font-weight:bold;margin-left:12px;font-size:16px">✕</button></div>
-    `;
-    list.appendChild(div);
-  });
-  
-  list.querySelectorAll('.del-exp').forEach(btn => {
-    btn.addEventListener('click', function(){
-      const idx = Number(this.getAttribute('data-index'));
-      const exp = expenses[idx];
-      if (exp && sharedExpenses && exp.id) sharedExpenses.doc(exp.id).delete();
+    const amount = Number(exp.amount) || 0;
+    total += amount;
+
+    const row = document.createElement('div');
+    row.className = 'exp';
+
+    const details = document.createElement('div');
+    const name = document.createElement('b');
+    name.textContent = exp.name || 'Expense';
+    const day = document.createElement('span');
+    day.className = 'small';
+    day.style.marginLeft = '6px';
+    day.textContent = exp.day || '';
+    details.append(name, day);
+
+    const right = document.createElement('div');
+    right.style.fontWeight = '600';
+    const amountText = document.createElement('span');
+    amountText.textContent = `¥${amount.toFixed(2)}`;
+
+    const del = document.createElement('button');
+    del.type = 'button';
+    del.className = 'del-exp';
+    del.textContent = '✕';
+    del.setAttribute('aria-label', `Delete expense ${exp.name || ''}`);
+    del.style.cssText = 'background:none;border:0;color:#ef4444;cursor:pointer;font-weight:bold;margin-left:12px;font-size:16px';
+    del.addEventListener('click', async () => {
+      if (!sharedExpenses || !firebaseReady || !exp.id) return;
+      del.disabled = true;
+      try {
+        await sharedExpenses.doc(exp.id).delete();
+      } catch (err) {
+        console.error('Could not delete expense:', err);
+        document.getElementById('expenseError').textContent = 'Could not delete expense. Check connection and permissions.';
+        del.disabled = false;
+      }
     });
+
+    right.append(amountText, del);
+    row.append(details, right);
+    list.appendChild(row);
   });
-  document.getElementById('total').innerText = total.toFixed(2);
+
+  document.getElementById('total').textContent = total.toFixed(2);
 }
 
-function addExpense(){
+async function addExpense(){
   const name = document.getElementById('expenseName').value.trim();
-  const amount = document.getElementById('expenseAmount').value;
+  const amount = Number(document.getElementById('expenseAmount').value);
   const day = document.getElementById('expenseDay').value;
   const err = document.getElementById('expenseError');
-  
-  if(!name || !amount || amount <= 0){ err.innerText = 'Please enter a valid expense name and amount.'; return; }
-  err.innerText = '';
-  if (!sharedExpenses || !firebaseReady) { err.innerText = 'Connecting...'; return; }
-  sharedExpenses.add({name, amount: Number(amount), day, createdAt: firebase.firestore.FieldValue.serverTimestamp()}).then(() => {
+
+  if (!name || !Number.isFinite(amount) || amount <= 0) {
+    err.textContent = 'Please enter a valid expense name and amount.';
+    return;
+  }
+  err.textContent = '';
+  if (!sharedExpenses || !firebaseReady) {
+    err.textContent = 'Still connecting to the shared trip. Please try again shortly.';
+    return;
+  }
+
+  const button = document.getElementById('btnAddExpense');
+  button.disabled = true;
+  try {
+    await sharedExpenses.add({
+      name, amount, day,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
     document.getElementById('expenseName').value = '';
     document.getElementById('expenseAmount').value = '';
-  });
+  } catch (error) {
+    console.error('Could not add expense:', error);
+    err.textContent = 'Could not save expense. Check Firebase permissions and connection.';
+  } finally {
+    button.disabled = false;
+  }
 }
 
-function clearExpenses(){
+async function clearExpenses(){
   if (!confirm("Are you sure you want to clear all tracked expenses for everyone?")) return;
-  if (!sharedExpenses || !firebaseReady) return;
-  expenses.forEach(e => { if (e.id) sharedExpenses.doc(e.id).delete(); });
+  if (!sharedExpenses || !firebaseReady) {
+    document.getElementById('expenseError').textContent = 'Still connecting. Please try again shortly.';
+    return;
+  }
+  const button = document.getElementById('btnClearExpense');
+  button.disabled = true;
+  try {
+    // Firestore batches are limited to 500 writes; delete in chunks if needed.
+    for (let i = 0; i < expenses.length; i += 400) {
+      const batch = db.batch();
+      expenses.slice(i, i + 400).forEach(exp => {
+        if (exp.id) batch.delete(sharedExpenses.doc(exp.id));
+      });
+      await batch.commit();
+    }
+    document.getElementById('expenseError').textContent = '';
+  } catch (error) {
+    console.error('Could not clear expenses:', error);
+    document.getElementById('expenseError').textContent = 'Could not clear expenses. Check Firebase permissions and connection.';
+  } finally {
+    button.disabled = false;
+  }
 }
 
 function exportExpensesCSV(){
@@ -655,10 +752,27 @@ function exportExpensesCSV(){
   link.remove();
 }
 
+const noteSaveTimers = new Map();
 function saveNote(placeId){
-  const text = document.getElementById(`note_${placeId}`).value;
-  if (applyingRemote || !sharedState || !firebaseReady) return;
-  sharedState.doc(`note_${placeId}`).set({value:text, updatedAt:firebase.firestore.FieldValue.serverTimestamp()});
+  const el = document.getElementById(`note_${placeId}`);
+  if (!el || applyingRemote) return;
+  if (!sharedState || !firebaseReady) return;
+
+  if (noteSaveTimers.has(placeId)) clearTimeout(noteSaveTimers.get(placeId));
+  const timer = setTimeout(async () => {
+    try {
+      await sharedState.doc(`note_${placeId}`).set({
+        value: el.value,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    } catch (err) {
+      console.error('Could not save note:', err);
+      setSyncStatus('A note could not be saved. Check connection and Firestore rules.');
+    } finally {
+      noteSaveTimers.delete(placeId);
+    }
+  }, 350);
+  noteSaveTimers.set(placeId, timer);
 }
 
 function initializePageButtons(){
@@ -666,7 +780,10 @@ function initializePageButtons(){
   document.querySelectorAll('.check[id]').forEach(box => {
     box.addEventListener('change', () => {
       if (applyingRemote || !sharedState || !firebaseReady) return;
-      sharedState.doc(`check_${box.id}`).set({value:box.checked, updatedAt:firebase.firestore.FieldValue.serverTimestamp()});
+      sharedState.doc(`check_${box.id}`).set({value:box.checked, updatedAt:firebase.firestore.FieldValue.serverTimestamp()}).catch(err => {
+        console.error('Could not save checklist state:', err);
+        setSyncStatus('Could not save checklist change. Check Firestore rules.');
+      });
     });
   });
   document.getElementById('btnAddTour').addEventListener('click', addCustomTour);
