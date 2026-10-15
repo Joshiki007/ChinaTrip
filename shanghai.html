@@ -15,8 +15,7 @@ header p{margin:0;color:#cbd5e1;font-size:14px}
 .wrap{max-width:900px;margin:auto;padding:16px}
 
 /* Sync Status Bar */
-.sync-bar { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; text-align: center; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-.sync-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; display: inline-block; }
+#syncStatus { margin:16px auto; padding:10px 16px; max-width:900px; border-radius:10px; background:#fffbeb; color:#92400e; font-size:14px; text-align:center; font-weight:600; }
 
 /* Tabs */
 .tabs{display:flex;gap:8px;position:sticky;top:0;z-index:10;background:rgba(248,250,252,0.92);backdrop-filter:blur(8px);padding:12px 0; overflow-x: auto;}
@@ -81,6 +80,8 @@ input[name=daytab]{display:none}
 .modal-img{width:100%;height:220px;object-fit:cover;border-radius:16px;margin-bottom:16px;background:#e2e8f0}
 .modal-logistics { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
 .modal-logistics span { background:#f1f5f9; padding:6px 12px; border-radius:8px; font-size:13px; font-weight:600; color:#475569; display:inline-flex; align-items:center; gap:6px; }
+.modal-notes-area{width:100%;height:140px;padding:16px;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:15px;margin-top:8px;resize:vertical;background:#f8fafc;box-shadow:inset 0 2px 4px rgba(0,0,0,0.02)}
+.modal-notes-area:focus{outline:none;border-color:var(--primary);background:#fff;}
 .btn-group{display:flex;gap:12px;margin-top:16px}
 .action-btn{flex:1;padding:14px;border:0;border-radius:10px;font-weight:600;cursor:pointer;font-size:14px;transition:opacity 0.2s}
 .action-btn:hover{opacity:0.9}
@@ -103,26 +104,15 @@ button:disabled{opacity:.6;cursor:not-allowed}
   .action-btn,.add-tour-btn{min-height:50px}
 }
 </style>
-
-<!-- FIREBASE SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 </head>
-
 <body id="top">
 <div id="download-content">
 <header>
 <h1>Shanghai — 3-Day Trip</h1>
 <p>HOTEL: MSG Topbund Apartment Hotel, Hengsheng Peninsula, Wusong Rd, Hongkou</p>
 </header>
+<div id="syncStatus" role="status">Connecting to shared trip…</div>
 <main class="wrap">
-
-<div class="sync-bar">
-  <span class="sync-dot"></span>
-  <span id="syncStatus">Syncing with Cloud Database...</span>
-</div>
-
 <input id="tab1" type="radio" name="daytab" checked>
 <input id="tab2" type="radio" name="daytab">
 <input id="tab3" type="radio" name="daytab">
@@ -139,7 +129,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <select id="tourDay"><option value="1">Day 1 (Nov 2)</option><option value="2">Day 2 (Nov 3)</option><option value="3">Day 3 (Nov 4)</option></select>
 <input id="tourTitle" type="text" placeholder="Location Name (e.g. Cafe/Bar)">
 <input id="tourNote" type="text" placeholder="Time / Transport / Notes">
-<button type="button" class="add-tour-btn" id="btnAddTour" onclick="addCustomTour()">＋ Add to Itinerary</button>
+<button type="button" class="add-tour-btn" id="btnAddTour">＋ Add to Itinerary</button>
 </div>
 </div>
 <div class="panels">
@@ -152,13 +142,13 @@ button:disabled{opacity:.6;cursor:not-allowed}
 </div>
 
 <button class="btn-full-guide" onclick="openModal('day1_details')">📖 VIEW FULL DAY 1 SCHEDULE & ALTERNATIVES</button>
-<div id="day1-custom-container"></div>
+<div id="day1-custom-container" aria-live="polite"></div>
 
 <div class="timeline-item">
   <div class="time-col">12:00 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh1.jpg');">
     <div class="row">
-      <input class="check" id="check_yugarden" type="checkbox" onchange="syncCheckbox('check_yugarden')">
+      <input class="check" id="chk_sh_yugarden" type="checkbox">
       <img src="images/sh1.jpg" onerror="this.onerror=null; this.src='images/sh1.jpeg';" alt="Yu Garden" class="card-thumb" onclick="openModal('yugarden')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('yugarden')">Yu Garden & Yuyuan Old Street (豫园) 🖼️</a>
@@ -177,7 +167,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">1:45 PM</div>
   <div class="card" style="padding: 12px 16px; background: #f8fafc; border-left: 4px solid var(--accent);">
     <div class="row">
-      <input class="check" id="check_lunch1" type="checkbox" onchange="syncCheckbox('check_lunch1')">
+      <input class="check" id="chk_sh_lunch1" type="checkbox">
       <div style="flex:1; padding-left: 4px;">
         <strong style="color: var(--text); font-size: 16px;">Lunch 🍱</strong>
         <div class="meta" style="margin-bottom:0;">Yuyuan Old Street & Bazaar — Eat Xiaolongbao (soup dumplings) at Nanxiang Steamed Bun Shop or local food stalls.</div>
@@ -190,7 +180,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">3:15 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh2.jpg');">
     <div class="row">
-      <input class="check" id="check_nanjing" type="checkbox" onchange="syncCheckbox('check_nanjing')">
+      <input class="check" id="chk_sh_nanjing" type="checkbox">
       <img src="images/sh2.jpg" onerror="this.onerror=null; this.src='images/sh2.jpeg';" alt="East Nanjing Road" class="card-thumb" onclick="openModal('nanjing')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('nanjing')">East Nanjing Road Pedestrian Street (南京东路) 🖼️</a>
@@ -208,7 +198,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">4:00 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh3.jpg');">
     <div class="row">
-      <input class="check" id="check_bund_day" type="checkbox" onchange="syncCheckbox('check_bund_day')">
+      <input class="check" id="chk_sh_bund_day" type="checkbox">
       <img src="images/sh3.jpg" onerror="this.onerror=null; this.src='images/sh3.jpeg';" alt="The Bund" class="card-thumb" onclick="openModal('bund_day')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('bund_day')">The Bund (Daytime Waterfront) & Public Ferry 🖼️</a>
@@ -226,7 +216,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">5:30 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh4.jpg');">
     <div class="row">
-      <input class="check" id="check_tower" type="checkbox" onchange="syncCheckbox('check_tower')">
+      <input class="check" id="chk_sh_tower" type="checkbox">
       <img src="images/sh4.jpg" onerror="this.onerror=null; this.src='images/sh4.jpeg';" alt="Shanghai Tower" class="card-thumb" onclick="openModal('tower')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('tower')">Shanghai Tower & Pudong Skyline (上海中心大厦) 🖼️</a>
@@ -244,7 +234,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">8:00 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh5.jpg');">
     <div class="row">
-      <input class="check" id="check_bund_night" type="checkbox" onchange="syncCheckbox('check_bund_night')">
+      <input class="check" id="chk_sh_bund_night" type="checkbox">
       <img src="images/sh5.jpg" onerror="this.onerror=null; this.src='images/sh5.jpeg';" alt="The Bund at Night" class="card-thumb" onclick="openModal('bund_night')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('bund_night')">The Bund at Night (外滩夜景) 🖼️</a>
@@ -275,13 +265,13 @@ button:disabled{opacity:.6;cursor:not-allowed}
 </div>
 
 <button class="btn-full-guide" onclick="openModal('day2_details')">📖 VIEW FULL DAY 2 SCHEDULE & ALTERNATIVES</button>
-<div id="day2-custom-container"></div>
+<div id="day2-custom-container" aria-live="polite"></div>
 
 <div class="timeline-item">
   <div class="time-col">9:00 AM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh6.jpg');">
     <div class="row">
-      <input class="check" id="check_jadetemple" type="checkbox" onchange="syncCheckbox('check_jadetemple')">
+      <input class="check" id="chk_sh_jadetemple" type="checkbox">
       <img src="images/sh6.jpg" onerror="this.onerror=null; this.src='images/sh6.jpeg';" alt="Jade Buddha Temple" class="card-thumb" onclick="openModal('jadetemple')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('jadetemple')">Jade Buddha Temple (玉佛禅寺) 🖼️</a>
@@ -299,7 +289,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">10:15 AM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh7.jpg');">
     <div class="row">
-      <input class="check" id="check_trees" type="checkbox" onchange="syncCheckbox('check_trees')">
+      <input class="check" id="chk_sh_trees" type="checkbox">
       <img src="images/sh7.jpg" onerror="this.onerror=null; this.src='images/sh7.jpeg';" alt="Tian An 1000 Trees" class="card-thumb" onclick="openModal('trees')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('trees')">Tian An 1,000 Trees (天安千树) 🖼️</a>
@@ -318,7 +308,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">11:30 AM</div>
   <div class="card" style="padding: 12px 16px; background: #f8fafc; border-left: 4px solid var(--accent);">
     <div class="row">
-      <input class="check" id="check_lunch2" type="checkbox" onchange="syncCheckbox('check_lunch2')">
+      <input class="check" id="chk_sh_lunch2" type="checkbox">
       <div style="flex:1; padding-left: 4px;">
         <strong style="color: var(--text); font-size: 16px;">Lunch 🍱</strong>
         <div class="meta" style="margin-bottom:0;">Tian An 1000 Trees Complex — Relaxed lunch break at one of the riverside cafes, bistros, or food court options overlooking Suzhou Creek.</div>
@@ -331,7 +321,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">1:15 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh8.jpg');">
     <div class="row">
-      <input class="check" id="check_wukang" type="checkbox" onchange="syncCheckbox('check_wukang')">
+      <input class="check" id="chk_sh_wukang" type="checkbox">
       <img src="images/sh8.jpg" onerror="this.onerror=null; this.src='images/sh8.jpeg';" alt="Wukang Mansion" class="card-thumb" onclick="openModal('wukang')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('wukang')">Wukang Mansion, Wukang Rd & Anfu Rd (武康大楼 / 安福路) 🖼️</a>
@@ -349,7 +339,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">3:30 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh9.jpg');">
     <div class="row">
-      <input class="check" id="check_evening2" type="checkbox" onchange="syncCheckbox('check_evening2')">
+      <input class="check" id="chk_sh_evening2" type="checkbox">
       <img src="images/sh9.jpg" onerror="this.onerror=null; this.src='images/sh9.jpeg';" alt="Xintiandi / Tianzifang" class="card-thumb" onclick="openModal('evening2')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('evening2')">Evening Hub: Xintiandi OR Tianzifang (新天地 / 田子坊) 🖼️</a>
@@ -380,13 +370,13 @@ button:disabled{opacity:.6;cursor:not-allowed}
 </div>
 
 <button class="btn-full-guide" onclick="openModal('day3_details')">📖 VIEW FULL DAY 3 SCHEDULE & ALTERNATIVES</button>
-<div id="day3-custom-container"></div>
+<div id="day3-custom-container" aria-live="polite"></div>
 
 <div class="timeline-item">
   <div class="time-col">8:00 AM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh10.jpg');">
     <div class="row">
-      <input class="check" id="check_zhujiajiao" type="checkbox" onchange="syncCheckbox('check_zhujiajiao')">
+      <input class="check" id="chk_sh_zhujiajiao" type="checkbox">
       <img src="images/sh10.jpg" onerror="this.onerror=null; this.src='images/sh10.jpeg';" alt="Zhujiajiao Water Town" class="card-thumb" onclick="openModal('zhujiajiao')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('zhujiajiao')">Zhujiajiao Ancient Water Town (朱家角古镇) 🖼️</a>
@@ -405,7 +395,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">12:30 PM</div>
   <div class="card" style="padding: 12px 16px; background: #f8fafc; border-left: 4px solid var(--accent);">
     <div class="row">
-      <input class="check" id="check_lunch3" type="checkbox" onchange="syncCheckbox('check_lunch3')">
+      <input class="check" id="chk_sh_lunch3" type="checkbox">
       <div style="flex:1; padding-left: 4px;">
         <strong style="color: var(--text); font-size: 16px;">Lunch 🍱</strong>
         <div class="meta" style="margin-bottom:0;">Zhujiajiao Old Town — Sit down at a canal-side restaurant for braised pork belly, fresh river fish, and zongzi (sticky rice in bamboo leaves).</div>
@@ -418,7 +408,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">3:00 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh11.jpg');">
     <div class="row">
-      <input class="check" id="check_millfun" type="checkbox" onchange="syncCheckbox('check_millfun')">
+      <input class="check" id="chk_sh_millfun" type="checkbox">
       <img src="images/sh11.jpg" onerror="this.onerror=null; this.src='images/sh11.jpeg';" alt="1933 Old Millfun" class="card-thumb" onclick="openModal('millfun')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('millfun')">1933 Old Millfun [Optional Bonus] (1933老场坊) 🖼️</a>
@@ -436,7 +426,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">4:30 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh12.jpg');">
     <div class="row">
-      <input class="check" id="check_northbund" type="checkbox" onchange="syncCheckbox('check_northbund')">
+      <input class="check" id="chk_sh_northbund" type="checkbox">
       <img src="images/sh12.jpg" onerror="this.onerror=null; this.src='images/sh12.jpeg';" alt="North Bund Waterfront" class="card-thumb" onclick="openModal('northbund')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('northbund')">North Bund Promenade & Sunset (北外滩) 🖼️</a>
@@ -463,20 +453,20 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <!-- Expense Tracker -->
 <div class="expenses">
-<h3>💰 Shanghai Trip Expense Tracker</h3>
+<h3>💰 Expense Tracker</h3>
 <div class="small" style="margin-bottom:12px">Track daily spending in CNY (¥).</div>
 <div style="display:flex;flex-wrap:wrap;gap:10px;">
 <input id="expenseName" type="text" placeholder="e.g. Ferry / Soup Dumplings" style="flex:1;min-width:160px;padding:12px;border:1px solid var(--border);border-radius:8px;font-family:inherit">
-<input id="expenseAmount" type="number" min="0" step="0.01" placeholder="Amount ¥" style="width:110px;padding:12px;border:1px solid var(--border);border-radius:8px;font-family:inherit">
-<select id="expenseDay" style="width:120px;padding:12px;border:1px solid var(--border);border-radius:8px;font-family:inherit"><option>Day 1 (Nov 2)</option><option>Day 2 (Nov 3)</option><option>Day 3 (Nov 4)</option></select>
+<input id="expenseAmount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Amount ¥" style="width:110px;padding:12px;border:1px solid var(--border);border-radius:8px;font-family:inherit">
+<select id="expenseDay" style="width:120px;padding:12px;border:1px solid var(--border);border-radius:8px;font-family:inherit"><option>Day 1</option><option>Day 2</option><option>Day 3</option></select>
 </div>
-<button type="button" class="action-btn csv-btn" onclick="addExpense()" style="display:block;margin-top:12px;width:100%">＋ ADD EXPENSE</button>
+<button type="button" class="action-btn csv-btn" id="btnAddExpense" style="display:block;margin-top:12px;width:100%">＋ ADD EXPENSE</button>
 <div id="expenseError" style="color:#ef4444;font-size:13px;margin-top:8px;min-height:18px"></div>
 <div id="expenseList"></div>
 <div class="total">TOTAL: ¥<span id="total">0.00</span></div>
 <div class="btn-group">
-<button type="button" class="action-btn csv-btn" onclick="exportExpensesCSV()">📊 Export to CSV</button>
-<button type="button" class="action-btn clear-btn" onclick="clearExpenses()">Clear All</button>
+<button type="button" class="action-btn csv-btn" id="btnExportCSV" onclick="exportExpensesCSV(); return false;">📊 Export to CSV</button>
+<button type="button" class="action-btn clear-btn" id="btnClearExpense" onclick="clearExpenses(); return false;">Clear All</button>
 </div>
 </div>
 <footer>Designed for MSG Topbund Apartment Hotel Base · 205 Wusong Rd, Hongkou</footer>
@@ -563,75 +553,123 @@ button:disabled{opacity:.6;cursor:not-allowed}
 </div></div>
 
 <!-- PLACE SPECIFIC MODALS -->
-<div id="modal_yugarden" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('yugarden')">✕ Close</button><img src="images/sh1.jpg" onerror="this.onerror=null; this.src='images/sh1.jpeg';" alt="Yu Garden" class="modal-img"><h2>Yu Garden & Old Street</h2><div class="modal-logistics"><span>💰 ~¥40</span><span>🕒 2.5 hrs</span></div><p>Built during the Ming Dynasty (1559). Famous for Exquisite Jade Rock, pavilions, and crowded traditional markets surrounding the ponds.</p></div></div>
-<div id="modal_nanjing" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('nanjing')">✕ Close</button><img src="images/sh2.jpg" onerror="this.onerror=null; this.src='images/sh2.jpeg';" alt="East Nanjing Road" class="modal-img"><h2>East Nanjing Road</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 45 mins</span></div><p>Shanghai's main pedestrian commercial street leading directly from People's Square to The Bund.</p></div></div>
-<div id="modal_bund_day" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('bund_day')">✕ Close</button><img src="images/sh3.jpg" onerror="this.onerror=null; this.src='images/sh3.jpeg';" alt="The Bund" class="modal-img"><h2>The Bund & Commuter Ferry</h2><div class="modal-logistics"><span>💰 ¥2 Ferry</span><span>🕒 1 hr</span></div><p>52 European colonial buildings facing the Huangpu River. Take the 2 RMB public ferry from Jinling East Pier across to Pudong.</p></div></div>
-<div id="modal_tower" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('tower')">✕ Close</button><img src="images/sh4.jpg" onerror="this.onerror=null; this.src='images/sh4.jpeg';" alt="Shanghai Tower" class="modal-img"><h2>Shanghai Tower</h2><div class="modal-logistics"><span>💰 ~¥180</span><span>🕒 2 hrs</span></div><p>632-meter skyscraper with the world's fastest elevators taking you to the 118th floor observation deck.</p></div></div>
-<div id="modal_bund_night" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('bund_night')">✕ Close</button><img src="images/sh5.jpg" onerror="this.onerror=null; this.src='images/sh5.jpeg';" alt="The Bund at Night" class="modal-img"><h2>The Bund at Night</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 1 hr</span></div><p>Lights usually stay on until 10:00 PM. Offers breathtaking contrast between 1920s architecture and futuristic Lujiazui.</p></div></div>
-<div id="modal_jadetemple" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('jadetemple')">✕ Close</button><img src="images/sh6.jpg" onerror="this.onerror=null; this.src='images/sh6.jpeg';" alt="Jade Buddha Temple" class="modal-img"><h2>Jade Buddha Temple</h2><div class="modal-logistics"><span>💰 ~¥20</span><span>🕒 1 hr</span></div><p>Active Chan Buddhist temple known for its two seated and reclining Burmese white jade Buddha statues.</p></div></div>
-<div id="modal_trees" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('trees')">✕ Close</button><img src="images/sh7.jpg" onerror="this.onerror=null; this.src='images/sh7.jpeg';" alt="Tian An 1,000 Trees" class="modal-img"><h2>Tian An 1,000 Trees</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 1.25 hrs</span></div><p>Designed by Thomas Heatherwick, inspired by China's Yellow Mountain, featuring terraced concrete pillars containing real trees.</p></div></div>
-<div id="modal_wukang" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('wukang')">✕ Close</button><img src="images/sh8.jpg" onerror="this.onerror=null; this.src='images/sh8.jpeg';" alt="Wukang Mansion" class="modal-img"><h2>Wukang Mansion & Anfu Road</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 2 hrs</span></div><p>Designed by Laszlo Hudec in 1924. Heart of the Former French Concession, packed with trendy coffee shops and boutiques.</p></div></div>
-<div id="modal_evening2" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('evening2')">✕ Close</button><img src="images/sh9.jpg" onerror="this.onerror=null; this.src='images/sh9.jpeg';" alt="Xintiandi / Tianzifang" class="modal-img"><h2>Xintiandi / Tianzifang</h2><div class="modal-logistics"><span>💰 Free Area</span><span>🕒 Evening</span></div><p>Xintiandi offers upscale pedestrian dining in shikumen courtyards; Tianzifang offers narrow, artsy shopping lanes.</p></div></div>
-<div id="modal_zhujiajiao" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('zhujiajiao')">✕ Close</button><img src="images/sh10.jpg" onerror="this.onerror=null; this.src='images/sh10.jpeg';" alt="Zhujiajiao Water Town" class="modal-img"><h2>Zhujiajiao Water Town</h2><div class="modal-logistics"><span>💰 Free Area</span><span>🕒 4.5 hrs</span></div><p>400-year-old water village on the outskirts of Shanghai featuring 36 stone bridges, waterways, and ancient Ming/Qing houses.</p></div></div>
-<div id="modal_millfun" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('millfun')">✕ Close</button><img src="images/sh11.jpg" onerror="this.onerror=null; this.src='images/sh11.jpeg';" alt="1933 Old Millfun" class="modal-img"><h2>1933 Old Millfun</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 1 hr</span></div><p>Former municipal abattoir built in 1933 with Art Deco geometric concrete bridges, spiral staircases, and lattice windows.</p></div></div>
-<div id="modal_northbund" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('northbund')">✕ Close</button><img src="images/sh12.jpg" onerror="this.onerror=null; this.src='images/sh12.jpeg';" alt="North Bund Waterfront" class="modal-img"><h2>North Bund Waterfront</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 Evening</span></div><p>Quiet, modern promenade in Hongkou District with direct views of the Oriental Pearl and Shanghai Tower across the river.</p></div></div>
+<div id="modal_yugarden" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('yugarden')">✕ Close</button><img src="images/sh1.jpg" onerror="this.onerror=null; this.src='images/sh1.jpeg';" alt="Yu Garden" class="modal-img"><h2>Yu Garden & Old Street</h2><div class="modal-logistics"><span>💰 ~¥40</span><span>🕒 2.5 hrs</span></div><p>Built during the Ming Dynasty (1559). Famous for Exquisite Jade Rock, pavilions, and crowded traditional markets surrounding the ponds.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_yugarden" class="modal-notes-area" oninput="saveNote('yugarden')"></textarea>
+</div></div>
+<div id="modal_nanjing" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('nanjing')">✕ Close</button><img src="images/sh2.jpg" onerror="this.onerror=null; this.src='images/sh2.jpeg';" alt="East Nanjing Road" class="modal-img"><h2>East Nanjing Road</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 45 mins</span></div><p>Shanghai's main pedestrian commercial street leading directly from People's Square to The Bund.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_nanjing" class="modal-notes-area" oninput="saveNote('nanjing')"></textarea>
+</div></div>
+<div id="modal_bund_day" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('bund_day')">✕ Close</button><img src="images/sh3.jpg" onerror="this.onerror=null; this.src='images/sh3.jpeg';" alt="The Bund" class="modal-img"><h2>The Bund & Commuter Ferry</h2><div class="modal-logistics"><span>💰 ¥2 Ferry</span><span>🕒 1 hr</span></div><p>52 European colonial buildings facing the Huangpu River. Take the 2 RMB public ferry from Jinling East Pier across to Pudong.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_bund_day" class="modal-notes-area" oninput="saveNote('bund_day')"></textarea>
+</div></div>
+<div id="modal_tower" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('tower')">✕ Close</button><img src="images/sh4.jpg" onerror="this.onerror=null; this.src='images/sh4.jpeg';" alt="Shanghai Tower" class="modal-img"><h2>Shanghai Tower</h2><div class="modal-logistics"><span>💰 ~¥180</span><span>🕒 2 hrs</span></div><p>632-meter skyscraper with the world's fastest elevators taking you to the 118th floor observation deck.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_tower" class="modal-notes-area" oninput="saveNote('tower')"></textarea>
+</div></div>
+<div id="modal_bund_night" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('bund_night')">✕ Close</button><img src="images/sh5.jpg" onerror="this.onerror=null; this.src='images/sh5.jpeg';" alt="The Bund at Night" class="modal-img"><h2>The Bund at Night</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 1 hr</span></div><p>Lights usually stay on until 10:00 PM. Offers breathtaking contrast between 1920s architecture and futuristic Lujiazui.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_bund_night" class="modal-notes-area" oninput="saveNote('bund_night')"></textarea>
+</div></div>
+<div id="modal_jadetemple" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('jadetemple')">✕ Close</button><img src="images/sh6.jpg" onerror="this.onerror=null; this.src='images/sh6.jpeg';" alt="Jade Buddha Temple" class="modal-img"><h2>Jade Buddha Temple</h2><div class="modal-logistics"><span>💰 ~¥20</span><span>🕒 1 hr</span></div><p>Active Chan Buddhist temple known for its two seated and reclining Burmese white jade Buddha statues.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_jadetemple" class="modal-notes-area" oninput="saveNote('jadetemple')"></textarea>
+</div></div>
+<div id="modal_trees" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('trees')">✕ Close</button><img src="images/sh7.jpg" onerror="this.onerror=null; this.src='images/sh7.jpeg';" alt="Tian An 1,000 Trees" class="modal-img"><h2>Tian An 1,000 Trees</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 1.25 hrs</span></div><p>Designed by Thomas Heatherwick, inspired by China's Yellow Mountain, featuring terraced concrete pillars containing real trees.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_trees" class="modal-notes-area" oninput="saveNote('trees')"></textarea>
+</div></div>
+<div id="modal_wukang" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('wukang')">✕ Close</button><img src="images/sh8.jpg" onerror="this.onerror=null; this.src='images/sh8.jpeg';" alt="Wukang Mansion" class="modal-img"><h2>Wukang Mansion & Anfu Road</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 2 hrs</span></div><p>Designed by Laszlo Hudec in 1924. Heart of the Former French Concession, packed with trendy coffee shops and boutiques.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_wukang" class="modal-notes-area" oninput="saveNote('wukang')"></textarea>
+</div></div>
+<div id="modal_evening2" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('evening2')">✕ Close</button><img src="images/sh9.jpg" onerror="this.onerror=null; this.src='images/sh9.jpeg';" alt="Xintiandi / Tianzifang" class="modal-img"><h2>Xintiandi / Tianzifang</h2><div class="modal-logistics"><span>💰 Free Area</span><span>🕒 Evening</span></div><p>Xintiandi offers upscale pedestrian dining in shikumen courtyards; Tianzifang offers narrow, artsy shopping lanes.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_evening2" class="modal-notes-area" oninput="saveNote('evening2')"></textarea>
+</div></div>
+<div id="modal_zhujiajiao" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('zhujiajiao')">✕ Close</button><img src="images/sh10.jpg" onerror="this.onerror=null; this.src='images/sh10.jpeg';" alt="Zhujiajiao Water Town" class="modal-img"><h2>Zhujiajiao Water Town</h2><div class="modal-logistics"><span>💰 Free Area</span><span>🕒 4.5 hrs</span></div><p>400-year-old water village on the outskirts of Shanghai featuring 36 stone bridges, waterways, and ancient Ming/Qing houses.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_zhujiajiao" class="modal-notes-area" oninput="saveNote('zhujiajiao')"></textarea>
+</div></div>
+<div id="modal_millfun" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('millfun')">✕ Close</button><img src="images/sh11.jpg" onerror="this.onerror=null; this.src='images/sh11.jpeg';" alt="1933 Old Millfun" class="modal-img"><h2>1933 Old Millfun</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 1 hr</span></div><p>Former municipal abattoir built in 1933 with Art Deco geometric concrete bridges, spiral staircases, and lattice windows.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_millfun" class="modal-notes-area" oninput="saveNote('millfun')"></textarea>
+</div></div>
+<div id="modal_northbund" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('northbund')">✕ Close</button><img src="images/sh12.jpg" onerror="this.onerror=null; this.src='images/sh12.jpeg';" alt="North Bund Waterfront" class="modal-img"><h2>North Bund Waterfront</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 Evening</span></div><p>Quiet, modern promenade in Hongkou District with direct views of the Oriental Pearl and Shanghai Tower across the river.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_northbund" class="modal-notes-area" oninput="saveNote('northbund')"></textarea>
+</div></div>
 
+<!-- FIREBASE FIRESTORE SDK IMPLEMENTATION -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
-/* FIREBASE INITIALIZATION */
 const firebaseConfig = {
-  apiKey: "AIzaSyDemoConfigKeyForShanghaiApp2024",
-  authDomain: "china-trip-planner.firebaseapp.com",
-  databaseURL: "https://china-trip-planner-default-rtdb.firebaseio.com",
-  projectId: "china-trip-planner",
-  storageBucket: "china-trip-planner.appspot.com",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:shanghai123456"
+  apiKey: "AIzaSyDBxjJjKKfZ6rIJg-lb6vaOnSjl-_T3Egc",
+  authDomain: "guangzhou-trip.firebaseapp.com",
+  projectId: "guangzhou-trip",
+  storageBucket: "guangzhou-trip.firebasestorage.app",
+  messagingSenderId: "238744229877",
+  appId: "1:238744229877:web:3ab69ebe61117ae3b7f2bc"
 };
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-const auth = firebase.auth();
+let db = null;
+let sharedState = null;
+let sharedExpenses = null;
+let sharedCustomTours = null;
+let applyingRemote = false;
+let firebaseReady = false;
+let remoteCheckValues = new Map();
 
-let dbRef = null;
+function setSyncStatus(message, ok=false) {
+  const el = document.getElementById('syncStatus');
+  if (!el) return;
+  el.textContent = message;
+  el.style.background = ok ? '#ecfdf5' : '#fffbeb';
+  el.style.color = ok ? '#047857' : '#92400e';
+}
 
-// Anonymous Authentication & Realtime Listeners
-auth.signInAnonymously().catch(err => {
-  console.log("Local Mode Active");
-  document.getElementById('syncStatus').innerText = "Offline Mode (Saved Locally)";
-});
-
-auth.onAuthStateChanged(user => {
-  if (user) {
-    document.getElementById('syncStatus').innerText = "Cloud Sync Active";
-    dbRef = db.ref('shanghai_trip/' + user.uid);
-
-    // Sync Checkboxes
-    dbRef.child('checks').on('value', snapshot => {
-      const data = snapshot.val() || {};
-      Object.keys(data).forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.checked = data[id];
+function startSharedSync() {
+  try {
+    if (!window.firebase) throw new Error('Firebase SDK did not load.');
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    db = firebase.firestore();
+    firebase.auth().signInAnonymously().catch(err => {
+      console.error('Anonymous sign-in failed:', err);
+      setSyncStatus('Could not sign in. Check Authentication settings.');
+    });
+    firebase.auth().onAuthStateChanged(user => {
+      if (!user || firebaseReady) return;
+      firebaseReady = true;
+      const trip = db.collection('trips').doc('shanghai-trip');
+      sharedState = trip.collection('state');
+      sharedExpenses = trip.collection('expenses');
+      sharedCustomTours = trip.collection('customTours');
+      setSyncStatus('Connected — changes sync across phones.', true);
+      
+      sharedCustomTours.onSnapshot(snapshot => {
+        renderCustomTours(snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})));
+      });
+      sharedState.onSnapshot(snapshot => {
+        remoteCheckValues.clear();
+        snapshot.forEach(doc => {
+          if (doc.id.startsWith('check_')) remoteCheckValues.set(doc.id.slice(6), !!doc.data().value);
+        });
+        applyingRemote = true;
+        snapshot.forEach(doc => {
+          const d = doc.data();
+          if (doc.id.startsWith('note_')) {
+            const el = document.getElementById(doc.id);
+            if (el && el.value !== (d.value || '')) el.value = d.value || '';
+          } else if (doc.id.startsWith('check_')) {
+            const el = document.getElementById(doc.id.slice(6));
+            if (el) el.checked = !!d.value;
+          }
+        });
+        applyingRemote = false;
+      });
+      sharedExpenses.onSnapshot(snapshot => {
+        expenses = snapshot.docs.map(doc => {
+          const d = doc.data();
+          return {id: doc.id, name: d.name || '', amount: d.amount ?? 0, day: d.day || 'Day 1'};
+        });
+        renderExpenses();
       });
     });
-
-    // Sync Custom Stops
-    dbRef.child('customStops').on('value', snapshot => {
-      const stops = snapshot.val() || [];
-      renderCustomStopsFromCloud(stops);
-    });
-
-    // Sync Expenses
-    dbRef.child('expenses').on('value', snapshot => {
-      expenses = snapshot.val() || [];
-      renderExpensesUI();
-    });
-  }
-});
-
-function syncCheckbox(id) {
-  const el = document.getElementById(id);
-  if (el && dbRef) {
-    dbRef.child('checks/' + id).set(el.checked);
+  } catch (err) {
+    console.error('Firebase setup error:', err);
+    setSyncStatus('Could not connect.');
   }
 }
 
@@ -651,69 +689,94 @@ window.onclick = function(event) {
   }
 }
 
-let customStopsList = [];
+function renderCustomTours(tours){
+  [1, 2, 3].forEach(day => {
+    const container = document.getElementById(`day${day}-custom-container`);
+    if (container) container.replaceChildren();
+  });
+
+  tours.sort((a, b) => {
+    const aTime = a.createdAt && typeof a.createdAt.toMillis === 'function' ? a.createdAt.toMillis() : 0;
+    const bTime = b.createdAt && typeof b.createdAt.toMillis === 'function' ? b.createdAt.toMillis() : 0;
+    return aTime - bTime;
+  }).forEach(tour => {
+    const container = document.getElementById(`day${tour.day}-custom-container`);
+    if (!container) return;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'timeline-item';
+    
+    const timeMatch = (tour.note || '').match(/\b(?:[0-1]?[0-9]|2[0-3]):[0-5][0-9]\b/);
+    const timeBlock = document.createElement('div');
+    timeBlock.className = 'time-col';
+    timeBlock.textContent = timeMatch ? timeMatch[0] : '★';
+    
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.customTourId = tour.id;
+
+    const row = document.createElement('div');
+    row.className = 'row';
+
+    const checkbox = document.createElement('input');
+    checkbox.className = 'check';
+    checkbox.type = 'checkbox';
+    checkbox.id = `custom_check_${tour.id}`;
+    checkbox.checked = remoteCheckValues.get(checkbox.id) || false;
+    checkbox.addEventListener('change', () => {
+      if (applyingRemote || !sharedState || !firebaseReady) return;
+      sharedState.doc(`check_${checkbox.id}`).set({
+        value: checkbox.checked,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    });
+
+    const details = document.createElement('div');
+    details.style.flex = '1';
+    const heading = document.createElement('div');
+    heading.style.cssText = 'font-size:17px;font-weight:700;color:var(--text)';
+    heading.textContent = tour.title || 'Custom Stop';
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.textContent = tour.note || 'Custom added stop';
+    details.append(heading, meta);
+
+    const del = document.createElement('button');
+    del.type = 'button';
+    del.style.cssText = 'background:none;border:0;color:#ef4444;font-weight:bold;cursor:pointer;font-size:16px;padding:8px';
+    del.textContent = '✕';
+    del.addEventListener('click', () => {
+      if (!sharedCustomTours || !firebaseReady) return;
+      del.disabled = true;
+      sharedCustomTours.doc(tour.id).delete();
+    });
+
+    row.append(checkbox, details, del);
+    card.appendChild(row);
+    wrapper.append(timeBlock, card);
+    container.appendChild(wrapper);
+  });
+}
 
 function addCustomTour(){
   const day = document.getElementById('tourDay').value;
   const title = document.getElementById('tourTitle').value.trim();
   const note = document.getElementById('tourNote').value.trim();
   if(!title){ alert('Please enter a location name.'); return; }
+  if (!sharedCustomTours || !firebaseReady) { alert('Connecting...'); return; }
 
-  const newStop = { day, title, note, id: Date.now() };
-  customStopsList.push(newStop);
-
-  if (dbRef) {
-    dbRef.child('customStops').set(customStopsList);
-  } else {
-    renderCustomStopsFromCloud(customStopsList);
-  }
-
-  document.getElementById('tourTitle').value = '';
-  document.getElementById('tourNote').value = '';
-}
-
-function renderCustomStopsFromCloud(stops) {
-  customStopsList = stops;
-  [1, 2, 3].forEach(d => {
-    const c = document.getElementById(`day${d}-custom-container`);
-    if(c) c.innerHTML = '';
-  });
-
-  stops.forEach(item => {
-    const container = document.getElementById(`day${item.day}-custom-container`);
-    if(!container) return;
-
-    const div = document.createElement('div');
-    div.className = 'timeline-item';
-    div.innerHTML = `
-      <div class="time-col">★</div>
-      <div class="card">
-        <div class="row">
-          <input class="check" type="checkbox">
-          <div style="flex:1;">
-            <div class="place">${item.title}</div>
-            <div class="meta">${item.note || 'Custom added stop'}</div>
-          </div>
-          <button onclick="removeCustomStop(${item.id})" style="background:none;border:0;color:#ef4444;font-weight:bold;cursor:pointer;">✕</button>
-        </div>
-      </div>
-    `;
-    container.appendChild(div);
-  });
-}
-
-function removeCustomStop(id) {
-  customStopsList = customStopsList.filter(s => s.id !== id);
-  if (dbRef) {
-    dbRef.child('customStops').set(customStopsList);
-  } else {
-    renderCustomStopsFromCloud(customStopsList);
-  }
+  const button = document.getElementById('btnAddTour');
+  button.disabled = true;
+  sharedCustomTours.add({
+    day: Number(day), title, note, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(() => {
+    document.getElementById('tourTitle').value = '';
+    document.getElementById('tourNote').value = '';
+  }).finally(() => { button.disabled = false; });
 }
 
 let expenses = [];
-
-function renderExpensesUI(){
+function renderExpenses(){
   const list = document.getElementById('expenseList');
   list.innerHTML = '';
   let total = 0;
@@ -723,9 +786,17 @@ function renderExpensesUI(){
     div.className = 'exp';
     div.innerHTML = `
       <div><b>${exp.name}</b> <span class="small" style="margin-left:6px">${exp.day}</span></div>
-      <div style="font-weight:600">¥${Number(exp.amount).toFixed(2)} <button type="button" onclick="removeExpense(${index})" style="background:none;border:0;color:#ef4444;cursor:pointer;font-weight:bold;margin-left:12px">✕</button></div>
+      <div style="font-weight:600">¥${Number(exp.amount).toFixed(2)} <button type="button" class="del-exp" data-index="${index}" style="background:none;border:0;color:#ef4444;cursor:pointer;font-weight:bold;margin-left:12px;font-size:16px">✕</button></div>
     `;
     list.appendChild(div);
+  });
+  
+  list.querySelectorAll('.del-exp').forEach(btn => {
+    btn.addEventListener('click', function(){
+      const idx = Number(this.getAttribute('data-index'));
+      const exp = expenses[idx];
+      if (exp && sharedExpenses && exp.id) sharedExpenses.doc(exp.id).delete();
+    });
   });
   document.getElementById('total').innerText = total.toFixed(2);
 }
@@ -738,42 +809,23 @@ function addExpense(){
   
   if(!name || !amount || amount <= 0){ err.innerText = 'Please enter a valid expense name and amount.'; return; }
   err.innerText = '';
-  expenses.push({name, amount: Number(amount), day});
-  
-  if (dbRef) {
-    dbRef.child('expenses').set(expenses);
-  } else {
-    renderExpensesUI();
-  }
-
-  document.getElementById('expenseName').value = '';
-  document.getElementById('expenseAmount').value = '';
-}
-
-function removeExpense(idx){
-  expenses.splice(idx, 1);
-  if (dbRef) {
-    dbRef.child('expenses').set(expenses);
-  } else {
-    renderExpensesUI();
-  }
+  if (!sharedExpenses || !firebaseReady) { err.innerText = 'Connecting...'; return; }
+  sharedExpenses.add({name, amount: Number(amount), day, createdAt: firebase.firestore.FieldValue.serverTimestamp()}).then(() => {
+    document.getElementById('expenseName').value = '';
+    document.getElementById('expenseAmount').value = '';
+  });
 }
 
 function clearExpenses(){
-  if (confirm("Clear all tracked expenses?")) {
-    expenses = [];
-    if (dbRef) {
-      dbRef.child('expenses').set(expenses);
-    } else {
-      renderExpensesUI();
-    }
-  }
+  if (!confirm("Are you sure you want to clear all tracked expenses for everyone?")) return;
+  if (!sharedExpenses || !firebaseReady) return;
+  expenses.forEach(e => { if (e.id) sharedExpenses.doc(e.id).delete(); });
 }
 
 function exportExpensesCSV(){
   if (expenses.length === 0) { alert('No expenses to export.'); return; }
   let csv = 'Item,Amount (CNY),Day\r\n';
-  expenses.forEach(e => { csv += `"${e.name.replace(/"/g, '""')}","${e.amount}","${e.day}"\r\n`; });
+  expenses.forEach(e => { csv += `"${(e.name||'').replace(/"/g, '""')}","${e.amount}","${e.day}"\r\n`; });
   const blob = new Blob(['\ufeff', csv], {type: 'text/csv;charset=utf-8;'});
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
@@ -783,6 +835,27 @@ function exportExpensesCSV(){
   link.click();
   link.remove();
 }
+
+function saveNote(placeId){
+  const text = document.getElementById(`note_${placeId}`).value;
+  if (applyingRemote || !sharedState || !firebaseReady) return;
+  sharedState.doc(`note_${placeId}`).set({value:text, updatedAt:firebase.firestore.FieldValue.serverTimestamp()});
+}
+
+function initializePageButtons(){
+  renderExpenses();
+  document.querySelectorAll('.check[id]').forEach(box => {
+    box.addEventListener('change', () => {
+      if (applyingRemote || !sharedState || !firebaseReady) return;
+      sharedState.doc(`check_${box.id}`).set({value:box.checked, updatedAt:firebase.firestore.FieldValue.serverTimestamp()});
+    });
+  });
+  document.getElementById('btnAddTour').addEventListener('click', addCustomTour);
+  document.getElementById('btnAddExpense').addEventListener('click', addExpense);
+}
+
+startSharedSync();
+document.addEventListener('DOMContentLoaded', initializePageButtons);
 </script>
 </body>
 </html>
