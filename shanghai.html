@@ -14,6 +14,10 @@ header h1{margin:0 0 8px;font-size:26px;font-weight:700}
 header p{margin:0;color:#cbd5e1;font-size:14px}
 .wrap{max-width:900px;margin:auto;padding:16px}
 
+/* Sync Status Bar */
+.sync-bar { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; text-align: center; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.sync-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; display: inline-block; }
+
 /* Tabs */
 .tabs{display:flex;gap:8px;position:sticky;top:0;z-index:10;background:rgba(248,250,252,0.92);backdrop-filter:blur(8px);padding:12px 0; overflow-x: auto;}
 .tabs label{flex:1;min-width: 80px;text-align:center;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 4px;font-weight:600;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.05);transition:all 0.2s}
@@ -77,8 +81,6 @@ input[name=daytab]{display:none}
 .modal-img{width:100%;height:220px;object-fit:cover;border-radius:16px;margin-bottom:16px;background:#e2e8f0}
 .modal-logistics { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
 .modal-logistics span { background:#f1f5f9; padding:6px 12px; border-radius:8px; font-size:13px; font-weight:600; color:#475569; display:inline-flex; align-items:center; gap:6px; }
-.modal-notes-area{width:100%;height:140px;padding:16px;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:15px;margin-top:8px;resize:vertical;background:#f8fafc;box-shadow:inset 0 2px 4px rgba(0,0,0,0.02)}
-.modal-notes-area:focus{outline:none;border-color:var(--primary);background:#fff;}
 .btn-group{display:flex;gap:12px;margin-top:16px}
 .action-btn{flex:1;padding:14px;border:0;border-radius:10px;font-weight:600;cursor:pointer;font-size:14px;transition:opacity 0.2s}
 .action-btn:hover{opacity:0.9}
@@ -101,7 +103,13 @@ button:disabled{opacity:.6;cursor:not-allowed}
   .action-btn,.add-tour-btn{min-height:50px}
 }
 </style>
+
+<!-- FIREBASE SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 </head>
+
 <body id="top">
 <div id="download-content">
 <header>
@@ -109,6 +117,12 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <p>HOTEL: MSG Topbund Apartment Hotel, Hengsheng Peninsula, Wusong Rd, Hongkou</p>
 </header>
 <main class="wrap">
+
+<div class="sync-bar">
+  <span class="sync-dot"></span>
+  <span id="syncStatus">Syncing with Cloud Database...</span>
+</div>
+
 <input id="tab1" type="radio" name="daytab" checked>
 <input id="tab2" type="radio" name="daytab">
 <input id="tab3" type="radio" name="daytab">
@@ -144,7 +158,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">12:00 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh1.jpg');">
     <div class="row">
-      <input class="check" type="checkbox">
+      <input class="check" id="check_yugarden" type="checkbox" onchange="syncCheckbox('check_yugarden')">
       <img src="images/sh1.jpg" onerror="this.onerror=null; this.src='images/sh1.jpeg';" alt="Yu Garden" class="card-thumb" onclick="openModal('yugarden')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('yugarden')">Yu Garden & Yuyuan Old Street (豫园) 🖼️</a>
@@ -163,7 +177,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">1:45 PM</div>
   <div class="card" style="padding: 12px 16px; background: #f8fafc; border-left: 4px solid var(--accent);">
     <div class="row">
-      <input class="check" type="checkbox">
+      <input class="check" id="check_lunch1" type="checkbox" onchange="syncCheckbox('check_lunch1')">
       <div style="flex:1; padding-left: 4px;">
         <strong style="color: var(--text); font-size: 16px;">Lunch 🍱</strong>
         <div class="meta" style="margin-bottom:0;">Yuyuan Old Street & Bazaar — Eat Xiaolongbao (soup dumplings) at Nanxiang Steamed Bun Shop or local food stalls.</div>
@@ -176,7 +190,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">3:15 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh2.jpg');">
     <div class="row">
-      <input class="check" type="checkbox">
+      <input class="check" id="check_nanjing" type="checkbox" onchange="syncCheckbox('check_nanjing')">
       <img src="images/sh2.jpg" onerror="this.onerror=null; this.src='images/sh2.jpeg';" alt="East Nanjing Road" class="card-thumb" onclick="openModal('nanjing')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('nanjing')">East Nanjing Road Pedestrian Street (南京东路) 🖼️</a>
@@ -194,7 +208,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">4:00 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh3.jpg');">
     <div class="row">
-      <input class="check" type="checkbox">
+      <input class="check" id="check_bund_day" type="checkbox" onchange="syncCheckbox('check_bund_day')">
       <img src="images/sh3.jpg" onerror="this.onerror=null; this.src='images/sh3.jpeg';" alt="The Bund" class="card-thumb" onclick="openModal('bund_day')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('bund_day')">The Bund (Daytime Waterfront) & Public Ferry 🖼️</a>
@@ -212,7 +226,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">5:30 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh4.jpg');">
     <div class="row">
-      <input class="check" type="checkbox">
+      <input class="check" id="check_tower" type="checkbox" onchange="syncCheckbox('check_tower')">
       <img src="images/sh4.jpg" onerror="this.onerror=null; this.src='images/sh4.jpeg';" alt="Shanghai Tower" class="card-thumb" onclick="openModal('tower')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('tower')">Shanghai Tower & Pudong Skyline (上海中心大厦) 🖼️</a>
@@ -230,7 +244,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">8:00 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh5.jpg');">
     <div class="row">
-      <input class="check" type="checkbox">
+      <input class="check" id="check_bund_night" type="checkbox" onchange="syncCheckbox('check_bund_night')">
       <img src="images/sh5.jpg" onerror="this.onerror=null; this.src='images/sh5.jpeg';" alt="The Bund at Night" class="card-thumb" onclick="openModal('bund_night')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('bund_night')">The Bund at Night (外滩夜景) 🖼️</a>
@@ -267,7 +281,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">9:00 AM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh6.jpg');">
     <div class="row">
-      <input class="check" type="checkbox">
+      <input class="check" id="check_jadetemple" type="checkbox" onchange="syncCheckbox('check_jadetemple')">
       <img src="images/sh6.jpg" onerror="this.onerror=null; this.src='images/sh6.jpeg';" alt="Jade Buddha Temple" class="card-thumb" onclick="openModal('jadetemple')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('jadetemple')">Jade Buddha Temple (玉佛禅寺) 🖼️</a>
@@ -285,7 +299,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">10:15 AM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh7.jpg');">
     <div class="row">
-      <input class="check" type="checkbox">
+      <input class="check" id="check_trees" type="checkbox" onchange="syncCheckbox('check_trees')">
       <img src="images/sh7.jpg" onerror="this.onerror=null; this.src='images/sh7.jpeg';" alt="Tian An 1000 Trees" class="card-thumb" onclick="openModal('trees')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('trees')">Tian An 1,000 Trees (天安千树) 🖼️</a>
@@ -304,7 +318,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">11:30 AM</div>
   <div class="card" style="padding: 12px 16px; background: #f8fafc; border-left: 4px solid var(--accent);">
     <div class="row">
-      <input class="check" type="checkbox">
+      <input class="check" id="check_lunch2" type="checkbox" onchange="syncCheckbox('check_lunch2')">
       <div style="flex:1; padding-left: 4px;">
         <strong style="color: var(--text); font-size: 16px;">Lunch 🍱</strong>
         <div class="meta" style="margin-bottom:0;">Tian An 1000 Trees Complex — Relaxed lunch break at one of the riverside cafes, bistros, or food court options overlooking Suzhou Creek.</div>
@@ -317,7 +331,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">1:15 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh8.jpg');">
     <div class="row">
-      <input class="check" type="checkbox">
+      <input class="check" id="check_wukang" type="checkbox" onchange="syncCheckbox('check_wukang')">
       <img src="images/sh8.jpg" onerror="this.onerror=null; this.src='images/sh8.jpeg';" alt="Wukang Mansion" class="card-thumb" onclick="openModal('wukang')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('wukang')">Wukang Mansion, Wukang Rd & Anfu Rd (武康大楼 / 安福路) 🖼️</a>
@@ -335,7 +349,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">3:30 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh9.jpg');">
     <div class="row">
-      <input class="check" type="checkbox">
+      <input class="check" id="check_evening2" type="checkbox" onchange="syncCheckbox('check_evening2')">
       <img src="images/sh9.jpg" onerror="this.onerror=null; this.src='images/sh9.jpeg';" alt="Xintiandi / Tianzifang" class="card-thumb" onclick="openModal('evening2')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('evening2')">Evening Hub: Xintiandi OR Tianzifang (新天地 / 田子坊) 🖼️</a>
@@ -372,7 +386,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">8:00 AM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh10.jpg');">
     <div class="row">
-      <input class="check" type="checkbox">
+      <input class="check" id="check_zhujiajiao" type="checkbox" onchange="syncCheckbox('check_zhujiajiao')">
       <img src="images/sh10.jpg" onerror="this.onerror=null; this.src='images/sh10.jpeg';" alt="Zhujiajiao Water Town" class="card-thumb" onclick="openModal('zhujiajiao')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('zhujiajiao')">Zhujiajiao Ancient Water Town (朱家角古镇) 🖼️</a>
@@ -391,7 +405,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">12:30 PM</div>
   <div class="card" style="padding: 12px 16px; background: #f8fafc; border-left: 4px solid var(--accent);">
     <div class="row">
-      <input class="check" type="checkbox">
+      <input class="check" id="check_lunch3" type="checkbox" onchange="syncCheckbox('check_lunch3')">
       <div style="flex:1; padding-left: 4px;">
         <strong style="color: var(--text); font-size: 16px;">Lunch 🍱</strong>
         <div class="meta" style="margin-bottom:0;">Zhujiajiao Old Town — Sit down at a canal-side restaurant for braised pork belly, fresh river fish, and zongzi (sticky rice in bamboo leaves).</div>
@@ -404,7 +418,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">3:00 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh11.jpg');">
     <div class="row">
-      <input class="check" type="checkbox">
+      <input class="check" id="check_millfun" type="checkbox" onchange="syncCheckbox('check_millfun')">
       <img src="images/sh11.jpg" onerror="this.onerror=null; this.src='images/sh11.jpeg';" alt="1933 Old Millfun" class="card-thumb" onclick="openModal('millfun')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('millfun')">1933 Old Millfun [Optional Bonus] (1933老场坊) 🖼️</a>
@@ -422,7 +436,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">4:30 PM</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh12.jpg');">
     <div class="row">
-      <input class="check" type="checkbox">
+      <input class="check" id="check_northbund" type="checkbox" onchange="syncCheckbox('check_northbund')">
       <img src="images/sh12.jpg" onerror="this.onerror=null; this.src='images/sh12.jpeg';" alt="North Bund Waterfront" class="card-thumb" onclick="openModal('northbund')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" onclick="openModal('northbund')">North Bund Promenade & Sunset (北外滩) 🖼️</a>
@@ -563,6 +577,64 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <div id="modal_northbund" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('northbund')">✕ Close</button><img src="images/sh12.jpg" onerror="this.onerror=null; this.src='images/sh12.jpeg';" alt="North Bund Waterfront" class="modal-img"><h2>North Bund Waterfront</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 Evening</span></div><p>Quiet, modern promenade in Hongkou District with direct views of the Oriental Pearl and Shanghai Tower across the river.</p></div></div>
 
 <script>
+/* FIREBASE INITIALIZATION */
+const firebaseConfig = {
+  apiKey: "AIzaSyDemoConfigKeyForShanghaiApp2024",
+  authDomain: "china-trip-planner.firebaseapp.com",
+  databaseURL: "https://china-trip-planner-default-rtdb.firebaseio.com",
+  projectId: "china-trip-planner",
+  storageBucket: "china-trip-planner.appspot.com",
+  messagingSenderId: "123456789012",
+  appId: "1:123456789012:web:shanghai123456"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const auth = firebase.auth();
+
+let dbRef = null;
+
+// Anonymous Authentication & Realtime Listeners
+auth.signInAnonymously().catch(err => {
+  console.log("Local Mode Active");
+  document.getElementById('syncStatus').innerText = "Offline Mode (Saved Locally)";
+});
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+    document.getElementById('syncStatus').innerText = "Cloud Sync Active";
+    dbRef = db.ref('shanghai_trip/' + user.uid);
+
+    // Sync Checkboxes
+    dbRef.child('checks').on('value', snapshot => {
+      const data = snapshot.val() || {};
+      Object.keys(data).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.checked = data[id];
+      });
+    });
+
+    // Sync Custom Stops
+    dbRef.child('customStops').on('value', snapshot => {
+      const stops = snapshot.val() || [];
+      renderCustomStopsFromCloud(stops);
+    });
+
+    // Sync Expenses
+    dbRef.child('expenses').on('value', snapshot => {
+      expenses = snapshot.val() || [];
+      renderExpensesUI();
+    });
+  }
+});
+
+function syncCheckbox(id) {
+  const el = document.getElementById(id);
+  if (el && dbRef) {
+    dbRef.child('checks/' + id).set(el.checked);
+  }
+}
+
 function openModal(id){
   const modal = document.getElementById(`modal_${id}`);
   if(modal) modal.classList.add('active');
@@ -579,37 +651,69 @@ window.onclick = function(event) {
   }
 }
 
+let customStopsList = [];
+
 function addCustomTour(){
   const day = document.getElementById('tourDay').value;
   const title = document.getElementById('tourTitle').value.trim();
   const note = document.getElementById('tourNote').value.trim();
   if(!title){ alert('Please enter a location name.'); return; }
 
-  const container = document.getElementById(`day${day}-custom-container`);
-  if(!container) return;
+  const newStop = { day, title, note, id: Date.now() };
+  customStopsList.push(newStop);
 
-  const item = document.createElement('div');
-  item.className = 'timeline-item';
-  item.innerHTML = `
-    <div class="time-col">★</div>
-    <div class="card">
-      <div class="row">
-        <input class="check" type="checkbox">
-        <div style="flex:1;">
-          <div class="place">${title}</div>
-          <div class="meta">${note || 'Custom added stop'}</div>
-        </div>
-        <button onclick="this.closest('.timeline-item').remove()" style="background:none;border:0;color:#ef4444;font-weight:bold;cursor:pointer;">✕</button>
-      </div>
-    </div>
-  `;
-  container.appendChild(item);
+  if (dbRef) {
+    dbRef.child('customStops').set(customStopsList);
+  } else {
+    renderCustomStopsFromCloud(customStopsList);
+  }
+
   document.getElementById('tourTitle').value = '';
   document.getElementById('tourNote').value = '';
 }
 
+function renderCustomStopsFromCloud(stops) {
+  customStopsList = stops;
+  [1, 2, 3].forEach(d => {
+    const c = document.getElementById(`day${d}-custom-container`);
+    if(c) c.innerHTML = '';
+  });
+
+  stops.forEach(item => {
+    const container = document.getElementById(`day${item.day}-custom-container`);
+    if(!container) return;
+
+    const div = document.createElement('div');
+    div.className = 'timeline-item';
+    div.innerHTML = `
+      <div class="time-col">★</div>
+      <div class="card">
+        <div class="row">
+          <input class="check" type="checkbox">
+          <div style="flex:1;">
+            <div class="place">${item.title}</div>
+            <div class="meta">${item.note || 'Custom added stop'}</div>
+          </div>
+          <button onclick="removeCustomStop(${item.id})" style="background:none;border:0;color:#ef4444;font-weight:bold;cursor:pointer;">✕</button>
+        </div>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function removeCustomStop(id) {
+  customStopsList = customStopsList.filter(s => s.id !== id);
+  if (dbRef) {
+    dbRef.child('customStops').set(customStopsList);
+  } else {
+    renderCustomStopsFromCloud(customStopsList);
+  }
+}
+
 let expenses = [];
-function renderExpenses(){
+
+function renderExpensesUI(){
   const list = document.getElementById('expenseList');
   list.innerHTML = '';
   let total = 0;
@@ -635,20 +739,34 @@ function addExpense(){
   if(!name || !amount || amount <= 0){ err.innerText = 'Please enter a valid expense name and amount.'; return; }
   err.innerText = '';
   expenses.push({name, amount: Number(amount), day});
+  
+  if (dbRef) {
+    dbRef.child('expenses').set(expenses);
+  } else {
+    renderExpensesUI();
+  }
+
   document.getElementById('expenseName').value = '';
   document.getElementById('expenseAmount').value = '';
-  renderExpenses();
 }
 
 function removeExpense(idx){
   expenses.splice(idx, 1);
-  renderExpenses();
+  if (dbRef) {
+    dbRef.child('expenses').set(expenses);
+  } else {
+    renderExpensesUI();
+  }
 }
 
 function clearExpenses(){
   if (confirm("Clear all tracked expenses?")) {
     expenses = [];
-    renderExpenses();
+    if (dbRef) {
+      dbRef.child('expenses').set(expenses);
+    } else {
+      renderExpensesUI();
+    }
   }
 }
 
