@@ -419,9 +419,9 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyDBxjJjKKfZ6rIJg-lb6vaOnSjl-_T3Egc",
-  authDomain: "yiwu-trip.firebaseapp.com",
-  projectId: "yiwu-trip",
-  storageBucket: "yiwu-trip.firebasestorage.app",
+  authDomain: "guangzhou-trip.firebaseapp.com",
+  projectId: "guangzhou-trip",
+  storageBucket: "guangzhou-trip.firebasestorage.app",
   messagingSenderId: "238744229877",
   appId: "1:238744229877:web:3ab69ebe61117ae3b7f2bc"
 };
@@ -431,6 +431,7 @@ let sharedExpenses = null;
 let sharedCustomTours = null;
 let applyingRemote = false;
 let firebaseReady = false;
+let firebaseListenersStarted = false;
 let remoteCheckValues = new Map();
 
 function setSyncStatus(message, ok=false) {
@@ -455,12 +456,14 @@ function startSharedSync() {
         });
         return;
       }
-      if (firebaseReady) return;
+      if (firebaseListenersStarted) return;
+      firebaseListenersStarted = true;
 
       const trip = db.collection('trips').doc('yiwu-trip');
       sharedState = trip.collection('state');
       sharedExpenses = trip.collection('expenses');
       sharedCustomTours = trip.collection('customTours');
+      firebaseReady = true;
 
       sharedCustomTours.onSnapshot(snapshot => {
         renderCustomTours(snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})));
@@ -501,12 +504,14 @@ function startSharedSync() {
           return {id: doc.id, name: d.name || '', amount: d.amount ?? 0, day: d.day || 'Oct 30'};
         });
         renderExpenses();
-        firebaseReady = true;
         setSyncStatus('Connected — Yiwu changes sync across devices.', true);
       }, err => {
         console.error('Expense sync failed:', err);
         setSyncStatus('Expense sync failed. Check Firestore security rules.');
       });
+    }, err => {
+      console.error('Firebase authentication state error:', err);
+      setSyncStatus('Authentication failed. Check Firebase Authentication settings.');
     });
   } catch (err) {
     console.error('Firebase setup error:', err);
