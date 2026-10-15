@@ -18,17 +18,19 @@
 
     body {
       min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: #ffffff;
-      background: #182027;
+      background: #0f1419;
       position: relative;
       isolation: isolate;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 45px 20px;
+      padding: 30px 16px;
+      overflow-x: hidden;
     }
 
+    /* Dynamic Background with Ambient Pulse */
     body::before {
       content: "";
       position: fixed;
@@ -37,6 +39,13 @@
       background-image: url("https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=2000&q=85");
       background-size: cover;
       background-position: center;
+      filter: scale(1.05);
+      animation: bgSlowZoom 25s infinite alternate ease-in-out;
+    }
+
+    @keyframes bgSlowZoom {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.08); }
     }
 
     body::after {
@@ -44,60 +53,91 @@
       position: fixed;
       inset: 0;
       z-index: -1;
-      background: rgba(13, 19, 25, 0.76);
+      background: radial-gradient(circle at center, rgba(15, 20, 25, 0.72) 0%, rgba(10, 14, 18, 0.92) 100%);
     }
 
     .container {
       width: 100%;
-      max-width: 950px;
+      max-width: 840px;
       margin: auto;
       text-align: center;
+      animation: fadeInContainer 1s ease-out forwards;
+    }
+
+    @keyframes fadeInContainer {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .eyebrow {
-      font-size: 11px;
+      font-size: 10px;
       letter-spacing: 4px;
-      color: #d6c4a5;
-      margin-bottom: 17px;
-      font-weight: 600;
+      color: #e2c99b;
+      margin-bottom: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-shadow: 0 0 12px rgba(226, 201, 155, 0.4);
     }
 
     h1 {
-      font-size: clamp(42px, 7vw, 66px);
-      font-weight: 500;
-      letter-spacing: -1.5px;
-      margin-bottom: 16px;
+      font-size: clamp(38px, 6.5vw, 56px);
+      font-weight: 600;
+      letter-spacing: -1.2px;
+      margin-bottom: 10px;
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      drop-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
 
     .subtitle {
-      max-width: 490px;
-      margin: 0 auto 38px;
-      color: rgba(255, 255, 255, 0.82);
-      font-size: 15px;
-      line-height: 1.8;
+      max-width: 440px;
+      margin: 0 auto 32px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 14px;
+      line-height: 1.6;
+      font-weight: 300;
     }
 
     .cities {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
       width: 100%;
       margin: 0 auto;
       text-align: left;
     }
 
+    /* Interactive Card Base */
     .city-card {
       display: block;
       position: relative;
       min-width: 0;
-      height: 285px;
+      height: 230px;
       overflow: hidden;
-      border-radius: 12px;
+      border-radius: 14px;
       color: #ffffff;
       text-decoration: none;
-      background: #232a30;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22);
+      background: rgba(30, 38, 46, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      
+      /* Entry Animation Stagger */
+      opacity: 0;
+      animation: cardAppear 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    }
+
+    .city-card:nth-child(1) { animation-delay: 0.15s; }
+    .city-card:nth-child(2) { animation-delay: 0.25s; }
+    .city-card:nth-child(3) { animation-delay: 0.35s; }
+    .city-card:nth-child(4) { animation-delay: 0.45s; }
+
+    @keyframes cardAppear {
+      from { opacity: 0; transform: translateY(25px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .city-card img {
@@ -105,121 +145,207 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.45s ease;
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.6s ease;
+      filter: brightness(0.9) contrast(1.05);
     }
 
-    .city-card:hover img {
-      transform: scale(1.06);
-    }
-
+    /* Card Gradient Overlay */
     .city-card::after {
       content: "";
       position: absolute;
       inset: 0;
       background: linear-gradient(
         to top,
-        rgba(0, 0, 0, 0.88) 0%,
-        rgba(0, 0, 0, 0.28) 48%,
-        rgba(0, 0, 0, 0.04) 100%
+        rgba(10, 15, 20, 0.92) 0%,
+        rgba(10, 15, 20, 0.4) 50%,
+        rgba(0, 0, 0, 0) 100%
       );
+      transition: opacity 0.4s ease;
+    }
+
+    /* Glow Border Effect on Hover */
+    .city-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0.6;
+      transition: opacity 0.4s ease;
+    }
+
+    /* HOVER STATES */
+    .city-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    .city-card:hover img {
+      transform: scale(1.08);
+      filter: brightness(1) contrast(1.1);
+    }
+
+    .city-card:hover::before {
+      opacity: 1;
     }
 
     .city-info {
       position: absolute;
-      z-index: 1;
-      left: 18px;
-      right: 18px;
-      bottom: 20px;
+      z-index: 2;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      transform: translateY(0);
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
     .city-info h2 {
-      font-size: 24px;
-      font-weight: 500;
-      margin-bottom: 7px;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      letter-spacing: -0.3px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
     }
 
     .city-info p {
-      font-size: 12px;
-      line-height: 1.5;
+      font-size: 11px;
+      line-height: 1.45;
       color: rgba(255, 255, 255, 0.82);
-      margin-bottom: 15px;
+      margin-bottom: 12px;
+      font-weight: 300;
     }
 
+    /* Shimmer Button Effect */
     .view-btn {
-      display: inline-block;
-      padding: 9px 14px;
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      border-radius: 5px;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 6px;
       color: #ffffff;
-      font-size: 11px;
-      transition: background 0.2s ease, color 0.2s ease;
+      font-size: 10px;
+      font-weight: 500;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .view-btn::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 40%;
+      height: 200%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+      );
+      transform: rotate(30deg);
+      transition: left 0.6s ease;
     }
 
     .city-card:hover .view-btn {
       background: #ffffff;
-      color: #222222;
+      color: #0f1419;
+      border-color: #ffffff;
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.25);
     }
 
+    .city-card:hover .view-btn::after {
+      left: 130%;
+    }
+
+    /* Mobile Responsiveness */
     @media (max-width: 560px) {
       body {
-        padding: 38px 18px;
+        padding: 20px 12px;
       }
 
       .eyebrow {
-        font-size: 10px;
-        letter-spacing: 3px;
+        font-size: 9px;
+        letter-spacing: 2.5px;
       }
 
       h1 {
-        font-size: 45px;
+        font-size: 36px;
       }
 
       .subtitle {
-        font-size: 14px;
-        margin-bottom: 29px;
+        font-size: 12px;
+        margin-bottom: 22px;
       }
 
       .cities {
-        grid-template-columns: 1fr;
-        gap: 16px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
       }
 
       .city-card {
-        height: 230px;
-        border-radius: 9px;
+        height: 195px;
+        border-radius: 12px;
       }
 
       .city-info {
-        left: 14px;
-        right: 14px;
-        bottom: 14px;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
       }
 
       .city-info h2 {
-        font-size: 20px;
+        font-size: 17px;
       }
 
       .city-info p {
-        font-size: 11px;
-        margin-bottom: 11px;
+        font-size: 10px;
+        margin-bottom: 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
       .view-btn {
-        padding: 8px 10px;
-        font-size: 11px;
+        padding: 5px 9px;
+        font-size: 9px;
       }
     }
 
-    @media (max-width: 350px) {
+    @media (max-width: 360px) {
+      .cities {
+        grid-template-columns: 1fr;
+      }
+      
       .city-card {
-        height: 245px;
+        height: 180px;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
+      body::before,
+      .container,
+      .city-card,
       .city-card img,
-      .view-btn {
-        transition: none;
+      .view-btn,
+      .view-btn::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      
+      .city-card {
+        opacity: 1;
       }
     }
   </style>
@@ -238,22 +364,6 @@
 
     <section class="cities" aria-label="Choose a city">
 
-      <!-- Shanghai -->
-      <a class="city-card" href="shanghai_trip.html">
-        <img
-          src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=900&q=85"
-          alt="Shanghai skyline and The Bund"
-          loading="eager"
-          referrerpolicy="no-referrer"
-        >
-
-        <div class="city-info">
-          <h2>Shanghai</h2>
-          <p>Historic Bund, Lujiazui towers, water towns & French Concession.</p>
-          <span class="view-btn">View Itinerary →</span>
-        </div>
-      </a>
-
       <!-- Guangzhou -->
       <a class="city-card" href="guangzhou.html">
         <img
@@ -266,7 +376,7 @@
         <div class="city-info">
           <h2>Guangzhou</h2>
           <p>Discover historic attractions, food and culture.</p>
-          <span class="view-btn">View Itinerary →</span>
+          <span class="view-btn">View Itinerary &rarr;</span>
         </div>
       </a>
 
@@ -282,7 +392,7 @@
         <div class="city-info">
           <h2>Shenzhen</h2>
           <p>Explore modern landmarks and city highlights.</p>
-          <span class="view-btn">View Itinerary →</span>
+          <span class="view-btn">View Itinerary &rarr;</span>
         </div>
       </a>
 
@@ -297,8 +407,24 @@
 
         <div class="city-info">
           <h2>Yiwu</h2>
-          <p>Explore wholesale markets, night markets & ancient towns.</p>
-          <span class="view-btn">View Itinerary →</span>
+          <p>Explore wholesale markets & night markets.</p>
+          <span class="view-btn">View Itinerary &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Shanghai -->
+      <a class="city-card" href="shanghai_trip.html">
+        <img
+          src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=900&q=85"
+          alt="Shanghai skyline and The Bund"
+          loading="eager"
+          referrerpolicy="no-referrer"
+        >
+
+        <div class="city-info">
+          <h2>Shanghai</h2>
+          <p>Historic Bund, Lujiazui & French Concession.</p>
+          <span class="view-btn">View Itinerary &rarr;</span>
         </div>
       </a>
 
