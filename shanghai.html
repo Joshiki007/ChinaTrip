@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shanghai 3-Day Trip</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root { --primary: #0284c7; --primary-hover: #0369a1; --bg: #f8fafc; --card: #ffffff; --text: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --accent: #10b981; }
+*{box-sizing:border-box}
+body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+header{background:linear-gradient(rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.88)), url('images/sh1.jpg') center/cover no-repeat;color:white;padding:32px 16px;text-align:center;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1)}
+header h1{margin:0 0 8px;font-size:26px;font-weight:700} 
+header p{margin:0;color:#cbd5e1;font-size:14px}
+.wrap{max-width:900px;margin:auto;padding:16px}
+
+/* Tabs */
+.tabs{display:flex;gap:8px;position:sticky;top:0;z-index:10;background:rgba(248,250,252,0.92);backdrop-filter:blur(8px);padding:12px 0; overflow-x: auto;}
+.tabs label{flex:1;min-width: 80px;text-align:center;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 4px;font-weight:600;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.05);transition:all 0.2s}
+input[name=daytab]{display:none}
+.panel{display:none;animation:fadeIn 0.3s ease}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+#tab1:checked~.tabs label[for=tab1],#tab2:checked~.tabs label[for=tab2],#tab3:checked~.tabs label[for=tab3]{background:var(--primary);color:white;border-color:var(--primary)}
+#tab1:checked~.panels #day1,#tab2:checked~.panels #day2,#tab3:checked~.panels #day3{display:block}
+
+.dayhead{background:var(--card);border-radius:16px;padding:20px;margin:8px 0 20px;border:1px solid var(--border);box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);background-size:cover;background-position:center;}
+.dayhead h2{margin:0 0 8px;font-size:20px;color:var(--primary)}
+.route{color:var(--text-muted);font-size:14px}
+
+/* Timeline Layout & Quick Cards */
+.timeline-item { display: flex; gap: 16px; margin-bottom: 20px; align-items: stretch; }
+.time-col { width: 85px; flex-shrink: 0; text-align: right; font-weight: 700; color: var(--primary); padding-top: 16px; font-size: 14px; }
+.card { flex-grow: 1; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:0 2px 4px rgba(0,0,0,0.02); transition:transform 0.2s, box-shadow 0.2s; overflow:hidden; background-size:cover; background-position:center; position:relative; }
+.card:hover { transform: translateY(-2px); box-shadow:0 10px 15px -3px rgba(0,0,0,0.08); }
+
+.row{display:flex;gap:16px;align-items:flex-start;position:relative;z-index:1}
+.check{width:24px;height:24px;margin-top:2px;flex:none;cursor:pointer;accent-color:var(--primary)}
+.card-thumb{width:90px;height:75px;object-fit:cover;border-radius:10px;flex:none;border:1px solid var(--border)}
+.place{font-size:17px;font-weight:700;color:var(--text);text-decoration:none;cursor:pointer;display:block;margin-bottom:2px}
+.place:hover{color:var(--primary)}
+.alt-place{font-size:14px;font-weight:600;color:#475569;margin-bottom:6px;}
+.meta{font-size:14px;color:var(--text-muted);line-height:1.4;margin-bottom:8px;}
+.quick-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.badge{display:inline-flex;align-items:center;background:rgba(241, 245, 249, 0.92);border-radius:6px;padding:4px 8px;font-size:12px;font-weight:600;color:#475569;backdrop-filter:blur(4px);}
+
+.btn-full-guide { background: var(--primary); color: white; width: 100%; border: none; border-radius: 12px; padding: 16px; font-size: 16px; font-weight: 700; cursor: pointer; margin-bottom: 24px; box-shadow: 0 4px 6px rgba(2,132,199,0.2); transition: opacity 0.2s; }
+.btn-full-guide:hover { opacity: 0.9; }
+
+/* Lunch Recommendations */
+.lunch-recs { background: #f8fafc; border-radius: 12px; padding: 16px; margin: 24px 0 8px; border: 1px solid var(--border); }
+.lunch-recs h4 { margin: 0 0 10px; color: #1e293b; font-size: 15px; display:flex; align-items:center; gap:6px; }
+.lunch-recs ul { margin: 0; padding-left: 20px; font-size: 14px; color: #475569; }
+.lunch-recs li { margin-bottom: 6px; }
+
+/* Custom Tour Add Box */
+.add-tour-container{background:var(--card);border:2px dashed #cbd5e1;border-radius:16px;padding:20px;margin:20px 0}
+.add-tour-container h3{margin:0 0 12px;color:var(--text);font-size:16px}
+.add-tour-form{display:flex;flex-wrap:wrap;gap:10px}
+.add-tour-form input,.add-tour-form select{padding:12px;border:1px solid var(--border);border-radius:8px;font-size:14px;flex:1;min-width:140px;font-family:inherit}
+.add-tour-btn{background:var(--text);color:white;border:0;padding:12px 16px;border-radius:8px;font-weight:600;cursor:pointer;width:100%;transition:background 0.2s}
+.add-tour-btn:hover{background:#334155}
+
+/* Expense Tracker */
+.expenses{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-top:24px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05)}
+.expenses h3{margin-top:0;margin-bottom:4px}
+.exp{display:flex;justify-content:space-between;border-top:1px solid var(--border);padding:12px 0;font-size:14px}
+.total{font-size:24px;font-weight:700;margin:16px 0;color:var(--text)}
+.small{font-size:13px;color:var(--text-muted)}
+
+/* Modals */
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.8);backdrop-filter:blur(6px);display:none;z-index:9999;padding:16px;overflow:auto}
+.modal.active{display:flex;align-items:center;justify-content:center}
+.modalbox{background:var(--card);max-width:620px;width:100%;max-height:95vh;overflow:auto;border-radius:24px;padding:24px;position:relative;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25)}
+.close-btn{position:absolute;top:20px;right:20px;background:#f1f5f9;color:var(--text);padding:8px 14px;border-radius:8px;font-weight:600;border:0;cursor:pointer;z-index:10;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+.close-btn:hover{background:#e2e8f0}
+.modalbox h2{margin:8px 0 16px;font-size:24px;padding-right:80px;}
+.modal-img{width:100%;height:220px;object-fit:cover;border-radius:16px;margin-bottom:16px;background:#e2e8f0}
+.modal-logistics { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
+.modal-logistics span { background:#f1f5f9; padding:6px 12px; border-radius:8px; font-size:13px; font-weight:600; color:#475569; display:inline-flex; align-items:center; gap:6px; }
+.modal-notes-area{width:100%;height:140px;padding:16px;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:15px;margin-top:8px;resize:vertical;background:#f8fafc;box-shadow:inset 0 2px 4px rgba(0,0,0,0.02)}
+.modal-notes-area:focus{outline:none;border-color:var(--primary);background:#fff;}
+.btn-group{display:flex;gap:12px;margin-top:16px}
+.action-btn{flex:1;padding:14px;border:0;border-radius:10px;font-weight:600;cursor:pointer;font-size:14px;transition:opacity 0.2s}
+.action-btn:hover{opacity:0.9}
+.csv-btn{background:var(--accent);color:white}
+.clear-btn{background:#ef4444;color:white}
+
+.full-detail-text h3 { color: var(--primary); margin-top: 24px; margin-bottom: 8px; font-size: 18px; }
+.full-detail-text p { margin-top: 0; margin-bottom: 16px; color: #334155; }
+
+footer{text-align:center;color:var(--text-muted);font-size:13px;padding:32px 16px}
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button:disabled{opacity:.6;cursor:not-allowed}
+
+@media(max-width:600px){
+  .tabs label{font-size:13px;padding:10px 4px}
+  .btn-group{flex-direction:column}
+  .timeline-item { gap: 10px; }
+  .time-col { width: 65px; font-size: 12px; }
+  .card-thumb{width:70px;height:70px}
+  .action-btn,.add-tour-btn{min-height:50px}
+}
+</style>
+</head>
+<body id="top">
+<div id="download-content">
+<header>
+<h1>Shanghai — 3-Day Trip</h1>
+<p>HOTEL: MSG Topbund Apartment Hotel, Hengsheng Peninsula, Wusong Rd, Hongkou</p>
+</header>
+<main class="wrap">
+<input id="tab1" type="radio" name="daytab" checked>
+<input id="tab2" type="radio" name="daytab">
+<input id="tab3" type="radio" name="daytab">
+<div class="tabs">
+<label for="tab1">Day 1, Nov 2<br><span class="small" style="font-weight:normal;color:inherit">Historic & Skyline</span></label>
+<label for="tab2">Day 2, Nov 3<br><span class="small" style="font-weight:normal;color:inherit">Temples & Concession</span></label>
+<label for="tab3">Day 3, Nov 4<br><span class="small" style="font-weight:normal;color:inherit">Water Town & Local</span></label>
+</div>
+
+<!-- Add Custom Stop -->
+<div class="add-tour-container">
+<h3>➕ Add Custom Stop</h3>
+<div class="add-tour-form">
+<select id="tourDay"><option value="1">Day 1 (Nov 2)</option><option value="2">Day 2 (Nov 3)</option><option value="3">Day 3 (Nov 4)</option></select>
+<input id="tourTitle" type="text" placeholder="Location Name (e.g. Cafe/Bar)">
+<input id="tourNote" type="text" placeholder="Time / Transport / Notes">
+<button type="button" class="add-tour-btn" id="btnAddTour" onclick="addCustomTour()">＋ Add to Itinerary</button>
+</div>
+</div>
+<div class="panels">
+
+<!-- DAY 1 -->
+<section id="day1" class="panel">
+<div class="dayhead" style="background-image: linear-gradient(rgba(224, 242, 254, 0.90), rgba(224, 242, 254, 0.90)), url('images/sh1.jpg'); border-color:#bae6fd;">
+  <h2 style="color:#0284c7;">Day 1 (Nov 2) — Historic Core, Pudong Skyline & The Bund</h2>
+  <div class="route">Focus: Old City, Bund waterfront, 30-cent public ferry crossing, Lujiazui skyscrapers. Starts 12:00 PM.</div>
+</div>
+
+<button class="btn-full-guide" onclick="openModal('day1_details')">📖 VIEW FULL DAY 1 SCHEDULE & ALTERNATIVES</button>
+<div id="day1-custom-container"></div>
+
+<div class="timeline-item">
+  <div class="time-col">12:00 PM</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh1.jpg');">
+    <div class="row">
+      <input class="check" type="checkbox">
+      <img src="images/sh1.jpg" onerror="this.onerror=null; this.src='images/sh1.jpeg';" alt="Yu Garden" class="card-thumb" onclick="openModal('yugarden')" style="cursor:pointer;">
+      <div style="flex:1;">
+        <a class="place" onclick="openModal('yugarden')">Yu Garden & Yuyuan Old Street (豫园) 🖼️</a>
+        <div class="alt-place">Alt: Fuyou Market / Old City Lanes (城隍庙 / 福佑路)</div>
+        <div class="meta">Classical architecture, pavilions, rockeries, and classical bazaar streets.</div>
+        <div class="quick-tags">
+          <span class="badge">💰 ~¥40 Garden</span><span class="badge">🕒 1.75 hrs</span><span class="badge">DiDi 20-35m / Metro L10</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 1 LUNCH FLASH CARD -->
+<div class="timeline-item" style="opacity: 0.9;">
+  <div class="time-col">1:45 PM</div>
+  <div class="card" style="padding: 12px 16px; background: #f8fafc; border-left: 4px solid var(--accent);">
+    <div class="row">
+      <input class="check" type="checkbox">
+      <div style="flex:1; padding-left: 4px;">
+        <strong style="color: var(--text); font-size: 16px;">Lunch 🍱</strong>
+        <div class="meta" style="margin-bottom:0;">Yuyuan Old Street & Bazaar — Eat Xiaolongbao (soup dumplings) at Nanxiang Steamed Bun Shop or local food stalls.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-item">
+  <div class="time-col">3:15 PM</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh2.jpg');">
+    <div class="row">
+      <input class="check" type="checkbox">
+      <img src="images/sh2.jpg" onerror="this.onerror=null; this.src='images/sh2.jpeg';" alt="East Nanjing Road" class="card-thumb" onclick="openModal('nanjing')" style="cursor:pointer;">
+      <div style="flex:1;">
+        <a class="place" onclick="openModal('nanjing')">East Nanjing Road Pedestrian Street (南京东路) 🖼️</a>
+        <div class="alt-place">Alt: Stroll through quiet parallel heritage streets (Jiujiang Rd)</div>
+        <div class="meta">Iconic shopping boulevard leading directly down to The Bund waterfront.</div>
+        <div class="quick-tags">
+          <span class="badge">💰 Free</span><span class="badge">🕒 45 mins</span><span class="badge">Metro L10 or DiDi</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-item">
+  <div class="time-col">4:00 PM</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh3.jpg');">
+    <div class="row">
+      <input class="check" type="checkbox">
+      <img src="images/sh3.jpg" onerror="this.onerror=null; this.src='images/sh3.jpeg';" alt="The Bund" class="card-thumb" onclick="openModal('bund_day')" style="cursor:pointer;">
+      <div style="flex:1;">
+        <a class="place" onclick="openModal('bund_day')">The Bund (Daytime Waterfront) & Public Ferry 🖼️</a>
+        <div class="alt-place">Alt: Skip ferry, take Metro Line 2 direct to Pudong if tight on time</div>
+        <div class="meta">Historic colonial riverfront. Board the 2 RMB public commuter ferry across to Pudong.</div>
+        <div class="quick-tags">
+          <span class="badge">💰 ¥2 Ferry</span><span class="badge">🕒 1.25 hrs</span><span class="badge">Short Walk to Jinling Ferry Pier</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-item">
+  <div class="time-col">5:30 PM</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh4.jpg');">
+    <div class="row">
+      <input class="check" type="checkbox">
+      <img src="images/sh4.jpg" onerror="this.onerror=null; this.src='images/sh4.jpeg';" alt="Shanghai Tower" class="card-thumb" onclick="openModal('tower')" style="cursor:pointer;">
+      <div style="flex:1;">
+        <a class="place" onclick="openModal('tower')">Shanghai Tower & Pudong Skyline (上海中心大厦) 🖼️</a>
+        <div class="alt-place">Alt: Shanghai Ocean Aquarium (上海海洋水族馆) nearby</div>
+        <div class="meta">Ascend China's tallest skyscraper for twilight and evening panoramic view.</div>
+        <div class="quick-tags">
+          <span class="badge">💰 ~¥180 Tower Ticket</span><span class="badge">🕒 2 hrs</span><span class="badge">Short Walk from Ferry</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-item">
+  <div class="time-col">8:00 PM</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh5.jpg');">
+    <div class="row">
+      <input class="check" type="checkbox">
+      <img src="images/sh5.jpg" onerror="this.onerror=null; this.src='images/sh5.jpeg';" alt="The Bund at Night" class="card-thumb" onclick="openModal('bund_night')" style="cursor:pointer;">
+      <div style="flex:1;">
+        <a class="place" onclick="openModal('bund_night')">The Bund at Night (外滩夜景) 🖼️</a>
+        <div class="alt-place">Alt: Return straight to hotel via Wusong Road bridge walk</div>
+        <div class="meta">Cross back to Puxi waterfront to view the illuminated Pudong skyline, then return to hotel.</div>
+        <div class="quick-tags">
+          <span class="badge">💰 Free</span><span class="badge">🕒 1 hr</span><span class="badge">Metro L2 or DiDi back</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lunch-recs">
+  <h4>🍽️ Day 1 Food Suggestions (Nov 2)</h4>
+  <ul>
+    <li><strong>Yuyuan Bazaar (1:45 PM):</strong> Nanxiang Steamed Bun Restaurant (南翔馒头店) for authentic local Xiaolongbao (soup dumplings).</li>
+    <li><strong>East Nanjing Rd / Bund (4:00 PM):</strong> Local snack outlets like Shen Da Cheng (沈大成) for traditional sticky rice pastries.</li>
+  </ul>
+</div>
+</section>
+
+<!-- DAY 2 -->
+<section id="day2" class="panel">
+<div class="dayhead" style="background-image: linear-gradient(rgba(240, 253, 244, 0.90), rgba(240, 253, 244, 0.90)), url('images/sh6.jpg'); border-color:#bbf7d0;">
+  <h2 style="color:#16a34a;">Day 2 (Nov 3) — Temples, 1000 Trees, Wukang & Xintiandi</h2>
+  <div class="route">Focus: Unhurried West-to-South arc covering Putuo, Jing'an, French Concession, and Xintiandi.</div>
+</div>
+
+<button class="btn-full-guide" onclick="openModal('day2_details')">📖 VIEW FULL DAY 2 SCHEDULE & ALTERNATIVES</button>
+<div id="day2-custom-container"></div>
+
+<div class="timeline-item">
+  <div class="time-col">9:00 AM</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh6.jpg');">
+    <div class="row">
+      <input class="check" type="checkbox">
+      <img src="images/sh6.jpg" onerror="this.onerror=null; this.src='images/sh6.jpeg';" alt="Jade Buddha Temple" class="card-thumb" onclick="openModal('jadetemple')" style="cursor:pointer;">
+      <div style="flex:1;">
+        <a class="place" onclick="openModal('jadetemple')">Jade Buddha Temple (玉佛禅寺) 🖼️</a>
+        <div class="alt-place">Alt: Jing'an Temple (静安寺) if you prefer gold-tiered architecture</div>
+        <div class="meta">Serene, active Buddhist temple featuring famous white jade Buddha statues.</div>
+        <div class="quick-tags">
+          <span class="badge">💰 ~¥20</span><span class="badge">🕒 1 hr</span><span class="badge">DiDi 20m from hotel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-item">
+  <div class="time-col">10:15 AM</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh7.jpg');">
+    <div class="row">
+      <input class="check" type="checkbox">
+      <img src="images/sh7.jpg" onerror="this.onerror=null; this.src='images/sh7.jpeg';" alt="Tian An 1000 Trees" class="card-thumb" onclick="openModal('trees')" style="cursor:pointer;">
+      <div style="flex:1;">
+        <a class="place" onclick="openModal('trees')">Tian An 1,000 Trees (天安千树) 🖼️</a>
+        <div class="alt-place">Alt: Stroll along Suzhou Creek waterfront promenade</div>
+        <div class="meta">Futuristic terraced mountain structure covered in 1,000 real trees along Suzhou Creek.</div>
+        <div class="quick-tags">
+          <span class="badge">💰 Free</span><span class="badge">🕒 1.25 hrs</span><span class="badge">DiDi 5m / Short Walk</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 2 LUNCH FLASH CARD -->
+<div class="timeline-item" style="opacity: 0.9;">
+  <div class="time-col">11:30 AM</div>
+  <div class="card" style="padding: 12px 16px; background: #f8fafc; border-left: 4px solid var(--accent);">
+    <div class="row">
+      <input class="check" type="checkbox">
+      <div style="flex:1; padding-left: 4px;">
+        <strong style="color: var(--text); font-size: 16px;">Lunch 🍱</strong>
+        <div class="meta" style="margin-bottom:0;">Tian An 1000 Trees Complex — Relaxed lunch break at one of the riverside cafes, bistros, or food court options overlooking Suzhou Creek.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-item">
+  <div class="time-col">1:15 PM</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh8.jpg');">
+    <div class="row">
+      <input class="check" type="checkbox">
+      <img src="images/sh8.jpg" onerror="this.onerror=null; this.src='images/sh8.jpeg';" alt="Wukang Mansion" class="card-thumb" onclick="openModal('wukang')" style="cursor:pointer;">
+      <div style="flex:1;">
+        <a class="place" onclick="openModal('wukang')">Wukang Mansion, Wukang Rd & Anfu Rd (武康大楼 / 安福路) 🖼️</a>
+        <div class="alt-place">Alt: Zhangyuan & West Nanjing Rd (张园) / Shanghai Museum (上海博物馆)</div>
+        <div class="meta">Iconic 1924 flatiron building leading into tree-lined French Concession cafes and boutiques.</div>
+        <div class="quick-tags">
+          <span class="badge">💰 Free</span><span class="badge">🕒 2.25 hrs</span><span class="badge">DiDi 20m across town</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-item">
+  <div class="time-col">3:30 PM</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh9.jpg');">
+    <div class="row">
+      <input class="check" type="checkbox">
+      <img src="images/sh9.jpg" onerror="this.onerror=null; this.src='images/sh9.jpeg';" alt="Xintiandi / Tianzifang" class="card-thumb" onclick="openModal('evening2')" style="cursor:pointer;">
+      <div style="flex:1;">
+        <a class="place" onclick="openModal('evening2')">Evening Hub: Xintiandi OR Tianzifang (新天地 / 田子坊) 🖼️</a>
+        <div class="alt-place">Choice: Select Xintiandi for upscale dining or Tianzifang for craft alleys</div>
+        <div class="meta">Historic shikumen stone-gate architecture restored into high-end dining, bar patios, and shops.</div>
+        <div class="quick-tags">
+          <span class="badge">💰 Free Area</span><span class="badge">🕒 Evening</span><span class="badge">DiDi 15m / Metro L10</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lunch-recs">
+  <h4>🍽️ Day 2 Food Suggestions (Nov 3)</h4>
+  <ul>
+    <li><strong>1000 Trees Area (11:30 AM):</strong> Trendy cafes or riverside bistros inside the complex facing Suzhou Creek.</li>
+    <li><strong>Xintiandi (6:30 PM):</strong> Din Tai Fung for soup dumplings, or international patio dining in restored stone courtyards.</li>
+  </ul>
+</div>
+</section>
+
+<!-- DAY 3 -->
+<section id="day3" class="panel">
+<div class="dayhead" style="background-image: linear-gradient(rgba(255, 247, 237, 0.90), rgba(255, 247, 237, 0.90)), url('images/sh10.jpg'); border-color:#ffedd5;">
+  <h2 style="color:#ea580c;">Day 3 (Nov 4) — Zhujiajiao Water Town & North Bund</h2>
+  <div class="route">Focus: Morning ancient water town excursion, flexible afternoon return, neighborhood waterfront finish.</div>
+</div>
+
+<button class="btn-full-guide" onclick="openModal('day3_details')">📖 VIEW FULL DAY 3 SCHEDULE & ALTERNATIVES</button>
+<div id="day3-custom-container"></div>
+
+<div class="timeline-item">
+  <div class="time-col">8:00 AM</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh10.jpg');">
+    <div class="row">
+      <input class="check" type="checkbox">
+      <img src="images/sh10.jpg" onerror="this.onerror=null; this.src='images/sh10.jpeg';" alt="Zhujiajiao Water Town" class="card-thumb" onclick="openModal('zhujiajiao')" style="cursor:pointer;">
+      <div style="flex:1;">
+        <a class="place" onclick="openModal('zhujiajiao')">Zhujiajiao Ancient Water Town (朱家角古镇) 🖼️</a>
+        <div class="alt-place">Alt: Skip Zhujiajiao if tired, explore Hongkou & Lu Xun Park near hotel</div>
+        <div class="meta">Canals, stone bridges, wooden boats, and traditional rice snacks. Beat the afternoon crowds!</div>
+        <div class="quick-tags">
+          <span class="badge">💰 Free Entry (Boats ~¥40)</span><span class="badge">🕒 4.5 hrs total</span><span class="badge">DiDi / Metro Line 17</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 3 LUNCH FLASH CARD -->
+<div class="timeline-item" style="opacity: 0.9;">
+  <div class="time-col">12:30 PM</div>
+  <div class="card" style="padding: 12px 16px; background: #f8fafc; border-left: 4px solid var(--accent);">
+    <div class="row">
+      <input class="check" type="checkbox">
+      <div style="flex:1; padding-left: 4px;">
+        <strong style="color: var(--text); font-size: 16px;">Lunch 🍱</strong>
+        <div class="meta" style="margin-bottom:0;">Zhujiajiao Old Town — Sit down at a canal-side restaurant for braised pork belly, fresh river fish, and zongzi (sticky rice in bamboo leaves).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-item">
+  <div class="time-col">3:00 PM</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh11.jpg');">
+    <div class="row">
+      <input class="check" type="checkbox">
+      <img src="images/sh11.jpg" onerror="this.onerror=null; this.src='images/sh11.jpeg';" alt="1933 Old Millfun" class="card-thumb" onclick="openModal('millfun')" style="cursor:pointer;">
+      <div style="flex:1;">
+        <a class="place" onclick="openModal('millfun')">1933 Old Millfun [Optional Bonus] (1933老场坊) 🖼️</a>
+        <div class="alt-place">Alt: Shanghai Postal Museum (上海邮政博物馆) / Skip if return runs late</div>
+        <div class="meta">Gotham-style concrete architecture, flying bridges, and ramps turned creative hub in Hongkou.</div>
+        <div class="quick-tags">
+          <span class="badge">💰 Free</span><span class="badge">🕒 1 hr</span><span class="badge">DiDi / Walk in Hongkou</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-item">
+  <div class="time-col">4:30 PM</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/sh12.jpg');">
+    <div class="row">
+      <input class="check" type="checkbox">
+      <img src="images/sh12.jpg" onerror="this.onerror=null; this.src='images/sh12.jpeg';" alt="North Bund Waterfront" class="card-thumb" onclick="openModal('northbund')" style="cursor:pointer;">
+      <div style="flex:1;">
+        <a class="place" onclick="openModal('northbund')">North Bund Promenade & Sunset (北外滩) 🖼️</a>
+        <div class="alt-place">Alt: Finish right at hotel neighborhood for a relaxed final dinner</div>
+        <div class="meta">Uncrowded, stunning views of Lujiazui towers directly in your hotel's backyard on Wusong Road.</div>
+        <div class="quick-tags">
+          <span class="badge">💰 Free</span><span class="badge">🕒 Flexible</span><span class="badge">Short Walk to Hotel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lunch-recs">
+  <h4>🍽️ Day 3 Food Suggestions (Nov 4)</h4>
+  <ul>
+    <li><strong>Zhujiajiao (12:30 PM):</strong> Canal-side seafood bistros, Zongzi (sticky rice in bamboo leaves), and pork belly.</li>
+    <li><strong>North Bund (6:00 PM):</strong> Riverside restaurants along North Bund Green Land with views of the Pearl Tower.</li>
+  </ul>
+</div>
+</section>
+
+</div>
+
+<!-- Expense Tracker -->
+<div class="expenses">
+<h3>💰 Shanghai Trip Expense Tracker</h3>
+<div class="small" style="margin-bottom:12px">Track daily spending in CNY (¥).</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px;">
+<input id="expenseName" type="text" placeholder="e.g. Ferry / Soup Dumplings" style="flex:1;min-width:160px;padding:12px;border:1px solid var(--border);border-radius:8px;font-family:inherit">
+<input id="expenseAmount" type="number" min="0" step="0.01" placeholder="Amount ¥" style="width:110px;padding:12px;border:1px solid var(--border);border-radius:8px;font-family:inherit">
+<select id="expenseDay" style="width:120px;padding:12px;border:1px solid var(--border);border-radius:8px;font-family:inherit"><option>Day 1 (Nov 2)</option><option>Day 2 (Nov 3)</option><option>Day 3 (Nov 4)</option></select>
+</div>
+<button type="button" class="action-btn csv-btn" onclick="addExpense()" style="display:block;margin-top:12px;width:100%">＋ ADD EXPENSE</button>
+<div id="expenseError" style="color:#ef4444;font-size:13px;margin-top:8px;min-height:18px"></div>
+<div id="expenseList"></div>
+<div class="total">TOTAL: ¥<span id="total">0.00</span></div>
+<div class="btn-group">
+<button type="button" class="action-btn csv-btn" onclick="exportExpensesCSV()">📊 Export to CSV</button>
+<button type="button" class="action-btn clear-btn" onclick="clearExpenses()">Clear All</button>
+</div>
+</div>
+<footer>Designed for MSG Topbund Apartment Hotel Base · 205 Wusong Rd, Hongkou</footer>
+</main>
+</div>
+
+<!-- DETAILED DAY MODALS -->
+<div id="modal_day1_details" class="modal"><div class="modalbox" style="max-width: 750px;"><button type="button" class="close-btn" onclick="closeModal('day1_details')">✕ Close</button>
+<h2 style="color:var(--primary);">Day 1 (Nov 2): Full Schedule & Alternatives</h2>
+<div class="full-detail-text">
+  <h3>12:00 PM – 12:20 PM | Hotel → Yu Garden</h3>
+  <p>Take a DiDi ride (20–35 mins depending on midday traffic) south to Yu Garden.</p>
+
+  <h3>12:20 PM – 1:45 PM | Yu Garden (豫园)</h3>
+  <p>Explore traditional Ming dynasty pavilions, ponds, and rockeries. Entry ticket is ~40 RMB.</p>
+
+  <h3>1:45 PM – 2:45 PM | Yuyuan Old Street & Lunch</h3>
+  <p>Browse Old City bazaar streets and Fuyou Market lanes. Grab lunch (soup dumplings at Nanxiang Steamed Bun Shop).</p>
+
+  <h3>2:45 PM – 3:15 PM | Travel to East Nanjing Road</h3>
+  <p>Take Metro Line 10 (Yuyuan Station to East Nanjing Rd Station) or a short DiDi.</p>
+
+  <h3>3:15 PM – 4:00 PM | East Nanjing Road Pedestrian Street</h3>
+  <p>Stroll eastward down the bustling shopping boulevard directly toward the waterfront.</p>
+
+  <h3>4:00 PM – 4:45 PM | The Bund (Daytime)</h3>
+  <p>Take in the historic western colonial facade buildings and look across the Huangpu River to Pudong.</p>
+
+  <h3>4:45 PM – 5:15 PM | Commuter Public Ferry</h3>
+  <p>Walk to Jinling East Road Ferry Pier and take the 2 RMB (~30 cents) commuter ferry across to Pudong (Lujiazui).</p>
+
+  <h3>5:30 PM – 7:30 PM | Shanghai Tower Observation Deck</h3>
+  <p>Ascend the world's 2nd tallest building for sunset and night lights. Reserve ticket in advance.</p>
+
+  <h3>8:00 PM – 9:00 PM | The Bund at Night</h3>
+  <p>Cross back via Metro Line 2 or ferry to view the skyline illuminated before walking/taking DiDi back to hotel.</p>
+</div>
+</div></div>
+
+<div id="modal_day2_details" class="modal"><div class="modalbox" style="max-width: 750px;"><button type="button" class="close-btn" onclick="closeModal('day2_details')">✕ Close</button>
+<h2 style="color:var(--primary);">Day 2 (Nov 3): Full Schedule & Alternatives</h2>
+<div class="full-detail-text">
+  <h3>9:00 AM – 10:00 AM | Jade Buddha Temple</h3>
+  <p>Active Buddhist temple in Putuo district housing two famous white jade Buddha statues imported from Myanmar.</p>
+
+  <h3>10:15 AM – 11:30 AM | Tian An 1,000 Trees</h3>
+  <p>Short DiDi/walk away. Futuristic architectural complex planted with 1,000 live trees along Suzhou Creek.</p>
+
+  <h3>11:30 AM – 12:30 PM | Lunch Break</h3>
+  <p>Eat inside 1000 Trees shopping/bistro hub to avoid burning time traveling for food.</p>
+
+  <h3>12:30 PM – 1:15 PM | Transit to French Concession</h3>
+  <p>Take a DiDi across town directly to Wukang Mansion to skip multi-transfer metro walks.</p>
+
+  <h3>1:15 PM – 3:30 PM | Wukang Mansion, Wukang Rd & Anfu Rd</h3>
+  <p>Photograph the iconic 1924 flatiron building, then wander down leafy streets filled with cafes and boutiques.</p>
+
+  <h3>3:30 PM – Evening | Choose Evening Neighborhood</h3>
+  <p><strong>Option A (Xintiandi):</strong> Restored shikumen stone-gate houses with upscale dining patios.<br><strong>Option B (Tianzifang):</strong> Maze of narrow arts-and-crafts alleys with street snacks and bars.</p>
+</div>
+</div></div>
+
+<div id="modal_day3_details" class="modal"><div class="modalbox" style="max-width: 750px;"><button type="button" class="close-btn" onclick="closeModal('day3_details')">✕ Close</button>
+<h2 style="color:var(--primary);">Day 3 (Nov 4): Full Schedule & Alternatives</h2>
+<div class="full-detail-text">
+  <h3>8:00 AM – 9:30 AM | Hotel → Zhujiajiao Water Town</h3>
+  <p>Head west early via Metro Line 17 or DiDi (60–90 mins) to experience the canals before large tour groups arrive.</p>
+
+  <h3>9:30 AM – 12:30 PM | Zhujiajiao Ancient Town</h3>
+  <p>Walk over Fangsheng Bridge, take a wooden hand-paddled boat ride, and explore narrow stone pathways.</p>
+
+  <h3>12:30 PM – 1:30 PM | Canal-side Lunch</h3>
+  <p>Enjoy local specialties (braised pork belly, zongzi dumplings) at a canal-side restaurant.</p>
+
+  <h3>1:30 PM – 3:00 PM | Return to Central Shanghai</h3>
+  <p>Return via Metro Line 17 or DiDi. Keep afternoon flexible for traffic.</p>
+
+  <h3>3:00 PM – 4:00 PM | 1933 Old Millfun [Optional]</h3>
+  <p>Gotham-style concrete slaughterhouse turned art hub in Hongkou. Skip if return runs late.</p>
+
+  <h3>4:30 PM Onward | North Bund & Farewell Dinner</h3>
+  <p>Stroll the tranquil North Bund promenade in your hotel's neighborhood with views of Pudong towers.</p>
+</div>
+</div></div>
+
+<!-- PLACE SPECIFIC MODALS -->
+<div id="modal_yugarden" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('yugarden')">✕ Close</button><img src="images/sh1.jpg" onerror="this.onerror=null; this.src='images/sh1.jpeg';" alt="Yu Garden" class="modal-img"><h2>Yu Garden & Old Street</h2><div class="modal-logistics"><span>💰 ~¥40</span><span>🕒 2.5 hrs</span></div><p>Built during the Ming Dynasty (1559). Famous for Exquisite Jade Rock, pavilions, and crowded traditional markets surrounding the ponds.</p></div></div>
+<div id="modal_nanjing" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('nanjing')">✕ Close</button><img src="images/sh2.jpg" onerror="this.onerror=null; this.src='images/sh2.jpeg';" alt="East Nanjing Road" class="modal-img"><h2>East Nanjing Road</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 45 mins</span></div><p>Shanghai's main pedestrian commercial street leading directly from People's Square to The Bund.</p></div></div>
+<div id="modal_bund_day" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('bund_day')">✕ Close</button><img src="images/sh3.jpg" onerror="this.onerror=null; this.src='images/sh3.jpeg';" alt="The Bund" class="modal-img"><h2>The Bund & Commuter Ferry</h2><div class="modal-logistics"><span>💰 ¥2 Ferry</span><span>🕒 1 hr</span></div><p>52 European colonial buildings facing the Huangpu River. Take the 2 RMB public ferry from Jinling East Pier across to Pudong.</p></div></div>
+<div id="modal_tower" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('tower')">✕ Close</button><img src="images/sh4.jpg" onerror="this.onerror=null; this.src='images/sh4.jpeg';" alt="Shanghai Tower" class="modal-img"><h2>Shanghai Tower</h2><div class="modal-logistics"><span>💰 ~¥180</span><span>🕒 2 hrs</span></div><p>632-meter skyscraper with the world's fastest elevators taking you to the 118th floor observation deck.</p></div></div>
+<div id="modal_bund_night" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('bund_night')">✕ Close</button><img src="images/sh5.jpg" onerror="this.onerror=null; this.src='images/sh5.jpeg';" alt="The Bund at Night" class="modal-img"><h2>The Bund at Night</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 1 hr</span></div><p>Lights usually stay on until 10:00 PM. Offers breathtaking contrast between 1920s architecture and futuristic Lujiazui.</p></div></div>
+<div id="modal_jadetemple" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('jadetemple')">✕ Close</button><img src="images/sh6.jpg" onerror="this.onerror=null; this.src='images/sh6.jpeg';" alt="Jade Buddha Temple" class="modal-img"><h2>Jade Buddha Temple</h2><div class="modal-logistics"><span>💰 ~¥20</span><span>🕒 1 hr</span></div><p>Active Chan Buddhist temple known for its two seated and reclining Burmese white jade Buddha statues.</p></div></div>
+<div id="modal_trees" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('trees')">✕ Close</button><img src="images/sh7.jpg" onerror="this.onerror=null; this.src='images/sh7.jpeg';" alt="Tian An 1,000 Trees" class="modal-img"><h2>Tian An 1,000 Trees</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 1.25 hrs</span></div><p>Designed by Thomas Heatherwick, inspired by China's Yellow Mountain, featuring terraced concrete pillars containing real trees.</p></div></div>
+<div id="modal_wukang" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('wukang')">✕ Close</button><img src="images/sh8.jpg" onerror="this.onerror=null; this.src='images/sh8.jpeg';" alt="Wukang Mansion" class="modal-img"><h2>Wukang Mansion & Anfu Road</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 2 hrs</span></div><p>Designed by Laszlo Hudec in 1924. Heart of the Former French Concession, packed with trendy coffee shops and boutiques.</p></div></div>
+<div id="modal_evening2" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('evening2')">✕ Close</button><img src="images/sh9.jpg" onerror="this.onerror=null; this.src='images/sh9.jpeg';" alt="Xintiandi / Tianzifang" class="modal-img"><h2>Xintiandi / Tianzifang</h2><div class="modal-logistics"><span>💰 Free Area</span><span>🕒 Evening</span></div><p>Xintiandi offers upscale pedestrian dining in shikumen courtyards; Tianzifang offers narrow, artsy shopping lanes.</p></div></div>
+<div id="modal_zhujiajiao" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('zhujiajiao')">✕ Close</button><img src="images/sh10.jpg" onerror="this.onerror=null; this.src='images/sh10.jpeg';" alt="Zhujiajiao Water Town" class="modal-img"><h2>Zhujiajiao Water Town</h2><div class="modal-logistics"><span>💰 Free Area</span><span>🕒 4.5 hrs</span></div><p>400-year-old water village on the outskirts of Shanghai featuring 36 stone bridges, waterways, and ancient Ming/Qing houses.</p></div></div>
+<div id="modal_millfun" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('millfun')">✕ Close</button><img src="images/sh11.jpg" onerror="this.onerror=null; this.src='images/sh11.jpeg';" alt="1933 Old Millfun" class="modal-img"><h2>1933 Old Millfun</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 1 hr</span></div><p>Former municipal abattoir built in 1933 with Art Deco geometric concrete bridges, spiral staircases, and lattice windows.</p></div></div>
+<div id="modal_northbund" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('northbund')">✕ Close</button><img src="images/sh12.jpg" onerror="this.onerror=null; this.src='images/sh12.jpeg';" alt="North Bund Waterfront" class="modal-img"><h2>North Bund Waterfront</h2><div class="modal-logistics"><span>💰 Free</span><span>🕒 Evening</span></div><p>Quiet, modern promenade in Hongkou District with direct views of the Oriental Pearl and Shanghai Tower across the river.</p></div></div>
+
+<script>
+function openModal(id){
+  const modal = document.getElementById(`modal_${id}`);
+  if(modal) modal.classList.add('active');
+}
+
+function closeModal(id){
+  const modal = document.getElementById(`modal_${id}`);
+  if(modal) modal.classList.remove('active');
+}
+
+window.onclick = function(event) {
+  if (event.target.classList.contains('modal')) {
+    event.target.classList.remove('active');
+  }
+}
+
+function addCustomTour(){
+  const day = document.getElementById('tourDay').value;
+  const title = document.getElementById('tourTitle').value.trim();
+  const note = document.getElementById('tourNote').value.trim();
+  if(!title){ alert('Please enter a location name.'); return; }
+
+  const container = document.getElementById(`day${day}-custom-container`);
+  if(!container) return;
+
+  const item = document.createElement('div');
+  item.className = 'timeline-item';
+  item.innerHTML = `
+    <div class="time-col">★</div>
+    <div class="card">
+      <div class="row">
+        <input class="check" type="checkbox">
+        <div style="flex:1;">
+          <div class="place">${title}</div>
+          <div class="meta">${note || 'Custom added stop'}</div>
+        </div>
+        <button onclick="this.closest('.timeline-item').remove()" style="background:none;border:0;color:#ef4444;font-weight:bold;cursor:pointer;">✕</button>
+      </div>
+    </div>
+  `;
+  container.appendChild(item);
+  document.getElementById('tourTitle').value = '';
+  document.getElementById('tourNote').value = '';
+}
+
+let expenses = [];
+function renderExpenses(){
+  const list = document.getElementById('expenseList');
+  list.innerHTML = '';
+  let total = 0;
+  expenses.forEach((exp, index) => {
+    total += Number(exp.amount);
+    const div = document.createElement('div');
+    div.className = 'exp';
+    div.innerHTML = `
+      <div><b>${exp.name}</b> <span class="small" style="margin-left:6px">${exp.day}</span></div>
+      <div style="font-weight:600">¥${Number(exp.amount).toFixed(2)} <button type="button" onclick="removeExpense(${index})" style="background:none;border:0;color:#ef4444;cursor:pointer;font-weight:bold;margin-left:12px">✕</button></div>
+    `;
+    list.appendChild(div);
+  });
+  document.getElementById('total').innerText = total.toFixed(2);
+}
+
+function addExpense(){
+  const name = document.getElementById('expenseName').value.trim();
+  const amount = document.getElementById('expenseAmount').value;
+  const day = document.getElementById('expenseDay').value;
+  const err = document.getElementById('expenseError');
+  
+  if(!name || !amount || amount <= 0){ err.innerText = 'Please enter a valid expense name and amount.'; return; }
+  err.innerText = '';
+  expenses.push({name, amount: Number(amount), day});
+  document.getElementById('expenseName').value = '';
+  document.getElementById('expenseAmount').value = '';
+  renderExpenses();
+}
+
+function removeExpense(idx){
+  expenses.splice(idx, 1);
+  renderExpenses();
+}
+
+function clearExpenses(){
+  if (confirm("Clear all tracked expenses?")) {
+    expenses = [];
+    renderExpenses();
+  }
+}
+
+function exportExpensesCSV(){
+  if (expenses.length === 0) { alert('No expenses to export.'); return; }
+  let csv = 'Item,Amount (CNY),Day\r\n';
+  expenses.forEach(e => { csv += `"${e.name.replace(/"/g, '""')}","${e.amount}","${e.day}"\r\n`; });
+  const blob = new Blob(['\ufeff', csv], {type: 'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'shanghai_expenses.csv';
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+}
+</script>
+</body>
+</html>
