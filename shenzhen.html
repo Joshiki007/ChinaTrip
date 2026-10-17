@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Shenzhen 2.5-Day Trip</title>
+<title>Shenzhen 3-Day Trip</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root { --primary: #2563eb; --primary-hover: #1d4ed8; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --text-muted: #64748b; --border: #e2e8f0; --accent: #10b981; }
@@ -67,7 +67,7 @@ input[name=daytab]{display:none}
 .total{font-size:24px;font-weight:700;margin:16px 0;color:var(--text)}
 .small{font-size:13px;color:var(--text-muted)}
 
-/* Improved Modals */
+/* Modals */
 .modal{position:fixed;inset:0;background:rgba(15,23,42,.8);backdrop-filter:blur(6px);display:none;z-index:9999;padding:16px;overflow:auto}
 .modal.active{display:flex;align-items:center;justify-content:center}
 .modalbox{background:var(--card);max-width:620px;width:100%;max-height:95vh;overflow:auto;border-radius:24px;padding:24px;position:relative;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25)}
@@ -106,8 +106,8 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <body id="top">
 <div id="download-content">
 <header>
-<h1>Shenzhen — 2.5 Day Trip</h1>
-<p>HOTEL: Languha Audio-Video High Altiude Skyline Cityscape, Futian District (Central)</p>
+<h1>Shenzhen — 3-Day Itinerary</h1>
+<p>HOTEL: Languha Audio-Video High Altitude Skyline Cityscape, Futian District (Central)</p>
 </header>
 <div id="syncStatus" role="status" style="margin:16px auto;padding:10px 16px;max-width:900px;border-radius:10px;background:#fffbeb;color:#92400e;font-size:14px;text-align:center;font-weight:600">Connecting to shared trip…</div>
 <main class="wrap">
@@ -115,9 +115,9 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <input id="tab2" type="radio" name="daytab">
 <input id="tab3" type="radio" name="daytab">
 <div class="tabs">
-<label for="tab1">Day 1, Oct 27<br><span class="small" style="font-weight:normal;color:inherit">Futian Half-Day</span></label>
-<label for="tab2">Day 2, Oct 28<br><span class="small" style="font-weight:normal;color:inherit">Arts & Coast</span></label>
-<label for="tab3">Day 3, Oct 29<br><span class="small" style="font-weight:normal;color:inherit">History & Shekou</span></label>
+<label for="tab1">Day 1<br><span class="small" style="font-weight:normal;color:inherit">Futian Tech & CBD</span></label>
+<label for="tab2">Day 2<br><span class="small" style="font-weight:normal;color:inherit">Nanshan Arts & Sunset</span></label>
+<label for="tab3">Day 3<br><span class="small" style="font-weight:normal;color:inherit">History & Coastal Shekou</span></label>
 </div>
 
 <!-- Add Tour Form -->
@@ -135,8 +135,8 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <!-- DAY 1 -->
 <section id="day1" class="panel">
 <div class="dayhead" style="background-image: linear-gradient(rgba(239, 246, 255, 0.90), rgba(239, 246, 255, 0.90)), url('images/s1.jpg'); border-color:#bfdbfe;">
-  <h2 style="color:#1d4ed8;">Day 1 — Futian Half-Day</h2>
-  <div class="route">Focus: Relaxed pace, electronics/architecture, and city views. Starts 1:30 PM.</div>
+  <h2 style="color:#1d4ed8;">Day 1 — Futian Cyberpunk Tech, History & CBD Skyline</h2>
+  <div class="route">Focus: Tech markets, Shenzhen transformation history, Deng Xiaoping sunset viewpoint, and illuminated neon streets.</div>
 </div>
 
 <button class="btn-full-guide" onclick="openModal('day1_details')">📖 VIEW FULL DAY 1 DETAIL PLAN</button>
@@ -147,13 +147,13 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s1.jpg');">
     <div class="row">
       <input class="check" id="chk_day1_hqb" type="checkbox">
-      <img src="images/s1.jpg" onerror="this.onerror=null; this.src='images/s1.jpeg';" alt="Huaqiangbei / MOCAPE (华强北 / 深圳当代艺术与城市规划馆)" class="card-thumb" onclick="openModal('hqb')" style="cursor:pointer;">
+      <img src="images/s1.jpg" onerror="this.onerror=null; this.src='images/s1.jpeg';" alt="Huaqiangbei Electronics Market (华强北)" class="card-thumb" onclick="openModal('hqb')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('hqb')">Huaqiangbei (华强北) OR MOCAPE (深圳当代艺术与城市规划馆) 🖼️</a>
-        <div class="alt-place">OR: HQB Museum (华强北博物馆) / Shenzhen Library (深圳图书馆)</div>
-        <div class="meta">Choose between tech and gadgets at Huaqiangbei Electronics Market, or futuristic urban architecture at MOCAPE.</div>
+        <a class="place" role="button" tabindex="0" onclick="openModal('hqb')">Huaqiangbei Electronics Market (华强北) 🖼️</a>
+        <div class="alt-place">Primary Focus: SEG Plaza & Electronics Stalls</div>
+        <div class="meta"><strong>Same-Route Alternatives:</strong> Instead of gadget stalls, visit <strong>MOCAPE (当代艺术与城市规划馆)</strong> for futuristic indoor architecture or <strong>HQB Museum (华强北博物馆)</strong>.</div>
         <div class="quick-tags">
-          <span class="badge">💰 Free</span><span class="badge">🕒 2 hrs</span><span class="badge">TAXI DiDi (~5-8m) / 18m Walk</span>
+          <span class="badge">💰 Free</span><span class="badge">🕒 2 hrs (13:30 – 15:30)</span><span class="badge">TAXI DiDi (~5–8m) / 18m Walk</span>
         </div>
       </div>
     </div>
@@ -161,17 +161,35 @@ button:disabled{opacity:.6;cursor:not-allowed}
 </div>
 
 <div class="timeline-item">
-  <div class="time-col">16:00</div>
+  <div class="time-col">15:45</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s4.jpg');">
+    <div class="row">
+      <input class="check" id="chk_day1_szmuseum" type="checkbox">
+      <img src="images/s4.jpg" onerror="this.onerror=null; this.src='images/s4.jpeg';" alt="Shenzhen Civic Center: Shenzhen Museum (深圳博物馆)" class="card-thumb" onclick="openModal('szmuseum')" style="cursor:pointer;">
+      <div style="flex:1;">
+        <a class="place" role="button" tabindex="0" onclick="openModal('szmuseum')">Shenzhen Civic Center: Shenzhen Museum (深圳博物馆) 🖼️</a>
+        <div class="alt-place">Primary Focus: Reform & Opening-Up Exhibition</div>
+        <div class="meta"><strong>Same-Route Alternatives:</strong> Instead of history exhibits, check out <strong>Guan Shanyue Art Museum (关山月美术馆)</strong> next door or <strong>Shenzhen Library (深圳图书馆)</strong> across the plaza.</div>
+        <div class="quick-tags">
+          <span class="badge">💰 Free (Passport Req.)</span><span class="badge">🕒 1.5 hrs (15:45 – 17:15)</span><span class="badge">TAXI DiDi (~5m, ~¥15) / Metro L2/8</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-item">
+  <div class="time-col">17:15</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s2.jpg');">
     <div class="row">
       <input class="check" id="chk_day1_lianhua" type="checkbox">
-      <img src="images/s2.jpg" onerror="this.onerror=null; this.src='images/s2.jpeg';" alt="Lianhuashan Park (莲花山公园)" class="card-thumb" onclick="openModal('lianhua')" style="cursor:pointer;">
+      <img src="images/s2.jpg" onerror="this.onerror=null; this.src='images/s2.jpeg';" alt="Lotus Hill Park (Lianhuashan Park / 莲花山公园)" class="card-thumb" onclick="openModal('lianhua')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('lianhua')">Lianhuashan Park (莲花山公园) 🖼️</a>
-        <div class="alt-place">OR: Guan Shanyue Art Museum (关山月美术馆)</div>
-        <div class="meta">Gentle walk to the Deng Xiaoping statue plaza for sunset over the Futian skyline.</div>
+        <a class="place" role="button" tabindex="0" onclick="openModal('lianhua')">Lotus Hill Park (Lianhuashan Park / 莲花山公园) [MUST VISIT] 🖼️</a>
+        <div class="alt-place">Primary Focus: Deng Xiaoping Statue Summit Viewpoint</div>
+        <div class="meta"><strong>Same-Route Alternatives:</strong> Instead of hiking the hill, cross the connected footbridge into <strong>UpperHills (深业上城)</strong> for colorful rooftop alleyways and patio coffee shops.</div>
         <div class="quick-tags">
-          <span class="badge">💰 Free</span><span class="badge">🕒 2.5 hrs</span><span class="badge">TAXI DiDi (~10m) / 15m Walk</span>
+          <span class="badge">💰 Free</span><span class="badge">🕒 1.75 hrs (17:15 – 19:00)</span><span class="badge">WALK 3m North via Skybridge</span>
         </div>
       </div>
     </div>
@@ -179,17 +197,17 @@ button:disabled{opacity:.6;cursor:not-allowed}
 </div>
 
 <div class="timeline-item">
-  <div class="time-col">19:00</div>
+  <div class="time-col">19:15</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s3.jpg');">
     <div class="row">
       <input class="check" id="chk_day1_zhuoyue" type="checkbox">
       <img src="images/s3.jpg" onerror="this.onerror=null; this.src='images/s3.jpeg';" alt="Zhuoyue Center / One Avenue (卓悦中心 / 节日大道)" class="card-thumb" onclick="openModal('zhuoyue')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" role="button" tabindex="0" onclick="openModal('zhuoyue')">Zhuoyue Center / One Avenue (卓悦中心 / 节日大道) 🖼️</a>
-        <div class="alt-place">OR: Link City / Central Walk (领展中心城)</div>
-        <div class="meta">Cyberpunk-lit pedestrian strip with massive LED displays, craft beer, and outdoor dining.</div>
+        <div class="alt-place">Primary Focus: Open-Air LED Street & Outdoor Dining</div>
+        <div class="meta"><strong>Same-Route Alternatives:</strong> Instead of outdoor dining, head to <strong>Link City Underground (领展中心城)</strong> or <strong>Coco Park Futian (福田星河COCO Park)</strong> 2 blocks west.</div>
         <div class="quick-tags">
-          <span class="badge">💰 Free</span><span class="badge">🕒 2.5 hrs</span><span class="badge">TAXI DiDi (~8m) / 15m Walk</span>
+          <span class="badge">💰 Free</span><span class="badge">🕒 Evening (19:15 Onwards)</span><span class="badge">TAXI DiDi (~8m, ~¥12) / 15m Walk</span>
         </div>
       </div>
     </div>
@@ -199,7 +217,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <div class="lunch-recs">
   <h4>🍽️ Day 1 Lunch / Pre-Tour Food Ideas (Futian CBD)</h4>
   <ul>
-    <li><strong>Link City Underground (领展中心城):</strong> Connected right to Futian Station with dozens of casual lunch, milk tea, and dim sum spots.</li>
+    <li><strong>Link City Underground (领展中心城):</strong> Connected right to Futian Station with casual lunch options, milk tea, and dim sum spots.</li>
     <li><strong>Huaqiangbei Food Alley:</strong> Perfect for fast street bites, Lanzhou beef noodles, and local snack stalls before starting the afternoon tour.</li>
   </ul>
 </div>
@@ -207,9 +225,9 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <!-- DAY 2 -->
 <section id="day2" class="panel">
-<div class="dayhead" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s4.jpg');">
-  <h2>Day 2 — Museum, Arts & Coastal Bay Sunset</h2>
-  <div class="route">Focus: Shenzhen's rapid history, creative zones, and bay views.</div>
+<div class="dayhead" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s5.jpg');">
+  <h2>Day 2 — Nanshan Creative Arts & Coastal Bay Sunset</h2>
+  <div class="route">Focus: Converted factory art blocks, coastal bay walks, "Spring Bamboo" tower reflections, and golden hour over Hong Kong skyline.</div>
 </div>
 
 <button class="btn-full-guide" onclick="openModal('day2_details')">📖 VIEW FULL DAY 2 DETAIL PLAN</button>
@@ -217,46 +235,76 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <div class="timeline-item">
   <div class="time-col">10:00</div>
-  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s4.jpg');">
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s5.jpg');">
     <div class="row">
-      <input class="check" id="chk_day2_museum" type="checkbox">
-      <img src="images/s4.jpg" onerror="this.onerror=null; this.src='images/s4.jpeg';" alt="Shenzhen Museum (深圳博物馆)" class="card-thumb" onclick="openModal('szmuseum')" style="cursor:pointer;">
+      <input class="check" id="chk_day2_octloft" type="checkbox">
+      <img src="images/s5.jpg" onerror="this.onerror=null; this.src='images/s5.jpeg';" alt="OCT Loft (华侨城创意文化园)" class="card-thumb" onclick="openModal('octloft')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('szmuseum')">Shenzhen Museum (深圳博物馆) 🖼️</a>
-        <div class="alt-place">OR: MoCAUP (深圳当代艺术与城市规划馆)</div>
-        <div class="meta">History & Folk Culture exhibits detailing Shenzhen's rapid transformation.</div>
+        <a class="place" role="button" tabindex="0" onclick="openModal('octloft')">OCT Loft (华侨城创意文化园) 🖼️</a>
+        <div class="alt-place">Primary Focus: 1980s Converted Factory Art District</div>
+        <div class="meta"><strong>Same-Route Alternatives:</strong> Instead of factory art alleys, explore <strong>MixC World (万象天地)</strong> for giant art installations or <strong>Splendid China Folk Village (锦绣中华)</strong> nearby.</div>
         <div class="quick-tags">
-          <span class="badge">💰 Free (Bring Passport)</span><span class="badge">🕒 2.5 hrs</span><span class="badge">TAXI DiDi (~8m)</span>
+          <span class="badge">💰 Free</span><span class="badge">🕒 2 hrs (10:00 – 12:00)</span><span class="badge">TAXI DiDi (~15–20m, ~¥35)</span>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="timeline-item" style="opacity: 0.85;">
-  <div class="time-col">12:30</div>
+<div class="timeline-item" style="opacity: 0.95;">
+  <div class="time-col">12:00</div>
   <div class="card" style="padding: 12px 16px; background: #f8fafc;">
     <div class="row">
       <div style="flex:1; padding-left: 12px; border-left: 4px solid var(--primary);">
-        <strong style="color: var(--text);">Lunch Time</strong>
-        <div class="meta" style="margin-bottom:0;">Transit towards OCT Loft or MixC World and enjoy lunch in a tree-shaded cafe or bistro. (See recommendations below).</div>
+        <strong style="color: var(--text);">Lunch Break @ OCT Loft (12:00 – 13:15)</strong>
+        <div class="meta" style="margin-bottom:0;">Relaxed patio lunch at SeeSaw Coffee & Bistro or Gaga Cafe within the shaded OCT Loft block.</div>
       </div>
     </div>
   </div>
 </div>
 
 <div class="timeline-item">
-  <div class="time-col">13:30</div>
-  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s5.jpg');">
+  <div class="time-col">13:15</div>
+  <div class="card" style="padding: 12px 16px; background: #f8fafc;">
     <div class="row">
-      <input class="check" id="chk_day2_octloft" type="checkbox">
-      <img src="images/s5.jpg" onerror="this.onerror=null; this.src='images/s5.jpeg';" alt="OCT Loft Creative Culture Park (华侨城创意文化园)" class="card-thumb" onclick="openModal('octloft')" style="cursor:pointer;">
+      <div style="flex:1; padding-left: 12px; border-left: 4px solid var(--primary);">
+        <strong style="color: var(--text);">Transit to MixC Shenzhen Bay (13:15 – 14:00)</strong>
+        <div class="meta" style="margin-bottom:0;">Take a DiDi (~15–20 mins, ~¥25) south toward Houhai and 深圳湾万象城.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-item">
+  <div class="time-col">14:00</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s7.jpg');">
+    <div class="row">
+      <input class="check" id="chk_day2_mixcbay" type="checkbox">
+      <img src="images/s7.jpg" onerror="this.onerror=null; this.src='images/s7.jpeg';" alt="MixC Shenzhen Bay (深圳湾万象城)" class="card-thumb" onclick="openModal('mixcbay')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('octloft')">OCT Loft Creative Culture Park (华侨城创意文化园) 🖼️</a>
-        <div class="alt-place">OR: MixC World (万象天地)</div>
-        <div class="meta">1980s factory alleyways filled with indie roasters, art, boutiques, and shaded paths.</div>
+        <a class="place" role="button" tabindex="0" onclick="openModal('mixcbay')">MixC Shenzhen Bay (深圳湾万象城) 🖼️</a>
+        <div class="alt-place">Primary Focus: Luxury Mall & Fotografiska Gallery</div>
+        <div class="meta"><strong>Same-Route Alternatives:</strong> Instead of upscale shopping, visit <strong>Coastal City Mall (海岸城)</strong> or grab coffee in the <strong>Shenzhen Bay Eco-Tech Park</strong> plaza.</div>
         <div class="quick-tags">
-          <span class="badge">💰 Free</span><span class="badge">🕒 3.5 hrs</span><span class="badge">TAXI DiDi (~20m)</span>
+          <span class="badge">💰 Free Entry</span><span class="badge">🕒 1.5 hrs (14:00 – 15:30)</span><span class="badge">Arrive at Venue</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-item">
+  <div class="time-col">15:30</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s6.jpg');">
+    <div class="row">
+      <input class="check" id="chk_day2_talentpark" type="checkbox">
+      <img src="images/s6.jpg" onerror="this.onerror=null; this.src='images/s6.jpeg';" alt="Shenzhen Talent Park (深圳人才公园)" class="card-thumb" onclick="openModal('talentpark')" style="cursor:pointer;">
+      <div style="flex:1;">
+        <a class="place" role="button" tabindex="0" onclick="openModal('talentpark')">Shenzhen Talent Park (深圳人才公园) 🖼️</a>
+        <div class="alt-place">Primary Focus: Inner Bay Lake Loop & Spring Bamboo Views</div>
+        <div class="meta"><strong>Same-Route Alternatives:</strong> Instead of the lake loop, stroll around the <strong>Spring Cocoon Arena (Shenzhen Bay Sports Center)</strong> or head straight to the seaside boardwalk.</div>
+        <div class="quick-tags">
+          <span class="badge">💰 Free</span><span class="badge">🕒 1.5 hrs (15:30 – 17:00)</span><span class="badge">WALK 5m from MixC</span>
         </div>
       </div>
     </div>
@@ -267,14 +315,14 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="time-col">17:00</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s6.jpg');">
     <div class="row">
-      <input class="check" id="chk_day2_bay" type="checkbox">
-      <img src="images/s6.jpg" onerror="this.onerror=null; this.src='images/s6.jpeg';" alt="Shenzhen Bay Park & Talent Park (深圳湾公园与人才公园)" class="card-thumb" onclick="openModal('szbay')" style="cursor:pointer;">
+      <input class="check" id="chk_day2_szbay" type="checkbox">
+      <img src="images/s6.jpg" onerror="this.onerror=null; this.src='images/s6.jpeg';" alt="Shenzhen Bay Promenade (深圳湾公园)" class="card-thumb" onclick="openModal('szbay')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('szbay')">Shenzhen Bay Park & Talent Park (深圳湾公园与人才公园) 🖼️</a>
-        <div class="alt-place">OR: Go to Sea World Shekou (海上世界) early</div>
-        <div class="meta">Stroll the coastal promenade during golden hour for sea breezes and Hong Kong skyline views.</div>
+        <a class="place" role="button" tabindex="0" onclick="openModal('szbay')">Shenzhen Bay Promenade (深圳湾公园) 🖼️</a>
+        <div class="alt-place">Primary Focus: Golden Hour Sea Boardwalk Facing HK</div>
+        <div class="meta"><strong>Same-Route Alternatives:</strong> Instead of coastal walking, head directly to <strong>OCT Harbour (深圳欢乐海岸)</strong> for lakeside music fountains and water activities.</div>
         <div class="quick-tags">
-          <span class="badge">💰 Free</span><span class="badge">🕒 2.5 hrs</span><span class="badge">TAXI DiDi (~15m)</span>
+          <span class="badge">💰 Free</span><span class="badge">🕒 1.25 hrs (17:00 – 18:15)</span><span class="badge">WALK Connected Boardwalk</span>
         </div>
       </div>
     </div>
@@ -282,17 +330,17 @@ button:disabled{opacity:.6;cursor:not-allowed}
 </div>
 
 <div class="timeline-item">
-  <div class="time-col">20:00</div>
-  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s7.jpg');">
+  <div class="time-col">18:30</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s3.jpg');">
     <div class="row">
-      <input class="check" id="chk_day2_harbour" type="checkbox">
-      <img src="images/s7.jpg" onerror="this.onerror=null; this.src='images/s7.jpeg';" alt="OCT Harbour (深圳欢乐海岸)" class="card-thumb" onclick="openModal('octharbour')" style="cursor:pointer;">
+      <input class="check" id="chk_day2_houhai" type="checkbox">
+      <img src="images/s3.jpg" onerror="this.onerror=null; this.src='images/s3.jpeg';" alt="Houhai CBD Dinner & Return to Futian" class="card-thumb" onclick="openModal('houhaidinner')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('octharbour')">OCT Harbour / Bay Plaza (深圳欢乐海岸) 🖼️</a>
-        <div class="alt-place">OR: Yitian Holiday Plaza (益田假日广场)</div>
-        <div class="meta">Open-air waterfront complex with illuminated lakes, musical fountains, and dining.</div>
+        <a class="place" role="button" tabindex="0" onclick="openModal('houhaidinner')">Houhai CBD Dinner & Return to Futian 🖼️</a>
+        <div class="alt-place">Primary Focus: MixC Bay or Coastal City Dining</div>
+        <div class="meta"><strong>Same-Route Alternatives:</strong> Instead of eating in Nanshan, return directly to Futian and dine inside <strong>Gangxia North Station Hub (岗厦北)</strong> or <strong>Central Walk</strong>.</div>
         <div class="quick-tags">
-          <span class="badge">💰 Free</span><span class="badge">🕒 1.5 hrs</span><span class="badge">TAXI DiDi (~8m) / 35m Walk</span>
+          <span class="badge">💰 Free</span><span class="badge">🕒 Evening (18:30 Onwards)</span><span class="badge">WALK 5–10m via Skybridge</span>
         </div>
       </div>
     </div>
@@ -300,11 +348,11 @@ button:disabled{opacity:.6;cursor:not-allowed}
 </div>
 
 <div class="lunch-recs">
-  <h4>🍽️ Day 2 Lunch / Food Ideas (OCT Loft & Nanshan)</h4>
+  <h4>🍽️ Day 2 Food & Dining Ideas (OCT Loft & Houhai CBD)</h4>
   <ul>
-    <li><strong>SeeSaw Coffee & Bistro (OCT Loft):</strong> Great for relaxed brunch, gourmet sandwiches, and artisanal coffee surrounded by factory greenery.</li>
-    <li><strong>MixC World Food Mall (万象天地):</strong> High-end food hall and popular Cantonese dim sum, Hunan specialty dishes, or international options.</li>
+    <li><strong>SeeSaw Coffee & Bistro (OCT Loft):</strong> Great for relaxed patio lunch, gourmet sandwiches, and artisanal coffee surrounded by factory greenery.</li>
     <li><strong>Gaga Cafe (OCT Loft Branch):</strong> Extremely popular local brand for fresh fruit teas, light salad bowls, and pasta in a shaded outdoor setting.</li>
+    <li><strong>MixC Shenzhen Bay & Coastal City (海岸城):</strong> Top-tier Cantonese dim sum, high-end hot pot, and international waterfront dining.</li>
   </ul>
 </div>
 </section>
@@ -312,8 +360,8 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <!-- DAY 3 -->
 <section id="day3" class="panel">
 <div class="dayhead" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s8.jpg');">
-  <h2>Day 3 — Ancient History, Coastal Arts, and Shekou</h2>
-  <div class="route">Focus: Old fortresses, seaside architecture, and ex-pat coastal hubs.</div>
+  <h2>Day 3 — Ancient Roots, Coastal Shekou & Early Departure Prep</h2>
+  <div class="route">Focus: 1,700-year-old fortress gates, minimalist oceanfront art centers, docked cruise ship plaza, and early sleep for 04:30 AM train.</div>
 </div>
 
 <button class="btn-full-guide" onclick="openModal('day3_details')">📖 VIEW FULL DAY 3 DETAIL PLAN</button>
@@ -327,58 +375,52 @@ button:disabled{opacity:.6;cursor:not-allowed}
       <img src="images/s8.jpg" onerror="this.onerror=null; this.src='images/s8.jpeg';" alt="Nantou Ancient City (南头古城)" class="card-thumb" onclick="openModal('nantou')" style="cursor:pointer;">
       <div style="flex:1;">
         <a class="place" role="button" tabindex="0" onclick="openModal('nantou')">Nantou Ancient City (南头古城) 🖼️</a>
-        <div class="alt-place">OR: Zhongshan Park (中山公园)</div>
-        <div class="meta">A 1,700-year-old historic fortress town blending Lingnan architecture and indie craft shops.</div>
+        <div class="alt-place">Primary Focus: 1,700-Year-Old Historic Fortress Town</div>
+        <div class="meta"><strong>Same-Route Alternatives:</strong> Instead of the ancient city, visit <strong>Zhongshan Park (中山公园)</strong> right next door or <strong>Dutch Flower Town (荷兰花卉小镇)</strong> 10 mins away.</div>
         <div class="quick-tags">
-          <span class="badge">💰 Free</span><span class="badge">🕒 3 hrs</span><span class="badge">TAXI DiDi (~30m)</span>
+          <span class="badge">💰 Free</span><span class="badge">🕒 2.25 hrs (09:30 – 11:45)</span><span class="badge">TAXI DiDi (~25m, ~¥45)</span>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="timeline-item" style="opacity: 0.85;">
+<div class="timeline-item" style="opacity: 0.95;">
+  <div class="time-col">11:45</div>
+  <div class="card" style="padding: 12px 16px; background: #f8fafc;">
+    <div class="row">
+      <div style="flex:1; padding-left: 12px; border-left: 4px solid var(--primary);">
+        <strong style="color: var(--text);">Lunch @ Nantou Ancient City (11:45 – 12:30)</strong>
+        <div class="meta" style="margin-bottom:0;">Relaxed 45-minute meal inside the renovated ancient stone alleys (Cantonese roast goose, Chiu Chow beef balls).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-item">
   <div class="time-col">12:30</div>
   <div class="card" style="padding: 12px 16px; background: #f8fafc;">
     <div class="row">
       <div style="flex:1; padding-left: 12px; border-left: 4px solid var(--primary);">
-        <strong style="color: var(--text);">Lunch Time</strong>
-        <div class="meta" style="margin-bottom:0;">Grab food inside Nantou Ancient City or head towards Nanhai E-Cool cafes. (See recommendations below).</div>
+        <strong style="color: var(--text);">Transit to SWCAC (12:30 – 13:15)</strong>
+        <div class="meta" style="margin-bottom:0;">Drive south down the Shekou peninsula toward the coast via DiDi (~25–30 mins, ~¥25).</div>
       </div>
     </div>
   </div>
 </div>
 
 <div class="timeline-item">
-  <div class="time-col">13:30</div>
-  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s9.jpg');">
-    <div class="row">
-      <input class="check" id="chk_day3_ecool" type="checkbox">
-      <img src="images/s9.jpg" onerror="this.onerror=null; this.src='images/s9.jpeg';" alt="Nanhai E-Cool (南海意库)" class="card-thumb" onclick="openModal('ecool')" style="cursor:pointer;">
-      <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('ecool')">Nanhai E-Cool (南海意库) 🖼️</a>
-        <div class="alt-place">OR: Dutch Flower Town (荷兰花卉小镇)</div>
-        <div class="meta">Former Sanyo factory turned relaxed, shaded block packed with greenery, cafes, and boutiques.</div>
-        <div class="quick-tags">
-          <span class="badge">💰 Free</span><span class="badge">🕒 2 hrs</span><span class="badge">TAXI DiDi (~25m)</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="timeline-item">
-  <div class="time-col">15:45</div>
+  <div class="time-col">13:15</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s10.jpg');">
     <div class="row">
       <input class="check" id="chk_day3_swcac" type="checkbox">
-      <img src="images/s10.jpg" onerror="this.onerror=null; this.src='images/s10.jpeg';" alt="Sea World Culture and Arts Center (海上世界文化艺术中心)" class="card-thumb" onclick="openModal('swcac')" style="cursor:pointer;">
+      <img src="images/s10.jpg" onerror="this.onerror=null; this.src='images/s10.jpeg';" alt="Sea World Culture & Arts Center (海上世界文化艺术中心)" class="card-thumb" onclick="openModal('swcac')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('swcac')">Sea World Culture and Arts Center / SWCAC (海上世界文化艺术中心) 🖼️</a>
-        <div class="alt-place">OR: Nuwa Coastal Park (女娲滨海公园)</div>
-        <div class="meta">Minimalist waterfront architecture. Hit the public roof garden for sea and mountain views.</div>
+        <a class="place" role="button" tabindex="0" onclick="openModal('swcac')">Sea World Culture & Arts Center (SWCAC) (海上世界文化艺术中心) 🖼️</a>
+        <div class="alt-place">Primary Focus: Coastal Architecture & Roof Garden</div>
+        <div class="meta"><strong>Same-Route Alternatives:</strong> Instead of SWCAC galleries, explore <strong>Nanhai E-Cool (南海意库)</strong> shaded factory cafes or <strong>Nuwa Coastal Park (女娲滨海公园)</strong> across the road.</div>
         <div class="quick-tags">
-          <span class="badge">💰 Free (Roof)</span><span class="badge">🕒 2 hrs</span><span class="badge">WALK 15m Walk</span>
+          <span class="badge">💰 Free (Roof Garden)</span><span class="badge">🕒 2.25 hrs (13:15 – 15:30)</span><span class="badge">Arrive at Venue</span>
         </div>
       </div>
     </div>
@@ -386,17 +428,47 @@ button:disabled{opacity:.6;cursor:not-allowed}
 </div>
 
 <div class="timeline-item">
-  <div class="time-col">18:15</div>
+  <div class="time-col">15:30</div>
+  <div class="card" style="padding: 12px 16px; background: #f8fafc;">
+    <div class="row">
+      <div style="flex:1; padding-left: 12px; border-left: 4px solid var(--primary);">
+        <strong style="color: var(--text);">Walk to Sea World Plaza (15:30 – 16:00)</strong>
+        <div class="meta" style="margin-bottom:0;">Stroll ~800m west along the seaside promenade toward the docked cruise ship (10–15 min walk).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-item">
+  <div class="time-col">16:00</div>
   <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s11.jpg');">
     <div class="row">
       <input class="check" id="chk_day3_seaworld" type="checkbox">
-      <img src="images/s11.jpg" onerror="this.onerror=null; this.src='images/s11.jpeg';" alt="Sea World Plaza Shekou (海上世界广场)" class="card-thumb" onclick="openModal('seaworld')" style="cursor:pointer;">
+      <img src="images/s11.jpg" onerror="this.onerror=null; this.src='images/s11.jpeg';" alt="Sea World Plaza & Early Dinner (海上世界广场)" class="card-thumb" onclick="openModal('seaworld')" style="cursor:pointer;">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('seaworld')">Sea World Plaza Shekou (海上世界广场) 🖼️</a>
-        <div class="alt-place">OR: G&G Creative Community (G&G创意社区)</div>
-        <div class="meta">Vibrant waterfront plaza anchored by the permanently docked Minghua cruise ship. Watch the fountain show!</div>
+        <a class="place" role="button" tabindex="0" onclick="openModal('seaworld')">Sea World Plaza & Early Dinner (海上世界广场) 🖼️</a>
+        <div class="alt-place">Primary Focus: Docked Minghua Cruise Ship Plaza</div>
+        <div class="meta"><strong>Same-Route Alternatives:</strong> Instead of Sea World plaza dining, check out <strong>G&G Creative Community (G&G创意社区)</strong> container park or <strong>Shekou Old Fishing Port Boardwalk</strong>.</div>
         <div class="quick-tags">
-          <span class="badge">💰 Free</span><span class="badge">🕒 2.5 hrs</span><span class="badge">WALK 10m Walk</span>
+          <span class="badge">💰 Free</span><span class="badge">🕒 1.25 hrs (16:00 – 17:15)</span><span class="badge">WALK 10–15m Walk</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-item">
+  <div class="time-col">17:15</div>
+  <div class="card" style="background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('images/s1.jpg');">
+    <div class="row">
+      <input class="check" id="chk_day3_earlybed" type="checkbox">
+      <img src="images/s1.jpg" onerror="this.onerror=null; this.src='images/s1.jpeg';" alt="Return to Futian Hotel & Early Departure Prep" class="card-thumb" onclick="openModal('earlybed')" style="cursor:pointer;">
+      <div style="flex:1;">
+        <a class="place" role="button" tabindex="0" onclick="openModal('earlybed')">Return to Futian Hotel & Early Bed Prep 🖼️</a>
+        <div class="alt-place">Primary Focus: Hotel Return by 18:00 – 18:30</div>
+        <div class="meta"><strong>Same-Route Alternatives:</strong> If not resting early, visit <strong>Futian Railway Station Arcade</strong> or <strong>Shayao Pedestrian Mall</strong> near your hotel.</div>
+        <div class="quick-tags">
+          <span class="badge">🕒 Evening (17:15 Onwards)</span><span class="badge">TAXI DiDi (~30m, ~¥45)</span>
         </div>
       </div>
     </div>
@@ -404,11 +476,10 @@ button:disabled{opacity:.6;cursor:not-allowed}
 </div>
 
 <div class="lunch-recs">
-  <h4>🍽️ Day 3 Lunch / Food Ideas (Nantou & Shekou)</h4>
+  <h4>🍽️ Day 3 Lunch & Food Ideas (Nantou & Shekou)</h4>
   <ul>
-    <li><strong>Nantou Ancient City Eateries:</strong> Local Cantonese roast goose rice, Chiu Chow beef balls, and craft tea houses set inside renovated historic stone alleys.</li>
-    <li><strong>Nanhai E-Cool Cafes & Bistros:</strong> Shaded, European-style patio cafes ideal for lunch and iced coffee before heading down to the Shekou seafront.</li>
-    <li><strong>Shekou Sea World Dining Plaza:</strong> Dozens of global options including authentic Mexican, Italian wood-fired pizza, Indian bistros, and fresh coastal seafood.</li>
+    <li><strong>Nantou Ancient City Eateries:</strong> Local Cantonese roast goose rice, Chiu Chow beef balls, and craft tea houses inside renovated historic alleys.</li>
+    <li><strong>Shekou Sea World Dining Plaza:</strong> Dozens of global choices including authentic Mexican, Italian wood-fired pizza, Indian bistros, and fresh coastal seafood.</li>
   </ul>
 </div>
 </section>
@@ -437,160 +508,176 @@ button:disabled{opacity:.6;cursor:not-allowed}
 </main>
 </div>
 
-<!-- DEDICATED FULL DETAIL PAGE MODALS -->
+<!-- FULL DETAIL PAGE MODALS -->
 
 <!-- DAY 1 FULL DETAILS -->
 <div id="modal_day1_details" class="modal"><div class="modalbox" style="max-width: 800px;">
 <button type="button" class="close-btn" onclick="closeModal('day1_details')">✕ Close</button>
-<h2 style="color:var(--primary); font-size:28px; margin-bottom: 24px; border-bottom: 2px solid var(--border); padding-bottom: 12px;">Day 1: Futian Half-Day</h2>
+<h2 style="color:var(--primary); font-size:28px; margin-bottom: 24px; border-bottom: 2px solid var(--border); padding-bottom: 12px;">Day 1: Futian Cyberpunk Tech, History & CBD Skyline</h2>
 <div class="full-detail-text">
-  <h3>1. 1:30 PM: Huaqiangbei (华强北) OR MOCAPE (深圳当代艺术与城市规划馆)</h3>
-  <p><strong>Transit:</strong> 1.5–2 km from Hotel. DiDi: 5–8 mins (~¥15) or Walk 18 mins.<br>
-  <strong>Activity:</strong> Focus on ONE highlight to avoid rushing.<br>
-  - <em>Option A (Tech):</em> Explore Huaqiangbei Electronics Market (华强北电子市场) gadget stalls, drone showrooms, and components markets.<br>
-  - <em>Option B (Art/Architecture):</em> Visit MOCAPE (深圳当代艺术与城市规划馆) for futuristic indoor architecture and 3D urban development models.<br>
-  <strong>Alternatives:</strong> HQB Museum (华强北博物馆) if at Huaqiangbei, or Shenzhen Library (深圳图书馆) next to MOCAPE.</p>
+  <h3>1. 13:30 – 15:30: Huaqiangbei Electronics Market (华强北)</h3>
+  <p><strong>Transit:</strong> Eastern Futian starting point (~5–8 min DiDi or 18 min walk from hotel).<br>
+  <strong>Activity:</strong> Explore SEG Electronics Plaza and multi-story markets for drones, custom hardware, action cameras, and gadgets.</p>
   
-  <h3>2. 4:00 PM: Lianhuashan Park (莲花山公园)</h3>
-  <p><strong>Transit:</strong> 1–3.5 km North. DiDi 10 mins (~¥16) or Walk 15 mins.<br>
-  <strong>Activity:</strong> Take an unhurried, gentle walk up to the Deng Xiaoping statue plaza (邓小平铜像广场) to watch the sunset over the Futian skyline and see the city lights turn on across the CBD.<br>
-  <strong>Alternatives:</strong> Guan Shanyue Art Museum (关山月美术馆) at the eastern foot of the park if it is too hot/humid outside.</p>
+  <h3>2. 15:45 – 17:15: Shenzhen Civic Center: Shenzhen Museum (深圳博物馆)</h3>
+  <p><strong>Transit:</strong> ~5 min DiDi (~¥15) or Metro Line 2/8 west to Civic Center.<br>
+  <strong>Activity:</strong> Visit the Shenzhen Reform & Opening-Up Exhibition inside the East Wing of Civic Center. Learn about Shenzhen's transformation from a rural fishing county into a tech megacity. Bring original physical passport for free entry (last entry 17:30).</p>
 
-  <h3>3. 7:00 PM: Zhuoyue Center / One Avenue (卓悦中心 / 节日大道)</h3>
-  <p><strong>Transit:</strong> 1.2 km South. DiDi 8 mins (~¥12) or Walk 15 mins down central axis.<br>
-  <strong>Activity:</strong> Enjoy a sit-down dinner at your own pace. Stroll the cyberpunk-lit pedestrian strip filled with outdoor seating, massive LED displays, and craft beer spots.<br>
-  <strong>Alternatives:</strong> Link City / Central Walk (领展中心城) for underground indoor dining options right nearby.</p>
+  <h3>3. 17:15 – 19:00: Lotus Hill Park (Lianhuashan Park / 莲花山公园) [MUST VISIT]</h3>
+  <p><strong>Transit:</strong> 3 min walk north via connected elevated skybridge over Fuzhong Road.<br>
+  <strong>Activity:</strong> Hike 15–20 minutes up the paved path to Deng Xiaoping Statue Plaza for sunset over the lit Futian skyscrapers. Search specifically for 莲花山公园 to avoid map routing errors.</p>
+
+  <h3>4. 19:15 Onwards: Zhuoyue Center / One Avenue (卓悦中心 / 节日大道)</h3>
+  <p><strong>Transit:</strong> ~8 min DiDi (~¥12) or 15 min walk south down central axis.<br>
+  <strong>Activity:</strong> Sit-down outdoor dining, craft breweries, and neon pedestrian street walks flanked by high-definition LED street corridors.</p>
 </div>
 </div></div>
 
 <!-- DAY 2 FULL DETAILS -->
 <div id="modal_day2_details" class="modal"><div class="modalbox" style="max-width: 800px;">
 <button type="button" class="close-btn" onclick="closeModal('day2_details')">✕ Close</button>
-<h2 style="color:var(--primary); font-size:28px; margin-bottom: 24px; border-bottom: 2px solid var(--border); padding-bottom: 12px;">Day 2: Museum, Arts & Coastal Bay Sunset</h2>
+<h2 style="color:var(--primary); font-size:28px; margin-bottom: 24px; border-bottom: 2px solid var(--border); padding-bottom: 12px;">Day 2: Nanshan Creative Arts & Coastal Bay Sunset</h2>
 <div class="full-detail-text">
-  <h3>1. 10:00 AM: Shenzhen Museum (深圳博物馆)</h3>
-  <p><strong>Transit:</strong> 2 km North from Hotel. DiDi 8 mins (~¥15) or Walk 25 mins.<br>
-  <strong>Activity:</strong> (Closed Mondays). Explore Shenzhen's rapid transformation in an air-conditioned, low-stress museum. No WeChat reservation needed—just present your physical passport!<br>
-  <strong>Alternatives:</strong> MoCAUP (深圳当代艺术与城市规划馆) if you prefer modern art over historical exhibits.</p>
+  <h3>1. 10:00 – 12:00: OCT Loft (华侨城创意文化园)</h3>
+  <p><strong>Transit:</strong> ~15–20 min DiDi (~¥35) west from Futian hotel.<br>
+  <strong>Activity:</strong> Quiet morning stroll through converted 1980s factory alleyways, pop-up design shops, open art studios, and street art shaded by banyan trees.</p>
 
-  <h3>2. 12:30 PM: Lunch Break</h3>
-  <p><strong>Transit:</strong> Head toward OCT Loft or MixC World.<br>
-  Grab a relaxed lunch before exploring the creative district. See the recommendations block at the bottom of the Day 2 tab for ideas.</p>
+  <h3>2. 12:00 – 13:15: Lunch Break @ OCT Loft</h3>
+  <p><strong>Transit:</strong> Stay within OCT Loft block.<br>
+  <strong>Activity:</strong> Relaxed patio lunch at SeeSaw Coffee & Bistro or Gaga Cafe right inside OCT Loft.</p>
 
-  <h3>3. 1:30 PM: OCT Loft Creative Culture Park (华侨城创意文化园)</h3>
-  <p><strong>Transit:</strong> 11 km West from Museum. DiDi 20 mins (~¥35) via highway.<br>
-  <strong>Activity:</strong> 3.5 whole hours for lunch and unstructured wandering. Enjoy tree-shaded 1980s factory alleyways, indie coffee roasters, street art, and boutique design shops.<br>
-  <strong>Alternatives:</strong> MixC World (万象天地), a high-end open-air fashion and architecture plaza 10 minutes away.</p>
+  <h3>3. 13:15 – 15:30: MixC Shenzhen Bay (深圳湾万象城)</h3>
+  <p><strong>Transit:</strong> ~15–20 min DiDi (~¥25) south to 深圳湾万象城.<br>
+  <strong>Activity:</strong> Cool down indoors during peak sun, grab a dessert/coffee, or browse modern installations at Fotografiska.</p>
 
-  <h3>4. 5:00 PM: Shenzhen Bay Park & Talent Park (深圳湾公园与人才公园)</h3>
-  <p><strong>Transit:</strong> 6 km South from OCT Loft. DiDi 15 mins (~¥25). Set destination specifically to "深圳湾公园-地铁站D2口".<br>
-  <strong>Activity:</strong> Stroll along the coastal promenade during golden hour and sunset with open views of the water, sea breezes, and the Hong Kong skyline across the bay.<br>
-  <strong>Alternatives:</strong> Head straight to Sea World Shekou (海上世界) early if you want a busier waterfront dining atmosphere.</p>
+  <h3>4. 15:30 – 18:15: Shenzhen Talent Park & Coastal Promenade (深圳人才公园 & 深圳湾公园)</h3>
+  <p><strong>Transit:</strong> Walk 5 mins straight out of MixC into Talent Park.<br>
+  <strong>Activity:</strong> Walk the Talent Park lake loop to photograph reflections of the Spring Bamboo tower. Continue onto the open coastal promenade for golden hour, sunset, and views across the bay to Hong Kong.</p>
 
-  <h3>5. 8:00 PM: OCT Harbour / Bay Plaza (深圳欢乐海岸)</h3>
-  <p><strong>Transit:</strong> 3 km North from Shenzhen Bay. DiDi 8–10 mins (~¥15) or Walk ~35 mins via connected paths.<br>
-  <strong>Activity:</strong> End the night at this open-air waterfront complex featuring illuminated lakes, musical fountains, and lakeside dinner spots.<br>
-  <strong>Alternatives:</strong> Yitian Holiday Plaza (益田假日广场) for an indoor air-conditioned shopping and dining complex.</p>
+  <h3>5. 18:30 Onwards: Houhai CBD Dinner & Return to Futian</h3>
+  <p><strong>Transit:</strong> 5–10 min walk via skybridge into dining districts.<br>
+  <strong>Activity:</strong> Evening skyline dining at MixC Shenzhen Bay or Coastal City (海岸城) for Cantonese dim sum, hot pot, or international bistros. Take DiDi or Metro Line 11 back to Gangxia North / Futian.</p>
 </div>
 </div></div>
 
 <!-- DAY 3 FULL DETAILS -->
 <div id="modal_day3_details" class="modal"><div class="modalbox" style="max-width: 800px;">
 <button type="button" class="close-btn" onclick="closeModal('day3_details')">✕ Close</button>
-<h2 style="color:var(--primary); font-size:28px; margin-bottom: 24px; border-bottom: 2px solid var(--border); padding-bottom: 12px;">Day 3: History & Shekou</h2>
+<h2 style="color:var(--primary); font-size:28px; margin-bottom: 24px; border-bottom: 2px solid var(--border); padding-bottom: 12px;">Day 3: Ancient Roots, Coastal Shekou & Early Departure Prep</h2>
 <div class="full-detail-text">
-  <h3>1. 9:30 AM: Nantou Ancient City (南头古城)</h3>
-  <p><strong>Transit:</strong> 20 km West from Hotel. DiDi 30 mins (~¥45) via Shennan Highway.<br>
-  <strong>Activity:</strong> Explore a 1,700-year-old historic fortress town. Features ancient city gates, Lingnan architecture, and indie craft shops built right into historic brick alleyways.<br>
-  <strong>Alternatives:</strong> Zhongshan Park (中山公园), Shenzhen's oldest public park located right next door, full of massive banyan trees.</p>
+  <h3>1. 09:30 – 11:45: Nantou Ancient City (南头古城)</h3>
+  <p><strong>Transit:</strong> ~25 min DiDi (~¥45) west from Futian hotel.<br>
+  <strong>Activity:</strong> Enter through ancient fortress gates. Browse historical Lingnan architecture, small heritage displays, and stone alleys.</p>
 
-  <h3>2. 12:30 PM: Lunch Break</h3>
-  <p><strong>Transit:</strong> Nantou or Shekou area.<br>
-  Enjoy local eats inside Nantou Ancient City or near Nanhai E-Cool.</p>
+  <h3>2. 11:45 – 12:30: Lunch @ Nantou Ancient City</h3>
+  <p><strong>Transit:</strong> Stay within ancient city.<br>
+  <strong>Activity:</strong> Relaxed 45-minute meal inside the renovated ancient town streets.</p>
 
-  <h3>3. 1:30 PM: Nanhai E-Cool (南海意库)</h3>
-  <p><strong>Transit:</strong> 11 km South from Nantou. DiDi 25 mins (~¥25) straight down into Shekou.<br>
-  <strong>Activity:</strong> A former Sanyo factory complex converted into a shaded, relaxed walking block packed with greenery, cafes, boutiques, and outdoor dining.<br>
-  <strong>Alternatives:</strong> Dutch Flower Town (深圳荷兰花卉小镇), a European-themed flower market street located further north.</p>
+  <h3>3. 12:30 – 15:30: Sea World Culture & Arts Center / SWCAC (海上世界文化艺术中心)</h3>
+  <p><strong>Transit:</strong> ~25–30 min DiDi (~¥25) south down Shekou peninsula.<br>
+  <strong>Activity:</strong> Minimalist coastal building by Fumihiko Maki. Walk up to the public Roof Garden for open sea and mountain views across Shekou port.</p>
 
-  <h3>4. 3:45 PM: Sea World Culture and Arts Center / SWCAC (海上世界文化艺术中心)</h3>
-  <p><strong>Transit:</strong> 1 km South from E-Cool. Walk 15 mins along the coastal promenade.<br>
-  <strong>Activity:</strong> Minimalist waterfront architectural complex designed by Fumihiko Maki. Walk up to the public roof garden for panoramic views of the sea and mountains.<br>
-  <strong>Alternatives:</strong> Nuwa Coastal Park (女娲滨海公园), the open oceanfront path right outside the building.</p>
+  <h3>4. 15:30 – 17:15: Sea World Plaza & Early Dinner (海上世界广场)</h3>
+  <p><strong>Transit:</strong> 10–15 min coastal walk (~800m) west into Sea World Plaza.<br>
+  <strong>Activity:</strong> Photograph the permanently docked 1960s Minghua cruise ship and eat an early dinner at an outdoor patio bistro.</p>
 
-  <h3>5. 6:15 PM: Sea World Plaza Shekou (海上世界广场)</h3>
-  <p><strong>Transit:</strong> 0.8 km West from SWCAC. Walk 10 mins down the promenade.<br>
-  <strong>Activity:</strong> End your trip at Shekou's famous waterfront Plaza centered around the Minghua, a massive real cruise ship permanently docked in the plaza. Watch the free musical fountain show (7 PM & 8 PM).<br>
-  <strong>Alternatives:</strong> G&G Creative Community (G&G创意社区), an indie shipping-container lifestyle park 15 minutes away.</p>
+  <h3>5. 17:15 Onwards: Return to Futian Hotel & Early Bed</h3>
+  <p><strong>Transit:</strong> ~30 min DiDi (~¥45) back to hotel.<br>
+  <strong>Activity:</strong> Return to hotel by 18:00–18:30. Shower, finish packing luggage, set multiple alarms, and rest early for 04:30 AM train.</p>
 </div>
 </div></div>
 
 <!-- PLACE SPECIFIC MODALS -->
 <div id="modal_hqb" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('hqb')">✕ Close</button>
-<img src="images/s1.jpg" onerror="this.onerror=null; this.src='images/s1.jpeg';" alt="Huaqiangbei / MOCAPE (华强北 / 深圳当代艺术与城市规划馆)" class="modal-img">
-<h2>Huaqiangbei / MOCAPE (华强北 / 深圳当代艺术与城市规划馆)</h2>
-<div class="modal-logistics"><span>💰 Cost: Free</span><span>🕒 Activity: ~2 hrs</span></div>
+<img src="images/s1.jpg" onerror="this.onerror=null; this.src='images/s1.jpeg';" alt="Huaqiangbei Electronics Market (华强北)" class="modal-img">
+<h2>Huaqiangbei Electronics Market (华强北)</h2>
+<div class="modal-logistics"><span>💰 Cost: Free Entry</span><span>🕒 Time: 13:30 – 15:30</span></div>
+<p style="color:#475569;font-size:14px;">Explore SEG Electronics Plaza and multi-story electronics markets. Drones, custom hardware, action cameras, and gadgets.</p>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_hqb" class="modal-notes-area" oninput="saveNote('hqb')"></textarea></div></div>
-
-<div id="modal_lianhua" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('lianhua')">✕ Close</button>
-<img src="images/s2.jpg" onerror="this.onerror=null; this.src='images/s2.jpeg';" alt="Lianhuashan Park (莲花山公园)" class="modal-img">
-<h2>Lianhuashan Park (莲花山公园)</h2>
-<div class="modal-logistics"><span>💰 Cost: Free</span><span>🕒 Activity: ~2.5 hrs</span></div>
-<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_lianhua" class="modal-notes-area" oninput="saveNote('lianhua')"></textarea></div></div>
-
-<div id="modal_zhuoyue" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('zhuoyue')">✕ Close</button>
-<img src="images/s3.jpg" onerror="this.onerror=null; this.src='images/s3.jpeg';" alt="Zhuoyue Center / One Avenue (卓悦中心 / 节日大道)" class="modal-img">
-<h2>Zhuoyue Center / One Avenue (卓悦中心 / 节日大道)</h2>
-<div class="modal-logistics"><span>💰 Cost: Free</span><span>🕒 Activity: ~2.5 hrs</span></div>
-<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_zhuoyue" class="modal-notes-area" oninput="saveNote('zhuoyue')"></textarea></div></div>
 
 <div id="modal_szmuseum" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('szmuseum')">✕ Close</button>
 <img src="images/s4.jpg" onerror="this.onerror=null; this.src='images/s4.jpeg';" alt="Shenzhen Museum (深圳博物馆)" class="modal-img">
-<h2>Shenzhen Museum (深圳博物馆)</h2>
-<div class="modal-logistics"><span>💰 Cost: Free (Bring Passport)</span><span>🚫 Closed: Mondays</span></div>
+<h2>Shenzhen Civic Center: Shenzhen Museum (深圳博物馆)</h2>
+<div class="modal-logistics"><span>💰 Cost: Free (Passport Req.)</span><span>🕒 Time: 15:45 – 17:15</span><span>🚫 Closed: Mondays</span></div>
+<p style="color:#475569;font-size:14px;">Shenzhen Reform & Opening-Up Exhibition inside East Wing of Civic Center. Present physical passport for entry (last entry 17:30).</p>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_szmuseum" class="modal-notes-area" oninput="saveNote('szmuseum')"></textarea></div></div>
+
+<div id="modal_lianhua" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('lianhua')">✕ Close</button>
+<img src="images/s2.jpg" onerror="this.onerror=null; this.src='images/s2.jpeg';" alt="Lotus Hill Park (莲花山公园)" class="modal-img">
+<h2>Lotus Hill Park (Lianhuashan Park / 莲花山公园)</h2>
+<div class="modal-logistics"><span>💰 Cost: Free</span><span>🕒 Time: 17:15 – 19:00</span></div>
+<p style="color:#475569;font-size:14px;">Walk north across Fuzhong Rd skybridge into park. Hike 15–20 mins up paved path to Deng Xiaoping Statue Plaza for CBD sunset.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_lianhua" class="modal-notes-area" oninput="saveNote('lianhua')"></textarea></div></div>
+
+<div id="modal_zhuoyue" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('zhuoyue')">✕ Close</button>
+<img src="images/s3.jpg" onerror="this.onerror=null; this.src='images/s3.jpeg';" alt="Zhuoyue Center / One Avenue (卓悦中心)" class="modal-img">
+<h2>Zhuoyue Center / One Avenue (卓悦中心 / 节日大道)</h2>
+<div class="modal-logistics"><span>💰 Cost: Free</span><span>🕒 Time: 19:15 Onwards</span></div>
+<p style="color:#475569;font-size:14px;">Sit-down outdoor dining, craft breweries, and neon pedestrian street walks framed by high-definition LED corridors.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_zhuoyue" class="modal-notes-area" oninput="saveNote('zhuoyue')"></textarea></div></div>
 
 <div id="modal_octloft" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('octloft')">✕ Close</button>
 <img src="images/s5.jpg" onerror="this.onerror=null; this.src='images/s5.jpeg';" alt="OCT Loft (华侨城创意文化园)" class="modal-img">
-<h2>OCT Loft Creative Culture Park (华侨城创意文化园)</h2>
-<div class="modal-logistics"><span>💰 Cost: Free</span><span>🕒 Activity: ~3.5 hrs</span></div>
+<h2>OCT Loft (华侨城创意文化园)</h2>
+<div class="modal-logistics"><span>💰 Cost: Free</span><span>🕒 Time: 10:00 – 12:00</span></div>
+<p style="color:#475569;font-size:14px;">Shaded 1980s factory alleyways, art galleries, pop-up design stores, and street murals under banyan trees.</p>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_octloft" class="modal-notes-area" oninput="saveNote('octloft')"></textarea></div></div>
 
+<div id="modal_mixcbay" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('mixcbay')">✕ Close</button>
+<img src="images/s7.jpg" onerror="this.onerror=null; this.src='images/s7.jpeg';" alt="MixC Shenzhen Bay (深圳湾万象城)" class="modal-img">
+<h2>MixC Shenzhen Bay (深圳湾万象城)</h2>
+<div class="modal-logistics"><span>💰 Cost: Free Entry</span><span>🕒 Time: 14:00 – 15:30</span></div>
+<p style="color:#475569;font-size:14px;">Air-conditioned afternoon break, dessert/coffee, or optional photography exhibitions at Fotografiska.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_mixcbay" class="modal-notes-area" oninput="saveNote('mixcbay')"></textarea></div></div>
+
+<div id="modal_talentpark" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('talentpark')">✕ Close</button>
+<img src="images/s6.jpg" onerror="this.onerror=null; this.src='images/s6.jpeg';" alt="Shenzhen Talent Park (深圳人才公园)" class="modal-img">
+<h2>Shenzhen Talent Park (深圳人才公园)</h2>
+<div class="modal-logistics"><span>💰 Cost: Free</span><span>🕒 Time: 15:30 – 17:00</span></div>
+<p style="color:#475569;font-size:14px;">Inner bay lake loop walk beneath the China Resources Spring Bamboo tower.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_talentpark" class="modal-notes-area" oninput="saveNote('talentpark')"></textarea></div></div>
+
 <div id="modal_szbay" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('szbay')">✕ Close</button>
-<img src="images/s6.jpg" onerror="this.onerror=null; this.src='images/s6.jpeg';" alt="Shenzhen Bay Park (深圳湾公园)" class="modal-img">
-<h2>Shenzhen Bay Park & Talent Park (深圳湾公园与人才公园)</h2>
-<div class="modal-logistics"><span>💰 Cost: Free</span></div>
+<img src="images/s6.jpg" onerror="this.onerror=null; this.src='images/s6.jpeg';" alt="Shenzhen Bay Promenade (深圳湾公园)" class="modal-img">
+<h2>Shenzhen Bay Promenade (深圳湾公园)</h2>
+<div class="modal-logistics"><span>💰 Cost: Free</span><span>🕒 Time: 17:00 – 18:15</span></div>
+<p style="color:#475569;font-size:14px;">Open coastal walk during golden hour, sea breeze, and Hong Kong skyline views.</p>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_szbay" class="modal-notes-area" oninput="saveNote('szbay')"></textarea></div></div>
 
-<div id="modal_octharbour" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('octharbour')">✕ Close</button>
-<img src="images/s7.jpg" onerror="this.onerror=null; this.src='images/s7.jpeg';" alt="OCT Harbour (深圳欢乐海岸)" class="modal-img">
-<h2>OCT Harbour (深圳欢乐海岸)</h2>
-<div class="modal-logistics"><span>💰 Cost: Free</span></div>
-<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_octharbour" class="modal-notes-area" oninput="saveNote('octharbour')"></textarea></div></div>
+<div id="modal_houhaidinner" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('houhaidinner')">✕ Close</button>
+<img src="images/s3.jpg" onerror="this.onerror=null; this.src='images/s3.jpeg';" alt="Houhai CBD Dinner" class="modal-img">
+<h2>Houhai CBD Dinner & Return to Futian</h2>
+<div class="modal-logistics"><span>💰 Cost: Varies</span><span>🕒 Time: 18:30 Onwards</span></div>
+<p style="color:#475569;font-size:14px;">Evening skyline dining at MixC Shenzhen Bay or Coastal City (海岸城). Return to hotel via Metro Line 11 or DiDi.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_houhaidinner" class="modal-notes-area" oninput="saveNote('houhaidinner')"></textarea></div></div>
 
 <div id="modal_nantou" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('nantou')">✕ Close</button>
 <img src="images/s8.jpg" onerror="this.onerror=null; this.src='images/s8.jpeg';" alt="Nantou Ancient City (南头古城)" class="modal-img">
 <h2>Nantou Ancient City (南头古城)</h2>
-<div class="modal-logistics"><span>💰 Cost: Free</span></div>
+<div class="modal-logistics"><span>💰 Cost: Free</span><span>🕒 Time: 09:30 – 11:45</span></div>
+<p style="color:#475569;font-size:14px;">1,700-year-old historic fortress town blending Lingnan stone alleys, small heritage displays, and craft shops.</p>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_nantou" class="modal-notes-area" oninput="saveNote('nantou')"></textarea></div></div>
-
-<div id="modal_ecool" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('ecool')">✕ Close</button>
-<img src="images/s9.jpg" onerror="this.onerror=null; this.src='images/s9.jpeg';" alt="Nanhai E-Cool (南海意库)" class="modal-img">
-<h2>Nanhai E-Cool (南海意库)</h2>
-<div class="modal-logistics"><span>💰 Cost: Free</span></div>
-<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_ecool" class="modal-notes-area" oninput="saveNote('ecool')"></textarea></div></div>
 
 <div id="modal_swcac" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('swcac')">✕ Close</button>
 <img src="images/s10.jpg" onerror="this.onerror=null; this.src='images/s10.jpeg';" alt="SWCAC (海上世界文化艺术中心)" class="modal-img">
-<h2>Sea World Culture and Arts Center (海上世界文化艺术中心)</h2>
-<div class="modal-logistics"><span>💰 Cost: Free</span></div>
+<h2>Sea World Culture & Arts Center (海上世界文化艺术中心)</h2>
+<div class="modal-logistics"><span>💰 Cost: Free (Roof)</span><span>🕒 Time: 13:15 – 15:30</span></div>
+<p style="color:#475569;font-size:14px;">Minimalist coastal architecture by Fumihiko Maki. Public galleries and open ocean view roof garden.</p>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_swcac" class="modal-notes-area" oninput="saveNote('swcac')"></textarea></div></div>
 
 <div id="modal_seaworld" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('seaworld')">✕ Close</button>
 <img src="images/s11.jpg" onerror="this.onerror=null; this.src='images/s11.jpeg';" alt="Sea World Plaza (海上世界广场)" class="modal-img">
 <h2>Sea World Plaza Shekou (海上世界广场)</h2>
-<div class="modal-logistics"><span>💰 Cost: Free</span></div>
+<div class="modal-logistics"><span>💰 Cost: Free</span><span>🕒 Time: 16:00 – 17:15</span></div>
+<p style="color:#475569;font-size:14px;">Docked 1960s Minghua cruise ship plaza with outdoor patio dining bistros.</p>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_seaworld" class="modal-notes-area" oninput="saveNote('seaworld')"></textarea></div></div>
+
+<div id="modal_earlybed" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('earlybed')">✕ Close</button>
+<img src="images/s1.jpg" onerror="this.onerror=null; this.src='images/s1.jpeg';" alt="Return to Futian Hotel" class="modal-img">
+<h2>Return to Futian Hotel & Early Departure Prep</h2>
+<div class="modal-logistics"><span>🕒 Return: ~18:00 – 18:30</span></div>
+<p style="color:#475569;font-size:14px;">DiDi back to Futian hotel (~30 mins, ~¥45). Shower, pack luggage, set alarms, and rest early for 04:30 AM train.</p>
+<label style="font-weight:600">✍️ My Notes:</label><textarea id="note_earlybed" class="modal-notes-area" oninput="saveNote('earlybed')"></textarea></div></div>
 
 <!-- Scripts -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -829,12 +916,12 @@ function exportExpensesCSV(){
   expenses.forEach(e => { csv += `"${(e.name||'').replace(/"/g, '""')}","${e.amount}","${e.day}"\r\n`; });
   const blob = new Blob(['\ufeff', csv], {type: 'text/csv;charset=utf-8;'});
   const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'shenzhen_expenses.csv';
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
+  const linkElem = document.createElement('a');
+  linkElem.href = url;
+  linkElem.download = 'shenzhen_expenses.csv';
+  document.body.appendChild(linkElem);
+  linkElem.click();
+  linkElem.remove();
 }
 
 function saveNote(placeId){
