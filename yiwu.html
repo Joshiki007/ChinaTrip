@@ -35,9 +35,10 @@ input[name=daytab]{display:none}
 
 .row{display:flex;gap:16px;align-items:flex-start}
 .check{width:24px;height:24px;margin-top:2px;flex:none;cursor:pointer;accent-color:var(--primary)}
-.card-thumb{width:90px;height:75px;object-fit:cover;border-radius:10px;flex:none;border:1px solid var(--border);cursor:pointer}
+.card-thumb{width:90px;height:75px;object-fit:cover;border-radius:10px;flex:none;border:1px solid var(--border)}
 .place{font-size:17px;font-weight:700;color:var(--text);text-decoration:none;cursor:pointer;display:block;margin-bottom:4px}
 .place:hover{color:var(--primary)}
+.cn-title{color:#2563eb;font-weight:600;font-size:15px;margin-left:4px}
 .meta{font-size:14px;color:var(--text-muted);line-height:1.4;margin-bottom:8px;}
 .quick-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .badge{display:inline-flex;align-items:center;background:#f1f5f9;border-radius:6px;padding:4px 8px;font-size:12px;font-weight:600;color:#475569;}
@@ -72,20 +73,8 @@ input[name=daytab]{display:none}
 .modalbox{background:var(--card);max-width:620px;width:100%;max-height:95vh;overflow:auto;border-radius:24px;padding:24px;position:relative;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25)}
 .close-btn{position:absolute;top:20px;right:20px;background:#f1f5f9;color:var(--text);padding:8px 14px;border-radius:8px;font-weight:600;border:0;cursor:pointer;z-index:10}
 .close-btn:hover{background:#e2e8f0}
-.modalbox h2{margin:8px 0 16px;font-size:24px;padding-right:80px;}
-
-/* FIX FOR BLURRY & ENLARGED MODAL IMAGES */
-.modal-img {
-  width: auto;
-  max-width: 100%;
-  max-height: 350px;
-  height: auto;
-  object-fit: contain;
-  border-radius: 16px;
-  margin: 0 auto 16px auto;
-  display: block;
-}
-
+.modalbox h2{margin:8px 0 16px;font-size:22px;padding-right:80px;}
+.modal-img{width:100%;height:220px;object-fit:cover;border-radius:16px;margin-bottom:16px}
 .modal-logistics { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
 .modal-logistics span { background:#f1f5f9; padding:6px 12px; border-radius:8px; font-size:13px; font-weight:600; color:#475569; display:inline-flex; align-items:center; gap:6px; }
 .modal-notes-area{width:100%;height:140px;padding:16px;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:15px;margin-top:8px;resize:vertical;background:#f8fafc;box-shadow:inset 0 2px 4px rgba(0,0,0,0.02)}
@@ -118,8 +107,8 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <body id="top">
 <div id="download-content">
 <header>
-<h1>Yiwu — Business & Cultural Trip</h1>
-<p>HOTEL: Greentree Eastern Hotel (Yiwu International Trade City)<br>Tower A, Shuguang International Bldg, No. 188, Futian Subdistrict, Yiwu, Zhejiang</p>
+<h1>Yiwu (义乌) — Business & Cultural Trip</h1>
+<p>HOTEL: Greentree Eastern Hotel (Yiwu International Trade City) · 格林东方酒店（义乌国际商贸城店）<br>Tower A, Shuguang International Bldg, No. 188, Futian Subdistrict, Yiwu, Zhejiang (浙江省义乌市福田街道曙光国际大厦A座188号)</p>
 </header>
 <div id="syncStatus" role="status" style="margin:16px auto;padding:10px 16px;max-width:900px;border-radius:10px;background:#fffbeb;color:#92400e;font-size:14px;text-align:center;font-weight:600">Connecting to shared trip…</div>
 <main class="wrap">
@@ -160,7 +149,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="card">
     <div class="row">
       <div style="flex:1;">
-        <strong style="font-size:17px; color:var(--text);">Hotel Check-in & Freshen Up</strong>
+        <strong style="font-size:17px; color:var(--text);">Hotel Check-in & Freshen Up <span class="cn-title">格林东方酒店入住</span></strong>
         <div class="meta">Settle in at Greentree Eastern Hotel, Futian.</div>
         <div class="quick-tags"><span class="badge">🕒 30 min</span></div>
       </div>
@@ -173,9 +162,9 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="card">
     <div class="row">
       <input class="check" id="chk_day0_1970" type="checkbox">
-      <img class="card-thumb" src="images/f1.jpg" alt="Old Station 1970 Park" onclick="openModal('1970park')">
+      <img class="card-thumb" src="images/f1.jpg" alt="Old Station 1970 Park">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('1970park')">Old Station · 1970 Creative Park </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('1970park')">Old Station · 1970 Creative Park <span class="cn-title">老车站·1970文创园</span></a>
         <div class="meta">Renovated 1970s railway station & factory complex with retro architecture, street art, and cafes.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free Entry</span><span class="badge">🕒 1.25 hrs</span><span class="badge">🚕 DiDi ~12m (~¥15)</span><span class="badge">🚶 Walk ~1h 10m (Too far)</span>
@@ -190,9 +179,9 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="card">
     <div class="row">
       <input class="check" id="chk_day0_xiuhu" type="checkbox">
-      <img class="card-thumb" src="images/f13.jpg" alt="Xiuhu Park" onclick="openModal('xiuhupark')">
+      <img class="card-thumb" src="images/f13.jpg" alt="Xiuhu Park">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('xiuhupark')">Xiuhu Park & Xiu Lake Pagoda </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('xiuhupark')">Xiuhu Park & Xiu Lake Pagoda <span class="cn-title">绣湖公园及绣湖塔</span></a>
         <div class="meta">Scenic central lake featuring traditional pagoda architecture and landscaped garden boardwalks.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free Entry</span><span class="badge">🕒 45 mins</span><span class="badge">🚕 DiDi ~6m (~¥10)</span><span class="badge">🚶 Walk ~25m (~2 km)</span>
@@ -207,9 +196,9 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="card">
     <div class="row">
       <input class="check" id="chk_day0_binwang" type="checkbox">
-      <img class="card-thumb" src="images/f14.jpg" alt="Binwang Exotic Street" onclick="openModal('binwang')">
+      <img class="card-thumb" src="images/f14.jpg" alt="Binwang Exotic Street">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('binwang')">Binwang Exotic Street (Dinner) </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('binwang')">Binwang Exotic Street (Dinner) <span class="cn-title">宾王异国风情街</span></a>
         <div class="meta">Yiwu's famous international dining district featuring authentic Middle Eastern, Turkish, and South Asian cuisine.</div>
         <div class="quick-tags">
           <span class="badge">💰 ~¥60-120 food</span><span class="badge">🕒 1.5 hrs</span><span class="badge">🚕 DiDi ~8m (~¥12)</span><span class="badge">🚶 Walk ~40m (~3.2 km)</span>
@@ -224,9 +213,9 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="card">
     <div class="row">
       <input class="check" id="chk_day0_santing" type="checkbox">
-      <img class="card-thumb" src="images/f15.jpg" alt="Santing Road Night Market" onclick="openModal('santing')">
+      <img class="card-thumb" src="images/f15.jpg" alt="Santing Road Night Market">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('santing')">Santing Road Night Market </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('santing')">Santing Road Night Market <span class="cn-title">三亭路夜市</span></a>
         <div class="meta">Bustling open-air night market directly across the street from Binwang. Strolls, shopping, and street eats.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free Entry</span><span class="badge">🕒 1.75 hrs</span><span class="badge">🚶 Walk ~2m (Across street)</span><span class="badge">🚕 DiDi ~2m (~¥10)</span>
@@ -239,8 +228,8 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <div class="food-recs">
   <h4>🍽️ Day 1 Food & Nightlife Recommendations</h4>
   <ul>
-    <li><strong>Binwang International Dining:</strong> Authentic Turkish kebabs, Syrian hummus/falafel, Lebanese grilled platters, and South Asian curries.</li>
-    <li><strong>Santing Road Street Snacks:</strong> Barbecue skewers, pan-fried buns, grilled squid, brown sugar rice cakes, and bubble tea.</li>
+    <li><strong>Binwang International Dining (宾王异国风情街):</strong> Authentic Turkish kebabs, Syrian hummus/falafel, Lebanese grilled platters, and South Asian curries.</li>
+    <li><strong>Santing Road Street Snacks (三亭路夜市):</strong> Barbecue skewers, pan-fried buns, grilled squid, brown sugar rice cakes, and bubble tea.</li>
   </ul>
 </div>
 </section>
@@ -261,9 +250,9 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="card">
     <div class="row">
       <input class="check" id="chk_day1_tradecity" type="checkbox">
-      <img class="card-thumb" src="images/f12.jpg" alt="Yiwu International Trade City" onclick="openModal('tradecity')">
+      <img class="card-thumb" src="images/f12.jpg" alt="Yiwu International Trade City">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('tradecity')">Yiwu International Trade City (Futian Market) </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('tradecity')">Yiwu International Trade City <span class="cn-title">义乌国际商贸城 (福田市场)</span></a>
         <div class="meta">Dedicated full-day wholesale sourcing (Districts 1-5). Located right next to the hotel lobby—zero commuting needed.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free Entry</span><span class="badge">🕒 6 hrs</span><span class="badge">🚶 Walk 5-10m (~400-800m)</span><span class="badge">🚕 DiDi ~3m (~¥10)</span>
@@ -278,9 +267,9 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="card" style="padding: 12px 16px; background: #f8fafc;">
     <div class="row">
       <input class="check" id="chk_day1_futianpark" type="checkbox">
-      <img class="card-thumb" src="images/f4.jpg" alt="Futian Wetland Park" style="width:70px; height:60px;" onclick="openModal('futianpark')">
+      <img class="card-thumb" src="images/f4.jpg" alt="Futian Wetland Park" style="width:70px; height:60px;">
       <div style="flex:1; padding-left: 8px;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('futianpark')" style="font-size:15px;">Futian Wetland Park (Optional Sunset Walk) </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('futianpark')" style="font-size:15px;">Futian Wetland Park <span class="cn-title">福田湿地公园</span></a>
         <div class="meta" style="margin-bottom:4px; font-size:13px;">Optional tranquil lakeside stroll across from District 1 to unwind after hours of walking.</div>
         <div class="quick-tags">
           <span class="badge">🚶 Walk 5m (Across street)</span><span class="badge">🚕 DiDi ~2m (~¥10)</span>
@@ -295,7 +284,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="card" style="padding: 12px 16px; background: #f8fafc;">
     <div class="row">
       <div style="flex:1; padding-left: 12px; border-left: 4px solid var(--primary);">
-        <strong style="color: var(--text);">Hotel Break & Dinner</strong>
+        <strong style="color: var(--text);">Hotel Break & Dinner <span class="cn-title">酒店休息与晚餐</span></strong>
         <div class="meta" style="margin-bottom:0;">Return to room, organize supplier contacts, rest feet, and have dinner near Futian.</div>
       </div>
     </div>
@@ -307,9 +296,9 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="card">
     <div class="row">
       <input class="check" id="chk_day1_jiming" type="checkbox">
-      <img class="card-thumb" src="images/f11.jpg" alt="Jiming Pavilion" onclick="openModal('jiming')">
+      <img class="card-thumb" src="images/f11.jpg" alt="Jiming Pavilion">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('jiming')">Jiming Pavilion (Jiming Mountain) </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('jiming')">Jiming Pavilion (Jiming Mountain) <span class="cn-title">鸡鸣阁 (鸡鸣山)</span></a>
         <div class="meta">Illuminated Tang/Song style pagoda on the mountain peak offering 360-degree night skyline views.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free Park Entry</span><span class="badge">🕒 1.5 hrs</span><span class="badge">🚕 DiDi ~15m (~¥18-20)</span><span class="badge">🚶 Walk ~1h 20m (Too far)</span>
@@ -344,9 +333,9 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="card">
     <div class="row">
       <input class="check" id="chk_day2_shuanglin" type="checkbox">
-      <img class="card-thumb" src="images/f10.jpg" alt="Shuanglin Ancient Temple" onclick="openModal('shuanglin')">
+      <img class="card-thumb" src="images/f10.jpg" alt="Shuanglin Temple">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('shuanglin')">Shuanglin Ancient Temple </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('shuanglin')">Shuanglin Ancient Temple <span class="cn-title">双林古寺</span></a>
         <div class="meta">1,500-year-old Buddhist mountain sanctuary housing the historic 952 AD Shuanglin Iron Tower.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free Entry</span><span class="badge">🕒 1.25 hrs</span><span class="badge">🚕 DiDi ~35m (~¥50-55)</span><span class="badge">🚶 Walk ~5 hrs (26 km)</span>
@@ -361,9 +350,9 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="card">
     <div class="row">
       <input class="check" id="chk_day2_fotang" type="checkbox">
-      <img class="card-thumb" src="images/f5.jpg" alt="Fotang Ancient Town" onclick="openModal('fotang')">
+      <img class="card-thumb" src="images/f5.jpg" alt="Fotang Ancient Town">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('fotang')">Fotang Ancient Town & Lunch </a>
+        <a class="place" role="button" tabindex="0" onclick="openModal('fotang')">Fotang Ancient Town & Lunch <span class="cn-title">佛堂古镇</span></a>
         <div class="meta">Preserved Ming & Qing Dynasty riverfront town. Walk stone alleys, cross Wanshan floating bridge, and eat local snacks.</div>
         <div class="quick-tags">
           <span class="badge">💰 Free Entry</span><span class="badge">🕒 4 hrs</span><span class="badge">🚕 DiDi ~10m (~¥12-15)</span><span class="badge">🚶 Walk ~50m (~4 km)</span>
@@ -378,10 +367,10 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <div class="card">
     <div class="row">
       <input class="check" id="chk_day2_return" type="checkbox">
-      <img class="card-thumb" src="images/f6.jpg" alt="Return / Departure" onclick="openModal('return_city')">
+      <img class="card-thumb" src="images/f6.jpg" alt="Return / Departure">
       <div style="flex:1;">
-        <a class="place" role="button" tabindex="0" onclick="openModal('return_city')">Return to Hotel / Train Station </a>
-        <div class="meta">DiDi back north to collect luggage at Greentree Eastern Hotel or proceed directly to Yiwu Railway Station.</div>
+        <a class="place" role="button" tabindex="0" onclick="openModal('return_city')">Return to Hotel / Train Station <span class="cn-title">返回酒店 / 义乌站</span></a>
+        <div class="meta">DiDi back north to collect luggage at Greentree Eastern Hotel or proceed directly to Yiwu Railway Station (义乌站).</div>
         <div class="quick-tags">
           <span class="badge">🕒 Afternoon</span><span class="badge">🚕 DiDi ~35-40m (~¥55-65)</span><span class="badge">🚶 Walk ~5.5 hrs (25-28 km)</span>
         </div>
@@ -393,9 +382,9 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <div class="food-recs">
   <h4>🍽️ Day 3 Specialty Snacks & Lunch</h4>
   <ul>
-    <li><strong>Yiwu Brown Sugar Candy (Hongshengtang):</strong> Traditional local delicacy crafted using ancient cane sugar boiling techniques.</li>
-    <li><strong>Brown Sugar Rice Cake (Hongshenggao):</strong> Soft, chewy steamed rice cakes drizzled with dark local sugar syrup.</li>
-    <li><strong>Fotang Hand-Pulled Noodles:</strong> Chewy handmade noodles served in rich broth with savory toppings.</li>
+    <li><strong>Yiwu Brown Sugar Candy (红糖麻花/红糖糖果):</strong> Traditional local delicacy crafted using ancient cane sugar boiling techniques.</li>
+    <li><strong>Brown Sugar Rice Cake (红糖麻糍):</strong> Soft, chewy steamed rice cakes drizzled with dark local sugar syrup.</li>
+    <li><strong>Fotang Hand-Pulled Noodles (佛堂拉面):</strong> Chewy handmade noodles served in rich broth with savory toppings.</li>
   </ul>
 </div>
 </section>
@@ -429,30 +418,30 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <!-- DAY 1 FULL DETAILS -->
 <div id="modal_day0_details" class="modal"><div class="modalbox" style="max-width: 800px;">
 <button type="button" class="close-btn" onclick="closeModal('day0_details')">✕ Close</button>
-<h2 style="color:var(--primary); font-size:28px; margin-bottom: 24px; border-bottom: 2px solid var(--border); padding-bottom: 12px;">Day 1: Full Detail Plan (Oct 30)</h2>
+<h2 style="color:var(--primary); font-size:26px; margin-bottom: 24px; border-bottom: 2px solid var(--border); padding-bottom: 12px;">Day 1: Full Detail Plan (Oct 30)</h2>
 <div class="full-detail-text">
-  <h3>1. 14:00 – 14:30: Hotel Check-in</h3>
+  <h3>1. 14:00 – 14:30: Hotel Check-in (格林东方酒店入住)</h3>
   <p>Check in at Greentree Eastern Hotel (Futian), drop luggage, freshen up, and prepare for the afternoon.</p>
 
-  <h3>2. 14:45 – 16:00: Old Station · 1970 Creative Park</h3>
+  <h3>2. 14:45 – 16:00: Old Station · 1970 Creative Park (老车站·1970文创园)</h3>
   <p><strong>Cost:</strong> Free<br>
   <strong>🚕 DiDi Transit:</strong> ~12 mins (~¥15)<br>
   <strong>🚶 Walking Option:</strong> ~1 hr 10 mins (5.5 km — DiDi recommended)<br>
   Explore renovated industrial buildings, street art, and creative coffee spots in a converted 1970s railway station complex.</p>
 
-  <h3>3. 16:15 – 17:00: Xiuhu Park</h3>
+  <h3>3. 16:15 – 17:00: Xiuhu Park (绣湖公园及绣湖塔)</h3>
   <p><strong>Cost:</strong> Free<br>
   <strong>🚕 DiDi Transit:</strong> ~6 mins (~¥10)<br>
   <strong>🚶 Walking Option:</strong> ~25 mins (2.0 km)<br>
   Take a relaxed 45-minute stroll around Xiu Lake, admiring the ancient Xiu Lake Pagoda and traditional pavilion bridges.</p>
 
-  <h3>4. 17:20 – 18:45: Dinner at Binwang Exotic Street</h3>
+  <h3>4. 17:20 – 18:45: Dinner at Binwang Exotic Street (宾王异国风情街)</h3>
   <p><strong>Cost:</strong> ~¥60-120 per person<br>
   <strong>🚕 DiDi Transit:</strong> ~8 mins (~¥12)<br>
   <strong>🚶 Walking Option:</strong> ~40 mins (3.2 km — DiDi recommended)<br>
   Enjoy dinner in Yiwu's international food hub featuring Turkish, Syrian, Lebanese, and South Asian restaurants.</p>
 
-  <h3>5. 18:45 – 20:30: Santing Road Night Market</h3>
+  <h3>5. 18:45 – 20:30: Santing Road Night Market (三亭路夜市)</h3>
   <p><strong>Cost:</strong> Free Entry<br>
   <strong>🚶 Walking Option:</strong> ~2 mins (directly across the street)<br>
   <strong>🚕 DiDi Transit:</strong> ~2 mins (~¥10 short ride)<br>
@@ -467,15 +456,15 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <!-- DAY 2 FULL DETAILS -->
 <div id="modal_day1_details" class="modal"><div class="modalbox" style="max-width: 800px;">
 <button type="button" class="close-btn" onclick="closeModal('day1_details')">✕ Close</button>
-<h2 style="color:var(--primary); font-size:28px; margin-bottom: 24px; border-bottom: 2px solid var(--border); padding-bottom: 12px;">Day 2: Full Detail Plan (Oct 31)</h2>
+<h2 style="color:var(--primary); font-size:26px; margin-bottom: 24px; border-bottom: 2px solid var(--border); padding-bottom: 12px;">Day 2: Full Detail Plan (Oct 31)</h2>
 <div class="full-detail-text">
-  <h3>1. 10:00 AM – 4:00 PM: Yiwu International Trade City</h3>
+  <h3>1. 10:00 AM – 4:00 PM: Yiwu International Trade City (义乌国际商贸城)</h3>
   <p><strong>Cost:</strong> Free<br>
   <strong>🚶 Walking Option:</strong> 5 to 10 mins (400–800m directly from hotel lobby)<br>
   <strong>🚕 DiDi Transit:</strong> 3 mins (~¥10)<br>
   Focus on target product categories across Districts 1 to 5. Take a lunch break at 12:30 PM in the market food courts or near the hotel.</p>
 
-  <h3>2. 4:00 PM – 4:30 PM: Futian Wetland Park (Optional)</h3>
+  <h3>2. 4:00 PM – 4:30 PM: Futian Wetland Park (福田湿地公园)</h3>
   <p><strong>Cost:</strong> Free<br>
   <strong>🚶 Walking Option:</strong> 5 mins (across street from District 1)<br>
   <strong>🚕 DiDi Transit:</strong> 2 mins (~¥10)<br>
@@ -484,7 +473,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
   <h3>3. 4:30 PM – 6:45 PM: Hotel Rest & Dinner</h3>
   <p>Return to your room, unpack sample materials, organize business cards, rest your feet, and enjoy dinner near Futian.</p>
 
-  <h3>4. 7:15 PM – 8:45 PM: Jiming Pavilion (Jiming Mountain)</h3>
+  <h3>4. 7:15 PM – 8:45 PM: Jiming Pavilion / Jiming Mountain (鸡鸣阁 / 鸡鸣山)</h3>
   <p><strong>Cost:</strong> Free park admission<br>
   <strong>🚕 DiDi Transit:</strong> ~15 mins (~¥18–20 each way)<br>
   <strong>🚶 Walking Option:</strong> ~1 hr 20 mins (6.5 km — DiDi strongly recommended)<br>
@@ -495,25 +484,25 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <!-- DAY 3 FULL DETAILS -->
 <div id="modal_day2_details" class="modal"><div class="modalbox" style="max-width: 800px;">
 <button type="button" class="close-btn" onclick="closeModal('day2_details')">✕ Close</button>
-<h2 style="color:var(--primary); font-size:28px; margin-bottom: 24px; border-bottom: 2px solid var(--border); padding-bottom: 12px;">Day 3: Full Detail Plan (Nov 01)</h2>
+<h2 style="color:var(--primary); font-size:26px; margin-bottom: 24px; border-bottom: 2px solid var(--border); padding-bottom: 12px;">Day 3: Full Detail Plan (Nov 01)</h2>
 <div class="full-detail-text">
   <h3>1. 09:30 AM – 10:15 AM: Transit South</h3>
   <p>Check out of hotel if departing today (store luggage at desk or keep in DiDi trunk).<br>
   <strong>🚕 DiDi Transit:</strong> ~35 mins (~¥50–55 south)<br>
   <strong>🚶 Walking Option:</strong> ~5 hrs (26 km — DiDi required)</p>
 
-  <h3>2. 10:15 AM – 11:30 AM: Shuanglin Ancient Temple</h3>
+  <h3>2. 10:15 AM – 11:30 AM: Shuanglin Ancient Temple (双林古寺)</h3>
   <p><strong>Cost:</strong> Free admission<br>
   Explore the serene 1,500-year-old Buddhist mountain sanctuary and view the ancient 952 AD Shuanglin Iron Tower.</p>
 
-  <h3>3. 11:30 AM – 4:00 PM: Fotang Ancient Town & Lunch</h3>
+  <h3>3. 11:30 AM – 4:00 PM: Fotang Ancient Town & Lunch (佛堂古镇)</h3>
   <p><strong>Cost:</strong> Free Entry<br>
   <strong>🚕 DiDi Transit:</strong> ~10 mins from Shuanglin Temple (~¥12–15)<br>
   <strong>🚶 Walking Option:</strong> ~50 mins (4.0 km scenic rural walk)<br>
   Enjoy a traditional local lunch in town, then explore preserved 300-year-old cobblestone streets, Ming/Qing wooden courtyards, and the Wanshan floating bridge. Sample local brown sugar candies and rice cakes.</p>
 
-  <h3>4. 4:00 PM Onward: Return / Departure</h3>
-  <p><strong>🚕 DiDi Transit:</strong> ~35–40 mins (~¥55–65) back to Futian hotel for luggage or directly to Yiwu Railway Station.<br>
+  <h3>4. 4:00 PM Onward: Return / Departure (返回酒店 / 义乌站)</h3>
+  <p><strong>🚕 DiDi Transit:</strong> ~35–40 mins (~¥55–65) back to Futian hotel for luggage or directly to Yiwu Railway Station (义乌站).<br>
   <strong>🚶 Walking Option:</strong> ~5.5 hrs (25–28 km north)</p>
 </div>
 </div></div>
@@ -521,61 +510,61 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <!-- PLACE SPECIFIC MODALS -->
 <div id="modal_1970park" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('1970park')">✕ Close</button>
 <img class="modal-img" src="images/f1.jpg" alt="Old Station 1970 Park">
-<h2>Old Station · 1970 Creative Park</h2>
+<h2>Old Station · 1970 Park <span class="cn-title">老车站·1970文创园</span></h2>
 <div class="modal-logistics"><span>💰 Cost: Free</span><span>🚕 DiDi: ~12m (~¥15)</span><span>🚶 Walk: ~1h 10m</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_1970park" class="modal-notes-area" oninput="saveNote('1970park')"></textarea></div></div>
 
 <div id="modal_xiuhupark" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('xiuhupark')">✕ Close</button>
 <img class="modal-img" src="images/f13.jpg" alt="Xiuhu Park">
-<h2>Xiuhu Park & Xiu Lake Pagoda</h2>
+<h2>Xiuhu Park & Pagoda <span class="cn-title">绣湖公园及绣湖塔</span></h2>
 <div class="modal-logistics"><span>💰 Cost: Free</span><span>🚕 DiDi: ~6m (~¥10)</span><span>🚶 Walk: ~25m (2 km)</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_xiuhupark" class="modal-notes-area" oninput="saveNote('xiuhupark')"></textarea></div></div>
 
 <div id="modal_binwang" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('binwang')">✕ Close</button>
 <img class="modal-img" src="images/f14.jpg" alt="Binwang Exotic Street">
-<h2>Binwang Exotic Street</h2>
+<h2>Binwang Exotic Street <span class="cn-title">宾王异国风情街</span></h2>
 <div class="modal-logistics"><span>💰 Cost: Dining (~¥60-120)</span><span>🚕 DiDi: ~8m (~¥12)</span><span>🚶 Walk: ~40m (3.2 km)</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_binwang" class="modal-notes-area" oninput="saveNote('binwang')"></textarea></div></div>
 
 <div id="modal_santing" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('santing')">✕ Close</button>
 <img class="modal-img" src="images/f15.jpg" alt="Santing Road Night Market">
-<h2>Santing Road Night Market</h2>
+<h2>Santing Road Night Market <span class="cn-title">三亭路夜市</span></h2>
 <div class="modal-logistics"><span>💰 Cost: Free Entry</span><span>🚶 Walk: ~2m (Across street)</span><span>🚕 DiDi: ~2m (~¥10)</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_santing" class="modal-notes-area" oninput="saveNote('santing')"></textarea></div></div>
 
 <div id="modal_tradecity" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('tradecity')">✕ Close</button>
 <img class="modal-img" src="images/f12.jpg" alt="Yiwu International Trade City">
-<h2>Yiwu International Trade City</h2>
+<h2>Yiwu International Trade City <span class="cn-title">义乌国际商贸城</span></h2>
 <div class="modal-logistics"><span>💰 Cost: Free</span><span>🚶 Walk: 5-10m (From hotel)</span><span>🚕 DiDi: ~3m (~¥10)</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_tradecity" class="modal-notes-area" oninput="saveNote('tradecity')"></textarea></div></div>
 
 <div id="modal_futianpark" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('futianpark')">✕ Close</button>
 <img class="modal-img" src="images/f4.jpg" alt="Futian Wetland Park">
-<h2>Futian Wetland Park</h2>
+<h2>Futian Wetland Park <span class="cn-title">福田湿地公园</span></h2>
 <div class="modal-logistics"><span>💰 Cost: Free</span><span>🚶 Walk: 5m (Across street)</span><span>🚕 DiDi: ~2m (~¥10)</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_futianpark" class="modal-notes-area" oninput="saveNote('futianpark')"></textarea></div></div>
 
 <div id="modal_jiming" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('jiming')">✕ Close</button>
 <img class="modal-img" src="images/f11.jpg" alt="Jiming Pavilion">
-<h2>Jiming Pavilion (Jiming Mountain)</h2>
+<h2>Jiming Pavilion (Jiming Mountain) <span class="cn-title">鸡鸣阁 (鸡鸣山)</span></h2>
 <div class="modal-logistics"><span>💰 Cost: Free Park Admission</span><span>🚕 DiDi: ~15m (~¥18-20)</span><span>🚶 Walk: ~1h 20m</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_jiming" class="modal-notes-area" oninput="saveNote('jiming')"></textarea></div></div>
 
 <div id="modal_shuanglin" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('shuanglin')">✕ Close</button>
 <img class="modal-img" src="images/f10.jpg" alt="Shuanglin Ancient Temple">
-<h2>Shuanglin Ancient Temple</h2>
+<h2>Shuanglin Ancient Temple <span class="cn-title">双林古寺</span></h2>
 <div class="modal-logistics"><span>💰 Cost: Free Entry</span><span>🚕 DiDi: ~35m (~¥50-55)</span><span>🚶 Walk: ~5 hrs (26 km)</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_shuanglin" class="modal-notes-area" oninput="saveNote('shuanglin')"></textarea></div></div>
 
 <div id="modal_fotang" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('fotang')">✕ Close</button>
 <img class="modal-img" src="images/f5.jpg" alt="Fotang Ancient Town">
-<h2>Fotang Ancient Town</h2>
+<h2>Fotang Ancient Town <span class="cn-title">佛堂古镇</span></h2>
 <div class="modal-logistics"><span>💰 Cost: Free Entry</span><span>🚕 DiDi: ~10m (~¥12-15)</span><span>🚶 Walk: ~50m (4 km)</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_fotang" class="modal-notes-area" oninput="saveNote('fotang')"></textarea></div></div>
 
 <div id="modal_return_city" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('return_city')">✕ Close</button>
 <img class="modal-img" src="images/f6.jpg" alt="Return to City Center">
-<h2>Return to Hotel / Train Station</h2>
+<h2>Return to Hotel / Train Station <span class="cn-title">返回酒店 / 义乌站</span></h2>
 <div class="modal-logistics"><span>🚕 DiDi: ~35-40m (~¥55-65)</span><span>🚶 Walk: ~5.5 hrs</span></div>
 <label style="font-weight:600">✍️ My Notes:</label><textarea id="note_return_city" class="modal-notes-area" oninput="saveNote('return_city')"></textarea></div></div>
 
